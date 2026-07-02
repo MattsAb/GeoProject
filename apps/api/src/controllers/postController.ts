@@ -65,7 +65,7 @@ export async function editPost(req: Request, res: Response) {
             Key: key
         }))
     }
-    
+
     const updatedPost = await prisma.post.update({
         where: { id: postId },
         data: {
@@ -78,7 +78,27 @@ export async function editPost(req: Request, res: Response) {
 
 }
 
-export async function deletePost(req: Request, res: Response) {}
+export async function deletePost(req: Request, res: Response) {
+
+    const postId = req.params.id as string;
+    const userId = req.user!.id;
+
+    const post = await prisma.post.findUnique({ where: { id: postId } })
+
+    if (!post) throw new ServerError(404, 'Post not found')
+    if (post.userId !== userId) throw new ServerError(403, 'Forbidden')
+
+    await prisma.post.delete({ where: { id: postId } })
+    
+    const key = post.photoUrl.split('.amazonaws.com/')[1]
+    if (!key) throw new ServerError(500, 'Could not parse photo key');
+    await s3.send(new DeleteObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME!,
+        Key: key
+    }))
+
+    return res.status(200).json({ success: true })
+}
 
 export async function getFeed(req: Request, res: Response) {}
 
