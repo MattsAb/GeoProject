@@ -1,20 +1,21 @@
-import { Request, Response } from 'express'
-import { prisma } from '../config/prisma'
+import { Request, Response } from 'express';
+import { prisma } from '../config/prisma';
 import { ServerError } from '../middleware/errorMiddleware';
-import { DeleteObjectCommand } from '@aws-sdk/client-s3'
-import { s3 } from '../config/s3'
+import { DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { s3 } from '../config/s3';
+import { PostDTO } from '@geoapp/types';
 
 export async function createPost(req: Request, res: Response) {
 
-    const body = req.body;
+    const { description, countryCode }: PostDTO = req.body;
     const file = req.file as Express.MulterS3.File;
     const userId = req.user!.id;
 
     const post = await prisma.post.create({
         data: {
             photoUrl: file.location,
-            countryCode: body.countryCode,
-            description: body.description,
+            countryCode: countryCode,
+            description: description,
             userId
         }
     })
@@ -49,7 +50,7 @@ export async function getPost(req: Request, res: Response) {
 }
 
 export async function editPost(req: Request, res: Response) {
-    const postId = req.body.postId;
+    const postId = req.params.postId as string;
     const userId = req.user!.id;
     const file = req.file as Express.MulterS3.File | undefined
 

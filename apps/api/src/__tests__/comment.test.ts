@@ -15,7 +15,7 @@ jest.mock('../config/prisma', () => ({
 
 const mockRequest = {
     body: {
-        commentBody: "testbody"
+        body: "testbody"
     },
     params: {
         id: 1

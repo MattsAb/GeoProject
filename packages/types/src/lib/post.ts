@@ -17,3 +17,9 @@ export interface Post {
         comments: number
     }
 }
+
+export interface PostDTO {
+  photoUrl: string;
+  description: string;
+  countryCode: string;
+}

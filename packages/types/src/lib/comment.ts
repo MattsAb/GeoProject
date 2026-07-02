@@ -8,3 +8,7 @@ export interface Comment {
     user: User
     postId: number
 }
+
+export interface CommentDTO {
+    body: string,
+}

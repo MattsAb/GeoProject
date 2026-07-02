@@ -1,12 +1,13 @@
 import { Request, Response } from 'express'
 import { prisma } from '../config/prisma'
 import { ServerError } from '../middleware/errorMiddleware';
+import { CommentDTO } from '@geoapp/types';
 
 export async function createComment (req: Request, res: Response) {
 
-    const body = req.body;
+    const { body: commentBody }: CommentDTO = req.body;
 
-    if (!body.commentBody) return res.status(400).json({ success: false, message: 'Comment body is required' })
+    if (!commentBody) return res.status(400).json({ success: false, message: 'Comment body is required' })
 
     const postId = req.params.id as string;
     const userId = req.user!.id;
@@ -15,7 +16,7 @@ export async function createComment (req: Request, res: Response) {
         data: {
             userId: userId,
             postId: postId,
-            body: body.commentBody
+            body: commentBody
         },
         include: {
         user: {

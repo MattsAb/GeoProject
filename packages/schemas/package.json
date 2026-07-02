@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "Shared zod schemas for GeoApp services",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+      "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@geoapp/types": "*",
+    "zod": "^4.4.3"
+  }
 }

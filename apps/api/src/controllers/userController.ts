@@ -80,32 +80,3 @@ export async function updateProfile(req: Request, res: Response) {
 
     return res.status(200).json({ success: true, data: profile })
 }
-
-export async function getSearchUsers(req: Request, res: Response) {
-    const query = req.query.q as string
-
-    if (!query) return res.status(400).json({ success: false, message: 'Query is required' })
-
-    const users = await prisma.user.findMany({
-        where: {
-            username: {
-                contains: query,
-                mode: 'insensitive'
-            }
-        },
-        select: {
-            id: true,
-            username: true,
-            avatarUrl: true,
-            bio: true,
-            _count: {
-                select: {
-                    posts: true,
-                    followers: true,
-                }
-            }
-        },
-    })
-
-    return res.status(200).json({ success: true, data: users })
-}
