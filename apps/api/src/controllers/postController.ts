@@ -89,7 +89,7 @@ export async function deletePost(req: Request, res: Response) {
     if (post.userId !== userId) throw new ServerError(403, 'Forbidden')
 
     await prisma.post.delete({ where: { id: postId } })
-    
+
     const key = post.photoUrl.split('.amazonaws.com/')[1]
     if (!key) throw new ServerError(500, 'Could not parse photo key');
     await s3.send(new DeleteObjectCommand({
@@ -100,5 +100,58 @@ export async function deletePost(req: Request, res: Response) {
     return res.status(200).json({ success: true })
 }
 
-export async function getFeed(req: Request, res: Response) {}
+export async function getFeed(req: Request, res: Response) {
+    
+    const userId = req.user!.id
+
+    const following = await prisma.follow.findMany({
+        where: { followerId: userId },
+        select: { followedId: true }
+    })
+    
+    if (!following.length)
+    {
+        const posts = await prisma.post.findMany({
+            take: 20,
+            include: {
+                _count: {
+                    select: {likes: true}
+                },
+                user: {
+                    select: {username: true}
+                }
+            },
+            orderBy: { createdAt: 'desc' }
+        })
+        return res.status(200).json({success: true, data: posts})
+    }
+
+    const followingIds = following.map(f => f.followedId)
+
+    const posts = await prisma.post.findMany({
+        where: {
+            userId: { in: followingIds }
+        },
+        include: {
+            user: {
+                select: { id: true, username: true, avatarUrl: true }
+            },
+            comments: {
+                include: {
+                    user: {
+                        select: { id: true, username: true, avatarUrl: true }
+                    }
+                }
+            },
+            _count: {
+                select: { likes: true, comments: true }
+            }
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 20,
+    })
+
+    return res.status(200).json({ success: true, data: posts })
+
+}
 
