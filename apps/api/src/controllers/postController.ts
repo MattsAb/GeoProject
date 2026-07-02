@@ -19,14 +19,12 @@ export async function createPost(req: Request, res: Response) {
         }
     })
 
-    return res.status(201).json({ success: true, post });
+    return res.status(201).json({ success: true, data: post });
 
 }
 
 export async function getPost(req: Request, res: Response) {
-    const postId = req.body.postId;
-
-    if (!postId) {throw new ServerError(404, 'Post not found');}
+    const postId = req.params.id as string;
 
     const post = await prisma.post.findUnique({
         where: {id: postId},
@@ -45,7 +43,9 @@ export async function getPost(req: Request, res: Response) {
         }
     })
 
-    return res.status(200).json({success: true, post});
+    if (!post) {throw new ServerError(404, 'Post not found');}
+
+    return res.status(200).json({success: true, data: post});
 }
 
 export async function editPost(req: Request, res: Response) {
@@ -53,10 +53,10 @@ export async function editPost(req: Request, res: Response) {
     const userId = req.user!.id;
     const file = req.file as Express.MulterS3.File | undefined
 
-    if (userId !== postId) {throw new ServerError(401, "Not authorized");}
-
     const post = await prisma.post.findUnique({ where: { id: postId } })
     if (!post) throw new ServerError(404, 'Post not found')
+
+    if (userId !== post.userId) {throw new ServerError(401, "Not authorized");}
 
     if (file && post.photoUrl) {
         const key = post.photoUrl.split('.amazonaws.com/')[1]
@@ -101,7 +101,7 @@ export async function deletePost(req: Request, res: Response) {
 }
 
 export async function getFeed(req: Request, res: Response) {
-    
+
     const userId = req.user!.id
 
     const following = await prisma.follow.findMany({
