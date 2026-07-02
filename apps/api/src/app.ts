@@ -16,11 +16,17 @@ app.use(cors())
 app.use(express.json());
 
 //routes
+
 app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/user/:id/follow', followRoutes);
 app.use('/api/v1/post/:id/like', likeRoutes);
 app.use('/api/v1/post/:id/comments', commentRoutes);
 app.use('/api/v1/user', userRoutes);
+
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 app.use(errorHandler);
 

@@ -9,14 +9,14 @@ export async function createPost(req: Request, res: Response) {
 
     const { description, countryCode }: PostDTO = req.body;
     const file = req.file as Express.MulterS3.File;
-    const userId = req.user!.id;
+    //const userId = req.user!.id;
 
     const post = await prisma.post.create({
         data: {
             photoUrl: file.location,
             countryCode: countryCode,
             description: description,
-            userId
+            userId: "d6ad21d4-9087-473d-8e11-33cf62815128"
         }
     })
 

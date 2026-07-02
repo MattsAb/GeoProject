@@ -59,3 +59,4 @@ yarn-error.log*
 ### Prisma ###
 /src/generated/prisma
 generated
+apps/api/prisma/migrations/
