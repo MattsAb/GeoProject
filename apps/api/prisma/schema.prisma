@@ -4,10 +4,84 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id         String  @id @default(uuid()) @db.Uuid
+  email      String   @unique
+  username   String   @unique
+  bio        String?
+  avatarUrl  String?
+  provider   String   @default("local")
+  providerId String?
+  password   String?
+  countryCode String   @db.Char(2)
+  createdAt  DateTime @default(now())
+
+  posts     Post[]
+  likes     Like[]
+  comments  Comment[]
+  following Follow[] @relation("UserFollowing")
+  followers Follow[] @relation("UserFollowers")
+}
+
+model Post {
+  id         String  @id @default(uuid()) @db.Uuid 
+  photoUrl    String
+  description String
+  countryCode String   @db.Char(2)
+  createdAt   DateTime @default(now())
+
+  userId String @db.Uuid
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  likes    Like[]
+  comments Comment[]
+
+  @@index([userId])
+}
+
+model Like {
+  id     String  @id @default(uuid()) @db.Uuid
+
+  userId String @db.Uuid
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId String @db.Uuid
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+}
+
+model Comment {
+  id        String      @id @default(uuid())  @db.Uuid
+  body      String
+  createdAt DateTime @default(now())
+
+  userId String @db.Uuid
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId String @db.Uuid
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([postId])
+}
+
+model Follow {
+  id String @id @default(uuid())  @db.Uuid
+
+  followerId String @db.Uuid
+  follower   User @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+
+  followedId String @db.Uuid
+  followed   User @relation("UserFollowers", fields: [followedId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followedId])
+}
+
