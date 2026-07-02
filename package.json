@@ -1,5 +1,5 @@
 {
-  "name": "geoproject",
+  "name": "GeoApp",
   "version": "1.0.0",
   "description": "a social media web application where you can share your travel life",
   "main": "index.js",
@@ -20,7 +20,8 @@
   "workspaces": [
     "apps/api",
     "apps/web",
-    "packages/types"
+    "packages/types",
+    "packages/schemas"
   ],
   "devDependencies": {
     "typescript": "^6.0.3"

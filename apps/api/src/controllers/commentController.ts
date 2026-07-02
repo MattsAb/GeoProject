@@ -4,7 +4,7 @@ import { ServerError } from '../middleware/errorMiddleware';
 
 export async function createComment (req: Request, res: Response) {
 
-    const  body = req.body;
+    const body = req.body;
 
     if (!body.commentBody) return res.status(400).json({ success: false, message: 'Comment body is required' })
 
