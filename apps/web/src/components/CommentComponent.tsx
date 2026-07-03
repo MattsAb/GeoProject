@@ -1,0 +1,52 @@
+import { useState } from "react";
+
+import DeleteButton from "./DeleteButton";
+import ErrorMessageComponent from "./ErrorMessageComponent";
+
+type CommentComponentProps = {
+    username: string
+    body: string
+    avatar: string,
+    ids: [number, number];
+    userId?: number;
+    postId: number;
+    id: number;
+}
+
+function CommentComponent({username, body, avatar, ids, userId, postId, id}: CommentComponentProps) {
+
+    const [isVisible, setIsVisible] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const canDelete = ids.some((id) => id == userId);
+
+    if (!isVisible) return null;
+
+    async function handleDelete() {}
+
+    return (
+        <div className="flex justify-between items-center">
+            <div className="p-8 rounded-xl flex gap-4">
+                <img 
+                    className="rounded-full w-10 h-10"
+                    src={avatar}
+                />
+                <div className="flex flex-col gap-3">
+                    <h1 className="font-bold"> {username} </h1>
+                    <p> {body} </p>
+                </div>
+            </div>
+            {canDelete &&
+                <div className="mr-10 flex gap-5 items-center">
+                    <ErrorMessageComponent message={errorMessage}/>
+                    <DeleteButton 
+                        label="Delete"
+                        onDelete={() => handleDelete()}
+                    />
+                </div>
+            }
+        </div>
+    )
+}
+
+export default CommentComponent

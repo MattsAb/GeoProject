@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+
 type PostComponentProps = {
     photoUrl: string
     location: string
@@ -7,9 +9,9 @@ type PostComponentProps = {
 
 function PostComponent ({photoUrl, location, username, likes}: PostComponentProps) {
 
-    function handleImage() {
+    const navigate = useNavigate();
 
-    }
+    const handleImage = () => navigate('/post/1');
 
     return (
         <button 

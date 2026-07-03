@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard"
 import Header from "./components/Header"
 import Sidebar from "./components/sidebar_components/Sidebar"
 import { useState } from "react";
+import PostPage from "./pages/PostPage";
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
         <div className="flex-1 pt-14">
             <Routes>
               <Route path="/" element={<Dashboard/>} />
+              <Route path="/post/:id" element={<PostPage/>} />
             </Routes>
         </div>
         
