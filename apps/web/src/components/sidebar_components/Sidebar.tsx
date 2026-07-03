@@ -22,14 +22,15 @@ function Sidebar({ isOpen, onClose }: sidebarProps) {
         <>
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-30 bg-black/50 sm:hidden"
+                    className="fixed inset-0 z-30 bg-black/50 md:hidden"
                     onClick={onClose}
                 />
             )}
 
-            <div className={`sticky top-0 h-screen pt-14 dark:bg-mist-900 ${isOpen ?`w-70` : `w-25 hidden sm:flex`} 
-                z-40 dark:text-white  flex-col items-center gap-3 border-r  border-mist-700
-
+                <div className={`
+                    ${isOpen ? 'fixed' : 'hidden'}
+                    md:flex md:sticky md:top-0 z-40 ${isOpen ? 'w-70' : 'sm:w-25'}
+                    h-screen pt-14 dark:bg-mist-900 dark:text-white flex-col items-center gap-3 border-r border-mist-700
                 `}>
                 {true /* add isAuthenticated */ && <div className='mt-5 items-center flex flex-col w-full'>
 

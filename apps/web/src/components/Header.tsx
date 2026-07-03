@@ -36,16 +36,24 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
         <div className="fixed left-0 right-0 text-black dark:text-white dark:bg-mist-900 bg-gray-50 h-14 flex z-50 border-b border-mist-700">
             <div className="px-5 flex w-full gap-2 items-center">
                 <button 
-                    className="hover:bg-mist-200 dark:hover:bg-mist-700 w-10 h-10 rounded-full p-1 items-center cursor-pointer"
+                    className="hover:bg-mist-200 dark:hover:bg-mist-700 w-12 h-10 rounded-full p-1 flex justify-center items-center cursor-pointer"
                     onClick={() => setToggleSearch(false)}
                 >
-                    <ArrowLeftIcon/>
+                    <ArrowLeftIcon className="h-6 w-6"/>
                 </button>
+
                 <input className="border dark:border-mist-800 border-mist-300 bg-white dark:bg-mist-900 w-full h-10 items-center rounded-3xl px-5"
                     placeholder="Search"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                 />
+
+                <button 
+                    className="hover:bg-mist-200 dark:hover:bg-mist-700 w-12 h-10 rounded-full p-1 flex justify-center items-center cursor-pointer"
+                    onClick={() => goToSearch()}
+                > 
+                    <MagnifyingGlassIcon className="h-6 w-6"/>
+                </button>
             </div>
         </div>
     )
