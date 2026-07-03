@@ -3,6 +3,7 @@ import SignInModal from "./SignInModal"
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, Bars3Icon, PlusIcon, ArrowLeftIcon } from '@heroicons/react/16/solid';
 import HeaderOptionsComponent from "./HeaderOptionsComponent";
+import { useAuth } from "../context/AuthContext";
 
 type headerProps = {
     setSidebarOpen: (stage: boolean) => void;
@@ -18,12 +19,14 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
     
     const navigate = useNavigate();
 
+    const {isAuthenticated, logout} = useAuth();
+
     const goBack = () => navigate('/');
     const goToCreate = () => navigate('/create');
     const goToSearch = () => navigate(`/search?q=${searchInput}`);
 
     const handleSearchClick = () => {
-        const isSmallScreen = window.matchMedia('(max-width: 640px)').matches; // adjust breakpoint to match your Tailwind config
+        const isSmallScreen = window.matchMedia('(max-width: 640px)').matches;
         if (isSmallScreen) {
             setToggleSearch(true);
             setSidebarOpen(false);
@@ -92,7 +95,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
         <div className="flex w-full items-center justify-end mr-5 gap-5">
 
             
-            { true? ( <button  //add isAuthenticaded
+            { isAuthenticated? ( <button
                 className="font-bold cursor-pointer"
                 onClick={() => setSignInOpen(true)}
             > Sign In </button> ) : (

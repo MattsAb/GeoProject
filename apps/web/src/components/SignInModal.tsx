@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ErrorMessageComponent from "./ErrorMessageComponent";
-import { login, register } from "../hooks/SignInHook";
+import { login, register } from "../services/auth.api";
+import { useAuth } from "../context/AuthContext";
 
 type SignInModalProps = {
     open: boolean
@@ -14,6 +15,8 @@ function SignInModal({open, onClose}: SignInModalProps) {
     const [password, setPassword] = useState('');
     const [isSigned, setIsSigned] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
+
+    const {loginUser} = useAuth();
 
  async function handleSginIn () {
 
@@ -31,6 +34,7 @@ function SignInModal({open, onClose}: SignInModalProps) {
             setUsername('');
             setPassword('');
             onClose();
+            loginUser(result.data.idToken);
         } else {
             if (result.error)
             {
