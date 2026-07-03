@@ -3,22 +3,67 @@ import ImageComponent from "../components/PostComponent";
 import SimpleButton from "../components/SimpleButton"
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import { useParams } from "react-router-dom";
-import type { User } from "@geoapp/types";
-
+import type { Profile } from "@geoapp/types";
 import img1 from "../assets/pexels-michelle-cuaya-1311865844-27349112.jpg"
+import { useAuth } from "../context/AuthContext";
+import { getUserProfile } from "../services/profile.api";
 
 
 function Profile () {
 
-    const [profile, setProfile] = useState<User>()
+    const [profile, setProfile] = useState<Profile>()
     const [ownProfile, setOwnProfile] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
     const [isfollowed, setIsFollowed] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const { id } = useParams();
+    const {user} = useAuth();
 
-    async function handleFollow() {}
+    useEffect(() => {
+        async function getProfile () {
+            if (!id) return
+            
+            setOwnProfile(false)
+            const result = await getUserProfile(id);
+
+            if (result.success && result.data) {
+                setProfile(result.data)
+                setFollowerCount(result.data._count.followers);
+                if(result.data.followers.length > 0) setIsFollowed(true);
+                if(result.data.id == `${user?.id}`) setOwnProfile(true);
+            }
+            else {
+                if (result.error)
+                {
+                    setErrorMessage(result.error)
+                }
+            }
+
+        }
+        getProfile()
+    }, [id]) 
+
+    async function handleFollow() {
+        if (!id) return;
+        let result;
+        if( !isfollowed)
+        {
+            result = await followUser(id);
+        } else {
+            result = await unfollowUser(id);
+        }
+
+        if (result.success)
+        {
+            setIsFollowed(!isfollowed);
+            isfollowed ? setFollowerCount(followerCount - 1) : setFollowerCount(followerCount + 1);
+        }
+        else if (result.error) {
+            setErrorMessage(result.error)
+        }
+        
+    }
 
     return (
         <div 
@@ -27,15 +72,15 @@ function Profile () {
             >
             
             <div className="w-full dark:bg-mist-800 py-15 flex gap-10 shadow-2xl">
-                { <> <img src={img1} className="w-30 h-30 rounded-full ml-18"/>
+                { <> <img src={profile?.avatarUrl} className="w-30 h-30 rounded-full ml-18"/>
                 <div className="flex flex-col gap-5 w-1/3 justify-center">
-                    <h1 className="font-bold text-2xl"> testUser </h1>
+                    <h1 className="font-bold text-2xl"> {profile?.username} </h1>
                     <div className="flex gap-5 items-center">
                         { !ownProfile && <SimpleButton label={isfollowed ? "Unfollow" : "Follow"} onClick={() => handleFollow()}/>}
                         <p className="font-bold text-2xl"> Followers: </p>
-                        <p className="font-bold text-2xl"> 3 </p>
+                        <p className="font-bold text-2xl"> {profile?._count.followers} </p>
                     </div>
-                    <p className="overflow-auto wrap-break-word"> some random profile bio </p>
+                    <p className="overflow-auto wrap-break-word"> {profile?.bio} </p>
                 </div>
 
                  </>}

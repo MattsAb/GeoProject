@@ -11,7 +11,7 @@ function HeaderOptionsComponent ({open, onClose}: headerOptionsProps) {
 
     const navigate = useNavigate();
     
-    const {logout} = useAuth();
+    const {logout, user} = useAuth();
 
      const ref = useRef<HTMLDivElement>(null)
 
@@ -28,7 +28,7 @@ function HeaderOptionsComponent ({open, onClose}: headerOptionsProps) {
 
     if (!open) return null;
     
-    const goToProfile = () => navigate(`/profile/1`);
+    const goToProfile = () => navigate(`/profile/${user?.id}`);
     const goToEditProfile = () => navigate('/profile/edit');
 
     return (
