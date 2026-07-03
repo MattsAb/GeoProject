@@ -2,12 +2,13 @@ import { Route, Routes } from "react-router-dom"
 import Dashboard from "./pages/Dashboard"
 import Header from "./components/Header"
 import Sidebar from "./components/sidebar_components/Sidebar"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 
 function App() {
+
   
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (

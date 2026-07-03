@@ -16,7 +16,7 @@ model User {
   email      String   @unique
   username   String   @unique
   bio        String?
-  avatarUrl  String?
+  avatarUrl  String   @default("https://geoapp-s3-postbucket.s3.eu-north-1.amazonaws.com/posts/geoapp_default_avatar.png.png")
   provider   String   @default("local")
   providerId String? @unique
   password   String?

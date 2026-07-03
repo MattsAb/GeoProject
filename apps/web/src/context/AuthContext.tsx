@@ -1,28 +1,41 @@
+import type { User } from '@geoapp/types';
 import { createContext, useContext, useState, useEffect } from 'react';
+import { getMe } from '../services/auth.api';
 
 type AuthContextType = {
+  user: User | null;
   isAuthenticated: boolean;
-  loginUser: (token: string) => void;
+  loginUser: (token: string, user: User) => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('idToken'));
+  const [user, setUser] = useState<User | null>(null);
 
-  const loginUser = (token: string) => {
+  useEffect(() => {
+    const token = localStorage.getItem('idToken');
+    if (token) {
+      getMe().then((res) => {
+        if (res.success && res.data) setUser(res.data);
+        else localStorage.removeItem('idToken');
+      });
+    }
+  }, [user]);
+
+  const loginUser = (token: string, userData: User) => {
     localStorage.setItem('idToken', token);
-    setIsAuthenticated(true);
+    setUser(userData);
   };
 
   const logout = () => {
     localStorage.removeItem('idToken');
-    setIsAuthenticated(false);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, loginUser, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, loginUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

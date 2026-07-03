@@ -25,6 +25,7 @@ export async function signUp(req: Request, res: Response) {
         await prisma.user.create({
       data: {
         email,
+        password,
         username,
         countryCode: "LT",
         provider: 'cognito',
@@ -89,4 +90,9 @@ export async function login(req: Request, res: Response) {
     console.error('Login error:', error);
     throw new ServerError(401, 'Invalid email or password');
   }
+}
+
+export async function getMe(req: Request, res: Response) {
+  if (!req.user) throw new ServerError(401, 'Unauthorized');
+  res.status(200).json(req.user);
 }

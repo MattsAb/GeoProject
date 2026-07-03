@@ -6,7 +6,7 @@ export interface User {
     username: string
     countryCode: string
     bio?: string | null
-    avatarUrl?: string | null
+    avatarUrl: string
     provider: string
     createdAt: string
     posts?: Post[]

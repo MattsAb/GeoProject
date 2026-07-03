@@ -34,7 +34,7 @@ function SignInModal({open, onClose}: SignInModalProps) {
             setUsername('');
             setPassword('');
             onClose();
-            loginUser(result.data.idToken);
+            loginUser(result.data.idToken, result.data.user);
         } else {
             if (result.error)
             {

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 type headerOptionsProps = {
     open: boolean
@@ -9,7 +10,8 @@ type headerOptionsProps = {
 function HeaderOptionsComponent ({open, onClose}: headerOptionsProps) {
 
     const navigate = useNavigate();
-    //const {clearAuth, user} = useAuthStore();
+    
+    const {logout} = useAuth();
 
      const ref = useRef<HTMLDivElement>(null)
 
@@ -53,7 +55,7 @@ function HeaderOptionsComponent ({open, onClose}: headerOptionsProps) {
             <button 
                 className="hover:dark:bg-mist-700 hover:bg-mist-200  text-left p-2 rounded-xl cursor-pointer mt-5"
                 onClick={() => {
-                    //clearAuth()
+                    logout();
                     window.location.reload()
                 }}
             > Sign Out </button>

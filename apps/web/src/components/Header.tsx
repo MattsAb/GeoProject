@@ -19,7 +19,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
     
     const navigate = useNavigate();
 
-    const {isAuthenticated, logout} = useAuth();
+    const {isAuthenticated,user} = useAuth();
 
     const goBack = () => navigate('/');
     const goToCreate = () => navigate('/create');
@@ -95,7 +95,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
         <div className="flex w-full items-center justify-end mr-5 gap-5">
 
             
-            { isAuthenticated? ( <button
+            { !isAuthenticated ? ( <button
                 className="font-bold cursor-pointer"
                 onClick={() => setSignInOpen(true)}
             > Sign In </button> ) : (
@@ -114,7 +114,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
                     }}
                     data-testid="userAvatar"
                 >
-                    {/*<img src={user?.avatarUrl ? user.avatarUrl : defaultICon} className="rounded-full w-10 h-10"/>*/}
+                    { user && <img src={user.avatarUrl} className="rounded-full w-10 h-10"/>}
                 </button>
 
                 <HeaderOptionsComponent
