@@ -5,11 +5,11 @@ import { createUpload } from '../config/s3';
 
 const router = Router()
 
-router.get('/', getFeed);
+router.get('/',authMiddleware, getFeed);
 router.get('/:id', getPost);
-router.post('/', createUpload("posts").single('image'), createPost);
-router.put('/:id', editPost);
-router.delete('/:id',deletePost);
+router.post('/', authMiddleware, createUpload("posts").single('image'), createPost);
+router.put('/:id',authMiddleware, editPost);
+router.delete('/:id',authMiddleware, deletePost);
 
 
 

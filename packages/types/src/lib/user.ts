@@ -13,3 +13,19 @@ export interface User {
         posts: number
     }
 }
+
+export interface SignUpDTO {
+    email: string,
+    username: string,
+    password: string,
+}
+
+export interface ConfirmSignUpDTO {
+    email: string,
+    confirmationCode: string,
+}
+
+export interface LoginDTO {
+    email: string,
+    password: string,
+}
