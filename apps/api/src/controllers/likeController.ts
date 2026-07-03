@@ -3,7 +3,7 @@ import { prisma } from '../config/prisma'
 import { ServerError } from '../middleware/errorMiddleware'
 
 export async function likePost (req: Request, res: Response) {
-    const postId = req.params.id as string;
+    const postId = req.params.postId as string;
     const userId = req.user!.id;
 
     await prisma.like.create({

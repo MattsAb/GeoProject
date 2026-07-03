@@ -2,14 +2,16 @@ import { Router } from 'express'
 import { createPost, deletePost, editPost, getFeed, getPost } from '../controllers/postController'
 import { authMiddleware } from '../middleware/authMiddleware';
 import { createUpload } from '../config/s3';
+import { validate } from '../middleware/validationMiddleware';
+import { createPostSchema, listPostsQuerySchema, postParamsSchema } from '../schemas/post.schema';
 
 const router = Router()
 
-router.get('/',authMiddleware, getFeed);
-router.get('/:id', getPost);
-router.post('/', authMiddleware, createUpload("posts").single('image'), createPost);
-router.put('/:id',authMiddleware, editPost);
-router.delete('/:id',authMiddleware, deletePost);
+router.get('/',authMiddleware, validate(listPostsQuerySchema), getFeed);
+router.get('/:id',validate(postParamsSchema), getPost);
+router.post('/', authMiddleware, createUpload("posts").single('image'), validate(createPostSchema), createPost);
+router.put('/:id',authMiddleware, validate(postParamsSchema), editPost);
+router.delete('/:id',authMiddleware, validate(postParamsSchema), deletePost);
 
 
 

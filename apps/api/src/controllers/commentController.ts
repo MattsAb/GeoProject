@@ -9,7 +9,7 @@ export async function createComment (req: Request, res: Response) {
 
     if (!commentBody) return res.status(400).json({ success: false, message: 'Comment body is required' })
 
-    const postId = req.params.id as string;
+    const postId = req.params.postId as string;
     const userId = req.user!.id;
 
     const comment = await prisma.comment.create({
