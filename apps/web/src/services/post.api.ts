@@ -28,3 +28,28 @@ export async function getPost(id: string): Promise<ApiResponse<Post>>{
         return handleError(err);
     }
 }
+
+export async function editPost(id: string, countryCode: string, description: string, imageFile?: File): Promise<ApiResponse<Post>> {
+    try {
+        const formData = new FormData();
+        formData.append('countryCode', countryCode);
+        formData.append('description', description);
+        if (imageFile) formData.append('image', imageFile)
+        const response = await api.put<ApiResponse<Post>>(`/v1/posts/${id}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        return response.data
+    } catch (err) {
+        return handleError(err)
+    }
+}
+
+export async function deletePost(id: string): Promise<ApiResponse<null>> {
+    try {
+        const response = await api.delete(`/v1/posts/${id}`)
+
+        return response.data
+    } catch (err) {
+        return handleError(err);
+    }
+}

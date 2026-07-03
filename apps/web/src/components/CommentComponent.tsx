@@ -1,7 +1,7 @@
 import { useState } from "react";
-
-import DeleteButton from "./DeleteButton";
 import ErrorMessageComponent from "./ErrorMessageComponent";
+import DeleteButton from "./DeleteButton"
+import { deleteComment } from "../services/comment.api";
 
 type CommentComponentProps = {
     username: string
@@ -22,7 +22,14 @@ function CommentComponent({username, body, avatar, ids, userId, postId, id}: Com
 
     if (!isVisible) return null;
 
-    async function handleDelete() {}
+    async function handleDelete() {
+        const result = await deleteComment(`${postId}`, `${id}`);
+        if (result.success) {
+            setIsVisible(false);
+        } else if (result.error) {
+            setErrorMessage(result.error);
+        }
+    }
 
     return (
         <div className="flex justify-between items-center">

@@ -8,9 +8,9 @@ import { createPostSchema, listPostsQuerySchema, postParamsSchema } from '../sch
 const router = Router()
 
 router.get('/',authMiddleware, validate(listPostsQuerySchema), getFeed);
-router.get('/:id',validate(postParamsSchema), getPost);
+router.get('/:postId',validate(postParamsSchema), getPost);
 router.post('/', authMiddleware, createUpload("posts").single('image'), validate(createPostSchema), createPost);
-router.put('/:id',authMiddleware, validate(postParamsSchema), editPost);
+router.put('/:postId',authMiddleware, createUpload("posts").single('image'), validate(createPostSchema), editPost);
 router.delete('/:id',authMiddleware, validate(postParamsSchema), deletePost);
 
 

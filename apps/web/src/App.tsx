@@ -6,6 +6,7 @@ import PostPage from "./pages/PostPage";
 import CreatePost from "./pages/CreatePost";
 import { useState } from "react";
 import Profile from "./pages/Profile";
+import EditPost from "./pages/editPost";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
               <Route path="/post/:id" element={<PostPage/>} />
               <Route path="/profile/:id" element={<Profile/>} />
               <Route path="/create" element={<CreatePost/>} />
+              <Route path="/edit/:id" element={<EditPost/>} />
             </Routes>
         </div>
         

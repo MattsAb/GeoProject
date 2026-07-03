@@ -36,9 +36,9 @@ function PostPage () {
             setCanEdit(false)
             const result = await getPost(id);
             if (result.success && result.data) {
-                setPostInfo(result.data)
-                setPostLikes(result.data._count?.likes || 0)
-                if(result.data.likes.length > 0) setIsLiked(true);
+                setPostInfo(result.data);
+                setPostLikes(result.data._count?.likes || 0);
+                if(result.data.likes) setIsLiked(true);
                 if (result.data.userId == user?.id) setCanEdit(true);
 
             } else if (result.error) {
@@ -84,7 +84,7 @@ function PostPage () {
     }
 
     const goToProfile = () => navigate(`/profile/${postInfo?.userId}`)
-    const goToEdit = () => navigate('edit');
+    const goToEdit = () => navigate(`/edit/${id}`);
 
     return (
         <div className="flex shadow-2xl mt-10 dark:shadow-none">

@@ -11,7 +11,7 @@ export const createPostSchema = z.object({
 
 export const postParamsSchema = z.object({
   params: z.object({
-    id: z.uuid(),
+    postId: z.uuid(),
   }),
 });
 

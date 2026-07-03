@@ -11,6 +11,6 @@ export const createCommentSchema = z.object({
 
 export const commentParamsSchema = z.object({
   params: z.object({
-    id: z.uuid(),
+    commentId: z.uuid(),
   }),
 });

@@ -25,7 +25,7 @@ export async function createPost(req: Request, res: Response) {
 }
 
 export async function getPost(req: Request, res: Response) {
-    const postId = req.params.id as string;
+    const postId = req.params.postId as string;
 
     const post = await prisma.post.findUnique({
         where: {id: postId},
@@ -66,7 +66,6 @@ export async function editPost(req: Request, res: Response) {
             Key: key
         }))
     }
-
     const updatedPost = await prisma.post.update({
         where: { id: postId },
         data: {
