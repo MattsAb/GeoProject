@@ -1,12 +1,12 @@
 import type { User } from './user'
 
 export interface Comment {
-    id: number
+    id: string
     body: string
     createdAt: string
-    userId: number
+    userId: string
     user: User
-    postId: number
+    postId: string
 }
 
 export interface CommentDTO {

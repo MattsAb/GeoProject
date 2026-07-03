@@ -1,48 +1,131 @@
-import { useNavigate } from "react-router-dom";
-import { HandThumbUpIcon } from "@heroicons/react/16/solid";
-import img1 from "../assets/pexels-renso-villarreal-2152599962-33797291.jpg"
+import { useNavigate, useParams } from "react-router-dom";
+import { HandThumbUpIcon } from '@heroicons/react/24/solid';
+import { HandThumbUpIcon  as HandThumbUpIconOutline} from "@heroicons/react/24/outline";
 import SimpleButton from "../components/SimpleButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentComponent from "../components/CommentComponent";
+import { useAuth } from "../context/AuthContext";
+import type { Post } from "@geoapp/types";
+import { getPost } from "../services/post.api";
+import { likePost, unlikePost } from "../services/like.api";
+import { postComment } from "../services/comment.api";
+import ErrorMessageComponent from "../components/ErrorMessageComponent";
 
 function PostPage () {
 
     const [commentMode, setCommentMode] = useState(false);
     const [userComment, setUserComment] = useState('');
+    const [postInfo, setPostInfo] = useState<Post>();
+    const [postLikes, setPostLikes] = useState<number>(0);
+    const [isLiked, setIsLiked] = useState(false);
+    const [canEdit, setCanEdit] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
+    const { id } = useParams();
     const navigate = useNavigate();
 
-    const goToProfile = () => console.log('profile');
+    const {user} = useAuth();
+    
+    useEffect(() => {
 
-    async function handleLike () {}
-    async function handleComment() {}
+        async function getInfo() {
+            if (!id) {
+                return;
+            }
+            setIsLiked(false)
+            setCanEdit(false)
+            const result = await getPost(id);
+            if (result.success && result.data) {
+                setPostInfo(result.data)
+                setPostLikes(result.data._count?.likes || 0)
+                if(result.data.likes.length > 0) setIsLiked(true);
+                if (result.data.userId == user?.id) setCanEdit(true);
+
+            } else if (result.error) {
+                setErrorMessage(result.error);
+            }
+        }
+        getInfo();
+    },[id])
+
+    async function handleComment() {
+        if (userComment == '' || !id) return;
+        const result = await postComment(id, userComment)
+        if (result.success && result.data) {
+            setUserComment('');
+            setCommentMode(false);
+            setPostInfo(prev => {
+                if (!prev || !result.data) return prev
+                return {
+                    ...prev,
+                    comments: [...prev.comments, result.data]
+                }
+            })
+        }
+
+    }
+
+    async function handleLike() {
+        if (!id) return;
+
+        let result;
+        if (!isLiked){
+            result = await likePost(id);
+        } else {
+            result = await unlikePost(id);
+        }
+
+        if (result.success) {
+            setIsLiked(!isLiked);
+            isLiked ? setPostLikes(postLikes - 1) : setPostLikes(postLikes + 1);
+        } else if (result.error) {
+            setErrorMessage(result.error)
+        }
+    }
+
+    const goToProfile = () => navigate(`/profile/${postInfo?.userId}`)
+    const goToEdit = () => navigate('edit');
 
     return (
-        <div className="flex w-full h-full justify-center">
-            <div className="p-10 dark:bg-mist-800 rounded-2xl flex flex-col gap-3 w-2/3 mt-10">
-                <img src={img1} className="w-full object-contain max-h-175 rounded dark:bg-mist-900 bg-mist-200"/>
-                <div className="flex items-center gap-5">
-                    <button 
-                        onClick={() => goToProfile()}
-                        className="bg-mist-500 p-0.5 rounded-full self-baseline cursor-pointer"
-                    >
-                        <img 
-                            className="w-12 h-12 rounded-full"
-                            src={img1}
+        <div className="flex shadow-2xl mt-10 dark:shadow-none">
+            <div className="flex-3 px-10">
+                <div className="p-10 dark:bg-mist-800 rounded-2xl flex flex-col gap-3"> 
+                    <img src={postInfo?.photoUrl} className="w-full object-contain max-h-200 rounded dark:bg-mist-900 bg-mist-200" />
+                    <ErrorMessageComponent message={errorMessage}/>
+                    <div className="flex items-center gap-3">
+
+                        <button 
+                            onClick={() => goToProfile()}
+                            className="bg-mist-500 p-0.5 rounded-full cursor-pointer"
+                        >
+                            <img 
+                                className="w-12 h-12 rounded-full"
+                                src={postInfo?.user.avatarUrl}
+                            />
+                        </button>
+
+                        <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
+
+                            <button className="dark:bg-mist-700 py-2 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
+                                onClick={() => handleLike()}
+                            >
+                                {!isLiked ? (<HandThumbUpIconOutline className={`h-6 w-6`}/>) : (<HandThumbUpIcon className={`h-6 w-6`}/> )}
+                                <h2 className="font-bold text-xl">{postLikes}</h2>
+                            </button>
+
+
+                    </div>
+
+                    <p>{postInfo?.description}</p>
+
+                    { canEdit && <div className="self-end">
+                        <SimpleButton 
+                            onClick={() => goToEdit()}
+                            label="Edit post"
                         />
-                    </button>
-                    <h1 className="font-semibold text-xl"> TestUser </h1>
+                    </div>}
                 </div>
-
-                <button className="dark:bg-mist-700 py-2 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
-                    onClick={() => handleLike()}
-                >
-                    <HandThumbUpIcon className={`h-6 w-6`}/>
-                    <h2 className="font-bold text-xl">{5}</h2>
-                </button>
-
-                <p> some long description I guess</p>
-
+                <div className="mt-10">
                     <div className="dark:bg-mist-800 rounded-2xl p-5 flex flex-col gap-5">
                         <h1 className="text-2xl ml-5"> Leave a comment </h1>
                         <textarea 
@@ -57,13 +140,35 @@ function PostPage () {
                         </div>}
                     </div>
 
-                    <div>
+                    <div className="mt-10">
+
+                     <div className="flex items-center text-2xl ml-5 gap-3">
+                            <p> {postInfo?._count?.comments}</p>
+                            <p> comments </p>
                     </div>
 
+                        {postInfo?.comments  && ( <div className="mt-10 flex flex-col gap-5 dark:bg-mist-800 rounded-2xl pb-5">
+                            
+                                    {postInfo.comments.map((comment) => (
+                                        <CommentComponent 
+                                            username={comment.user.username}
+                                            body={comment.body}
+                                            key={comment.id}
+                                            avatar={comment.user.avatarUrl ?? ''}
+                                            ids={[comment.userId, postInfo.userId]}
+                                            userId={user?.id}
+                                            id={comment.id}
+                                            postId={comment.postId}
+                                        />
+                                    ))}
+                        </div>)}
+                    </div>
+                    
+                </div>
             </div>
+
         </div>
     )
 }
 
-export default PostPage;
-
+export default PostPage

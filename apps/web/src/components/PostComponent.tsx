@@ -12,7 +12,7 @@ function PostComponent ({photoUrl, location, username, likes, id}: PostComponent
 
     const navigate = useNavigate();
 
-    const handleImage = () => navigate('/post/1');
+    const handleImage = () => navigate(`/post/${id}`);
 
     return (
         <button 

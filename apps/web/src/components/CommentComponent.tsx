@@ -7,10 +7,10 @@ type CommentComponentProps = {
     username: string
     body: string
     avatar: string,
-    ids: [number, number];
-    userId?: number;
-    postId: number;
-    id: number;
+    ids: [string, string];
+    userId?: string;
+    postId: string;
+    id: string;
 }
 
 function CommentComponent({username, body, avatar, ids, userId, postId, id}: CommentComponentProps) {
