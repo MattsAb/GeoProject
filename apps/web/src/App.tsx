@@ -4,6 +4,8 @@ import Header from "./components/Header"
 import Sidebar from "./components/sidebar_components/Sidebar"
 import { useState } from "react";
 import PostPage from "./pages/PostPage";
+import Profile from "./pages/Profile";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   
@@ -19,6 +21,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard/>} />
               <Route path="/post/:id" element={<PostPage/>} />
+              <Route path="/profile/:id" element={<Profile/>} />
+              <Route path="/create" element={<CreatePost/>} />
             </Routes>
         </div>
         

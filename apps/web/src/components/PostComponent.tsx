@@ -5,9 +5,10 @@ type PostComponentProps = {
     location: string
     username: string
     likes: number
+    id: string
 }
 
-function PostComponent ({photoUrl, location, username, likes}: PostComponentProps) {
+function PostComponent ({photoUrl, location, username, likes, id}: PostComponentProps) {
 
     const navigate = useNavigate();
 
