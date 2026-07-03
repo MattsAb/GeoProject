@@ -4,9 +4,9 @@ import SimpleButton from "../components/SimpleButton"
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import { useParams } from "react-router-dom";
 import type { Profile } from "@geoapp/types";
-import img1 from "../assets/pexels-michelle-cuaya-1311865844-27349112.jpg"
 import { useAuth } from "../context/AuthContext";
 import { getUserProfile } from "../services/profile.api";
+import { followUser, unfollowUser } from "../services/follow.api";
 
 
 function Profile () {
