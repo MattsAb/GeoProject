@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ErrorMessageComponent from "./ErrorMessageComponent";
+import { login, register } from "../hooks/SignInHook";
 
 type SignInModalProps = {
     open: boolean
@@ -13,6 +14,30 @@ function SignInModal({open, onClose}: SignInModalProps) {
     const [password, setPassword] = useState('');
     const [isSigned, setIsSigned] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
+
+ async function handleSginIn () {
+
+        let result;
+        if (isSigned) {
+            result = await login({ email, password })
+        }
+        else
+        {
+            result = await register({username, email, password})
+        }
+
+        if (result.success && result.data) {
+            setEmail('');
+            setUsername('');
+            setPassword('');
+            onClose();
+        } else {
+            if (result.error)
+            {
+                setErrorMessage(result.error)
+            }
+        }
+    }
 
 
     if (!open) return null
@@ -65,7 +90,7 @@ function SignInModal({open, onClose}: SignInModalProps) {
             </button>
             <button 
                 className="w-full bg-sky-500 active:bg-sky-400 text-white py-2 rounded-lg font-medium cursor-pointer"
-                onClick={() => console.log('clicked')}
+                onClick={() => handleSginIn()}
             >
                 {isSigned ? "Log in" : "Sign in"}
             </button>

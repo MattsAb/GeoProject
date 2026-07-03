@@ -3,11 +3,11 @@ import type { Like } from './like'
 import type { User } from './user'
 
 export interface Post {
-    id: number
+    id: string
     photoUrl: string
     description: string
     createdAt: string
-    userId: number
+    userId: string
     countryCode: string
     user: User
     likes: Like[]

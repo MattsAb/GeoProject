@@ -7,7 +7,7 @@ function Dashboard() {
 
   return (
     <div className="p-10">
-        <PostComponent photoUrl={url1} username="testuser" location="some location in norway" likes={5}/>
+        <PostComponent photoUrl={url1} username="testuser" location="some location in norway" likes={5} id={"1"}/>
     </div>
   )
 }

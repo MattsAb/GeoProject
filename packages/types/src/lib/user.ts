@@ -1,6 +1,7 @@
+import { Post } from "./post"
 
 export interface User {
-    id: number
+    id: string
     email: string
     username: string
     countryCode: string
@@ -8,6 +9,7 @@ export interface User {
     avatarUrl?: string | null
     provider: string
     createdAt: string
+    posts?: Post[]
     _count?: {
         followers: number
         posts: number
