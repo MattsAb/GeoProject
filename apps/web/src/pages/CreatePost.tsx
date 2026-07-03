@@ -2,30 +2,34 @@ import { useRef, useState } from "react";
 import SimpleButton from "../components/SimpleButton";
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import { useNavigate } from "react-router-dom";
+import { createPost } from "../services/post.api";
+import { useAuth } from "../context/AuthContext";
 
 function CreatePost () {
 
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [description, setDescrition] = useState('');
+    const [countryCode, setCountryCode] = useState('LT');
     const [preview, setPreview] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const fileInputRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
+    const {user} = useAuth();
 
     async function handleSubmit() {
-        /*if (!imageFile) {
+        if (!imageFile) {
             setErrorMessage("please upload an image");
             return;
         }
         
-        const result = await createPost(description, imageFile);
+        const result = await createPost(description, imageFile, countryCode);
 
         if (result.success) {
-            navigate(`/profile/1`)
+            navigate(`/profile/${user?.id}`)
         } else if (result.error) {
             setErrorMessage(result.error)
-        }*/
+        }
     }
 
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {

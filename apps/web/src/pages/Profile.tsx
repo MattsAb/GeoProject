@@ -68,7 +68,6 @@ function Profile () {
     return (
         <div 
             className="w-full flex flex-col"
-            data-testId="userProfile"
             >
             
             <div className="w-full dark:bg-mist-800 py-15 flex gap-10 shadow-2xl">
