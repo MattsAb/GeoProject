@@ -1,7 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
   provider = "prisma-client-js"
@@ -19,7 +15,6 @@ model User {
   avatarUrl  String   @default("https://geoapp-s3-postbucket.s3.eu-north-1.amazonaws.com/avatars/geoapp_default_avatar.png")
   provider   String   @default("local")
   providerId String? @unique
-  password   String?
   countryCode String?   @db.Char(2)
   createdAt  DateTime @default(now())
 

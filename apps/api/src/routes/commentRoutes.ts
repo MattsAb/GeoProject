@@ -5,7 +5,16 @@ import { commentParamsSchema, createCommentSchema } from '../schemas/comment.sch
 
 const router = Router({ mergeParams: true })
 
-router.post('/', validate(createCommentSchema), createComment);
-router.delete('/:commentId',validate(commentParamsSchema), deleteComment);
+router.post(
+    '/',
+    validate(createCommentSchema),
+    createComment
+);
+
+router.delete(
+    '/:commentId',
+    validate(commentParamsSchema),
+    deleteComment
+);
 
 export default router

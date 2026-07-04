@@ -7,12 +7,41 @@ import { createPostSchema, listPostsQuerySchema, postParamsSchema } from '../sch
 
 const router = Router()
 
-router.get('/',authMiddleware, validate(listPostsQuerySchema), getFeed);
-router.get('/:postId',lightAuthMiddleware ,validate(postParamsSchema), getPost);
-router.post('/', authMiddleware, createUpload("posts").single('image'), validate(createPostSchema), createPost);
-router.put('/:postId',authMiddleware, createUpload("posts").single('image'), validate(createPostSchema), editPost);
-router.delete('/:id',authMiddleware, validate(postParamsSchema), deletePost);
+router.get(
+    '/',
+    authMiddleware,
+    validate(listPostsQuerySchema),
+    getFeed
+);
 
+router.get(
+    '/:postId',
+    lightAuthMiddleware,
+    validate(postParamsSchema),
+    getPost
+);
 
+router.post(
+    '/',
+    authMiddleware,
+    createUpload("posts").single('image'),
+    validate(createPostSchema),
+    createPost
+);
+
+router.put(
+    '/:postId',
+    authMiddleware,
+    createUpload("posts").single('image'),
+    validate(createPostSchema),
+    editPost
+);
+
+router.delete(
+    '/:id',
+    authMiddleware,
+    validate(postParamsSchema),
+    deletePost
+);
 
 export default router

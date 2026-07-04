@@ -5,10 +5,21 @@ import { likeParamsSchema } from '../schemas/like.schema';
 
 const router = Router({ mergeParams: true })
 
+router.post(
+    '/',
+    validate(likeParamsSchema),
+    likePost
+);
 
-router.post('/', validate(likeParamsSchema), likePost);
-router.delete('/', validate(likeParamsSchema), unlikePost);
-router.get('/', getLikedPosts);
+router.delete(
+    '/',
+    validate(likeParamsSchema),
+    unlikePost
+);
 
+router.get(
+    '/',
+    getLikedPosts
+);
 
 export default router

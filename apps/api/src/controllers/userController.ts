@@ -5,6 +5,7 @@ import { s3 } from '../config/s3';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 
 export async function getProfile(req: Request, res: Response) {
+    
     const profileId = req.params.id as string;
     const userId = req.user?.id;
 

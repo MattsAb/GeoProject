@@ -4,8 +4,6 @@ import { CognitoJwtVerifier } from 'aws-jwt-verify';
 import { prisma } from '../config/prisma';
 import {env} from '../schemas/env'
 
-
-
 const verifier = CognitoJwtVerifier.create({
   userPoolId: env.COGNITO_USER_POOL_ID,
   tokenUse: "id",
@@ -40,7 +38,6 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     }
   }
 
-
   export async function lightAuthMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(' ')[1];
 
@@ -59,7 +56,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
       req.user = user;
     }
   } catch {
-        // no token
+      // no token
   }
 
   next();

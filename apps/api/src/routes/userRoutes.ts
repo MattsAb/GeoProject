@@ -7,8 +7,15 @@ import { profileParamsSchema } from '../schemas/user.schema';
 
 const router = Router()
 
-router.get('/:id', validate(profileParamsSchema), getProfile);
-router.put('/', authMiddleware, createUpload('avatars').single('image'), updateProfile);
+router.get('/:id',
+    validate(profileParamsSchema),
+    getProfile
+);
 
+router.put('/', 
+    authMiddleware, 
+    createUpload('avatars').single('image'),
+    updateProfile
+);
 
 export default router

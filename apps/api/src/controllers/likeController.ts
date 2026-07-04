@@ -42,7 +42,7 @@ export async function getLikedPosts(req: Request, res: Response) {
         include: {
             post: {
                 include: {
-                    user: true,
+                    user: {select: {username: true, avatarUrl: true, id: true}},
                     _count: {
                         select: {likes: true}
                     }

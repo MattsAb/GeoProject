@@ -25,7 +25,6 @@ export async function signUp(req: Request, res: Response) {
         await prisma.user.create({
       data: {
         email,
-        password,
         username,
         provider: 'cognito',
         providerId: data.UserSub!,
