@@ -4,8 +4,8 @@ import ErrorMessageComponent from "../components/simple_components/ErrorMessageC
 import {  useNavigate, useParams } from "react-router-dom";
 import type { Post } from "@geoapp/types";
 import DeleteButton from "../components/simple_components/DeleteButton"
-import { deletePost, editPost, getPost } from "../services/post.api";
 import CountryPicker from "../components/simple_components/CountryPicker";
+import { deletePost, editPost, getPost } from "@geoapp/services";
 
 function EditPost () {
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ErrorMessageComponent from "../simple_components/ErrorMessageComponent";
-import { login, register } from "../../services/auth.api";
+import { login, register } from "../../../../../packages/services/src/lib/auth.api";
 import { useAuth } from "../../context/AuthContext";
 
 type SignInModalProps = {

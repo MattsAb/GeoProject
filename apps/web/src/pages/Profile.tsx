@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
-import ImageComponent from "../components/PostComponent";
+import ImageComponent from "../components/profile_components/PostComponent";
 import SimpleButton from "../components/simple_components/SimpleButton"
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import { useParams } from "react-router-dom";
 import type { ProfileType } from "@geoapp/types";
 import { useAuth } from "../context/AuthContext";
-import { getUserProfile } from "../services/profile.api";
-import { followUser, unfollowUser } from "../services/follow.api";
+import { followUser, getUserProfile, unfollowUser } from "@geoapp/services";
 
 function Profile () {
 

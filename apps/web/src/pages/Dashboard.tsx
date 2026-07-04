@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import type { Post } from "@geoapp/types";
-import { getFeed } from "../services/post.api";
-import FeedPostComponent from "../components/FeedPostComponent";
+import FeedPostComponent from "../components/feed_components/FeedPostComponent";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
+import { getFeed } from "@geoapp/services";
 
 function Dashboard() {
   

@@ -1,6 +1,6 @@
 import type { ApiResponse, ProfileType, User } from "@geoapp/types";
-import { handleError } from "./handleError";
-import api from "./utils/axios";
+import { handleError } from "../utils/handleError";
+import api from "../utils/axios";
 
 
 export async function getUserProfile (id: string): Promise<ApiResponse<ProfileType>> {

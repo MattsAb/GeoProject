@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 import CommentComponent from "../components/post_Page_Components/CommentComponent";
 import { useAuth } from "../context/AuthContext";
 import type { Post } from "@geoapp/types";
-import { getPost } from "../services/post.api";
-import { likePost, unlikePost } from "../services/like.api";
-import { postComment } from "../services/comment.api";
 import PostInfoComponent from "../components/post_Page_Components/PostInfoComponent";
+import { getPost, likePost, postComment, unlikePost } from "@geoapp/services";
 
 function PostPage () {
 

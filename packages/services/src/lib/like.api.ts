@@ -1,6 +1,6 @@
 import type { ApiResponse } from "@geoapp/types";
-import api from "./utils/axios";
-import { handleError } from "./handleError";
+import api from "../utils/axios";
+import { handleError } from "../utils/handleError";
 
 
 export async function likePost(id: string): Promise<ApiResponse<null>> {

@@ -1,6 +1,6 @@
 import type { ApiResponse, CommentType } from "@geoapp/types";
-import api from "./utils/axios";
-import { handleError } from "./handleError";
+import api from "../utils/axios";
+import { handleError } from "../utils/handleError";
 
 
 export async function postComment(id: string, comment: string): Promise<ApiResponse<CommentType>> {

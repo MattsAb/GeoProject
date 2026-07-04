@@ -1,6 +1,6 @@
 import type { ApiResponse, Post } from "@geoapp/types"
-import { handleError } from "./handleError"
-import api from "./utils/axios"
+import { handleError } from "../utils/handleError"
+import api from "../utils/axios"
 
 
 export async function createPost(description: string, imageFile: File, countryCode: string): Promise<ApiResponse<Post>> {

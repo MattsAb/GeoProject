@@ -1,4 +1,3 @@
-// src/hooks/useIsSmallScreen.ts
 import { useState, useEffect } from 'react';
 
 export function useIsSmallScreen(breakpoint = 640) {

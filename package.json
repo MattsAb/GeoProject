@@ -20,7 +20,9 @@
   "workspaces": [
     "apps/api",
     "apps/web",
-    "packages/types"
+    "packages/types",
+    "services",
+    "packages/services"
   ],
   "devDependencies": {
     "typescript": "^6.0.3"

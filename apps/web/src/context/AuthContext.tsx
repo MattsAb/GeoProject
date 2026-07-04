@@ -1,6 +1,6 @@
+import { getMe } from '@geoapp/services';
 import type { User } from '@geoapp/types';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getMe } from '../services/auth.api';
 
 type AuthContextType = {
   user: User | null;

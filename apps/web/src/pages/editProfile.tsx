@@ -4,7 +4,7 @@ import SimpleButton from "../components/simple_components/SimpleButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent"
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { editUserProfile, getUserProfile } from "../services/profile.api";
+import { editUserProfile, getUserProfile } from "@geoapp/services";
 
 
 function EditProfile () {

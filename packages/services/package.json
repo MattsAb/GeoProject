@@ -1,8 +1,8 @@
 {
-  "name": "@geoapp/types",
+  "name": "@geoapp/services",
   "version": "1.0.0",
-  "description": "Shared TypeScript types for GeoApp apps",
-  "main": "index.ts",
+  "description": "Shared api services for GeoApp apps",
+  "main": "index.js",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -11,7 +11,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "private": true,
   "author": "",
   "license": "ISC"
 }

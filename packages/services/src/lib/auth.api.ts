@@ -1,6 +1,6 @@
 import type { ApiResponse, AuthResponse, LoginDTO, SignUpDTO, User } from "@geoapp/types";
-import { handleError } from "./handleError";
-import api from "./utils/axios";
+import { handleError } from "../utils/handleError";
+import api from "../utils/axios";
 
 export async function login({email, password}: LoginDTO): Promise<ApiResponse<AuthResponse>> {
     try{
