@@ -7,6 +7,7 @@ import CreatePost from "./pages/CreatePost";
 import { useState } from "react";
 import Profile from "./pages/Profile";
 import EditPost from "./pages/editPost";
+import EditProfile from "./pages/editProfile";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
               <Route path="/profile/:id" element={<Profile/>} />
               <Route path="/create" element={<CreatePost/>} />
               <Route path="/edit/:id" element={<EditPost/>} />
+              <Route path="/edituser" element={<EditProfile/>}/>
             </Routes>
         </div>
         

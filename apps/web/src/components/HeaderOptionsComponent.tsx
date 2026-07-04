@@ -18,7 +18,6 @@ function HeaderOptionsComponent ({open, onClose}: headerOptionsProps) {
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
             if (ref.current && !ref.current.contains(e.target as Node)) {
-                console.log('aha')
                 onClose()
             }
         }
@@ -29,7 +28,7 @@ function HeaderOptionsComponent ({open, onClose}: headerOptionsProps) {
     if (!open) return null;
     
     const goToProfile = () => navigate(`/profile/${user?.id}`);
-    const goToEditProfile = () => navigate('/profile/edit');
+    const goToEditProfile = () => navigate('/edituser');
 
     return (
         <div 

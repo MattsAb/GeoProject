@@ -4,6 +4,7 @@ import { getMe } from '../services/auth.api';
 
 type AuthContextType = {
   user: User | null;
+  setUser: (user: User) => void; 
   isAuthenticated: boolean;
   loginUser: (token: string, user: User) => void;
   logout: () => void;
@@ -35,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, loginUser, logout }}>
+    <AuthContext.Provider value={{ user, setUser, isAuthenticated: !!user, loginUser, logout }}>
       {children}
     </AuthContext.Provider>
   );
