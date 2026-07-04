@@ -25,3 +25,9 @@ export const loginSchema = z.object({
     password: z.string().min(8, {error: 'password must be atleast 8 characters long'}),
   }),
 });
+
+export const resendCodeSchema = z.object({
+  body: z.object({
+    email: z.email(),
+  }),
+});

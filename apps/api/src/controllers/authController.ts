@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { SignUpCommand, ConfirmSignUpCommand, InitiateAuthCommand } from '@aws-sdk/client-cognito-identity-provider';
+import { SignUpCommand, ConfirmSignUpCommand, InitiateAuthCommand, ResendConfirmationCodeCommand, UserNotFoundException, InvalidParameterException } from '@aws-sdk/client-cognito-identity-provider';
 import { prisma } from '../config/prisma'
 import { cognito } from '../config/cognito';
 import { ServerError } from '../middleware/errorMiddleware';
-import { ConfirmSignUpDTO, LoginDTO, SignUpDTO } from '@geoapp/types';
-import 'dotenv'
+import { ConfirmSignUpDTO, LoginDTO, ResendCodeDTO, SignUpDTO } from '@geoapp/types';
+import { env } from '../schemas/env';
 
 
 
@@ -13,7 +13,7 @@ export async function signUp(req: Request, res: Response) {
   const { email, username, password } = req.body as SignUpDTO;
 
   const command = new SignUpCommand({
-    ClientId: process.env.COGNITO_CLIENT_ID,
+    ClientId: env.COGNITO_CLIENT_ID,
     Username: email,
     Password: password,
     UserAttributes: [{ Name: 'email', Value: email }],
@@ -42,7 +42,7 @@ export async function confirmSignUp(req: Request, res: Response) {
   const { email, confirmationCode } = req.body as ConfirmSignUpDTO;
 
   const command = new ConfirmSignUpCommand({
-    ClientId: process.env.COGNITO_CLIENT_ID,
+    ClientId: env.COGNITO_CLIENT_ID,
     Username: email,
     ConfirmationCode: confirmationCode,
   });
@@ -62,7 +62,7 @@ export async function login(req: Request, res: Response) {
 
   const command = new InitiateAuthCommand({
     AuthFlow: 'USER_PASSWORD_AUTH',
-    ClientId: process.env.COGNITO_CLIENT_ID,
+    ClientId: env.COGNITO_CLIENT_ID,
     AuthParameters: {
       USERNAME: email,
       PASSWORD: password,
@@ -87,6 +87,31 @@ export async function login(req: Request, res: Response) {
   } catch (error) {
     console.error('Login error:', error);
     throw new ServerError(401, 'Invalid email or password');
+  }
+}
+
+export async function resendCode(req: Request, res: Response) {
+  const { email } = req.body as ResendCodeDTO;
+
+  const command = new ResendConfirmationCodeCommand({
+    ClientId: env.COGNITO_CLIENT_ID,
+    Username: email,
+  });
+
+  try {
+    await cognito.send(command);
+    return res.status(200).json({ message: 'Confirmation code resent successfully' });
+  } catch (error) {
+    if (error instanceof UserNotFoundException) {
+      
+      return res.status(200).json({ message: 'If an account exists, a code has been sent' });
+    }
+    if (error instanceof InvalidParameterException) {
+      
+      throw new ServerError(400, 'This account is already confirmed');
+    }
+    console.error('Error resending confirmation code:', error);
+    throw new ServerError(400, 'Error resending confirmation code');
   }
 }
 

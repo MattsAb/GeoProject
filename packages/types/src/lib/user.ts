@@ -24,6 +24,7 @@ export interface SignUpDTO {
 
 export interface ConfirmSignUpDTO {
     email: string,
+    username: string,
     confirmationCode: string,
 }
 

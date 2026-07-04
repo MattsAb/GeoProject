@@ -11,3 +11,7 @@ export interface AuthResponse {
     idToken: string
     user: User
 }
+
+export interface ResendCodeDTO {
+    email: string
+}

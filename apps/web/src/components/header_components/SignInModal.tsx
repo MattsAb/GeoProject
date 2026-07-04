@@ -8,13 +8,14 @@ type SignInModalProps = {
     setConfirm: () => void;
     email: string;
     password: string;
+    username: string;
     setEmail: (userEmail: string) => void;
     setPassword: (userPassword: string) => void;
+    setUsername: (userUsername: string) => void;
 
 }
 
-function SignInModal({onClose, setConfirm, email, password, setEmail, setPassword}: SignInModalProps) {
-    const [username, setUsername] = useState('');
+function SignInModal({onClose, setConfirm, email, password, username, setEmail, setPassword, setUsername}: SignInModalProps) {
     const [isSigned, setIsSigned] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
 

@@ -11,6 +11,7 @@ function AuthModal({open, onClose}: SignInModalProps) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const [confirm, setConfirm] = useState(false);
 
     if (!open) return null
@@ -24,17 +25,19 @@ function AuthModal({open, onClose}: SignInModalProps) {
                     setConfirm={() => setConfirm(true)}
                     email={email}
                     password={password}
+                    username={username}
                     setEmail={setEmail}
                     setPassword={setPassword}
+                    setUsername={setUsername}
                 />) :
 
                 (<EmailConfirmationModal
                     onClose={() => onClose()}
                     password={password}
                     email={email}
+                    username={username}
                 />)
             }
-
 
         </div>
     )
