@@ -12,7 +12,7 @@ import { DeleteObjectsCommand } from '@aws-sdk/client-s3';
 
 export async function signUp(req: Request, res: Response) {
   
-  const { email, username, password } = req.body as SignUpDTO;
+  const { email, password } = req.body as SignUpDTO;
 
   const command = new SignUpCommand({
     ClientId: env.COGNITO_CLIENT_ID,
@@ -22,16 +22,7 @@ export async function signUp(req: Request, res: Response) {
   });
 
   try {
-    const data = await cognito.send(command);
-
-        await prisma.user.create({
-      data: {
-        email,
-        username,
-        provider: 'cognito',
-        providerId: data.UserSub!,
-      },
-    });
+    await cognito.send(command);
 
     res.status(201).json({ success: true });
   } catch (error) {
@@ -41,7 +32,7 @@ export async function signUp(req: Request, res: Response) {
 }
 
 export async function confirmSignUp(req: Request, res: Response) {
-  const { email, confirmationCode } = req.body as ConfirmSignUpDTO;
+  const { email, username, confirmationCode } = req.body as ConfirmSignUpDTO;
 
   const command = new ConfirmSignUpCommand({
     ClientId: env.COGNITO_CLIENT_ID,
@@ -51,6 +42,29 @@ export async function confirmSignUp(req: Request, res: Response) {
 
   try {
     await cognito.send(command);
+
+    const cognitoUser = await cognito.send(
+      new (await import('@aws-sdk/client-cognito-identity-provider')).AdminGetUserCommand({
+        UserPoolId: env.COGNITO_USER_POOL_ID,
+        Username: email,
+      })
+    );
+
+    const sub = cognitoUser.UserAttributes?.find((attr) => attr.Name === 'sub')?.Value;
+
+    if (!sub) {
+      throw new ServerError(500, 'Could not retrieve user identity after confirmation');
+    }
+
+    await prisma.user.create({
+      data: {
+        email,
+        username,
+        provider: 'cognito',
+        providerId: sub,
+      },
+    });
+
     res.status(200).json({ message: 'User confirmed successfully' });
   } catch (error) {
     console.error('Error confirming user:', error);
