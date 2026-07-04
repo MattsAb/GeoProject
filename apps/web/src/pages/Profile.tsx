@@ -91,13 +91,14 @@ function Profile () {
                     <h1> {profile?._count?.posts ? profile?._count?.posts : 0}</h1>
                     <h1> Posts </h1>
                 </div>
-                { profile?.posts && <div className="columns-2 md:columns-3 lg:columns-4 gap-4 w-full">
+                { profile?.posts && <div className="flex gap-4 w-full">
                     
                         {profile.posts.map((post) => (
                             <ImageComponent
                             key={post.id}
                             location={post.countryCode}
                             photoUrl={post.photoUrl}
+                            countryCode={post.countryCode}
                             username={post.user.username}
                             likes={post._count?.likes || 0}
                             id={post.id}
