@@ -63,6 +63,14 @@ function SignInModal({onClose, setConfirm, email, password, username, setEmail, 
                 > x </button>
             </div>
 
+            <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(v) => setEmail(v.target.value)}
+                className="w-full px-4 py-2 border rounded-lg mb-3 border-slate-700"
+            />
+
             {
                 !isSigned && <input
                     type="username"
@@ -72,14 +80,6 @@ function SignInModal({onClose, setConfirm, email, password, username, setEmail, 
                     className="w-full px-4 py-2 border rounded-lg mb-3 dark:border-slate-700" 
                 />
             }
-
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(v) => setEmail(v.target.value)}
-                className="w-full px-4 py-2 border rounded-lg mb-3 border-slate-700"
-            />
             
             <input
                 type="password"

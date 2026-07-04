@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { confirmSignUp, getMe, login, resendCode, signUp } from '../controllers/authController';
+import { confirmSignUp, deleteAccount, getMe, login, resendCode, signUp } from '../controllers/authController';
 import { validate } from '../middleware/validationMiddleware';
 import { confirmSignUpSchema, loginSchema, resendCodeSchema, signupSchema } from '../schemas/auth.schema';
 import { authMiddleware } from '../middleware/authMiddleware';
@@ -30,6 +30,16 @@ router.get(
     getMe
 );
 
-router.post('/resend', validate(resendCodeSchema), resendCode);
+router.post(
+    '/resend',
+    validate(resendCodeSchema),
+    resendCode
+);
+
+router.delete(
+    '/',
+    authMiddleware,
+    deleteAccount
+);
 
 export default router

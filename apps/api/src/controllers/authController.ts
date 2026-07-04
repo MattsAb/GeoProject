@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
-import { SignUpCommand, ConfirmSignUpCommand, InitiateAuthCommand, ResendConfirmationCodeCommand, UserNotFoundException, InvalidParameterException } from '@aws-sdk/client-cognito-identity-provider';
+import { SignUpCommand, ConfirmSignUpCommand, InitiateAuthCommand, ResendConfirmationCodeCommand, UserNotFoundException, InvalidParameterException, AdminDeleteUserCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { prisma } from '../config/prisma'
 import { cognito } from '../config/cognito';
 import { ServerError } from '../middleware/errorMiddleware';
 import { ConfirmSignUpDTO, LoginDTO, ResendCodeDTO, SignUpDTO } from '@geoapp/types';
 import { env } from '../schemas/env';
+import { s3 } from '../config/s3';
+import { DeleteObjectsCommand } from '@aws-sdk/client-s3';
 
 
 
@@ -118,4 +120,55 @@ export async function resendCode(req: Request, res: Response) {
 export async function getMe(req: Request, res: Response) {
   if (!req.user) throw new ServerError(401, 'Unauthorized');
   res.status(200).json(req.user);
+}
+
+export async function deleteAccount(req: Request, res: Response) {
+  if (!req.user) throw new ServerError(401, 'Unauthorized');
+  const userId = req.user.id;
+
+  const user = await prisma.user.findUnique({
+    where: {id: userId}
+  })
+
+  if (!user) { throw new ServerError(404, "User not found")}
+
+  const posts = await prisma.post.findMany({
+    where: { userId },
+    select: { photoUrl: true },
+  });
+
+  const keysToDelete: string[] = [];
+
+  for (const post of posts) {
+    const key = post.photoUrl.split('.amazonaws.com/')[1];
+    if (key) keysToDelete.push(key);
+  }
+
+  if (user.avatarUrl) {
+    const avatarKey = user.avatarUrl.split('.amazonaws.com/')[1];
+    if (avatarKey) keysToDelete.push(avatarKey);
+  }
+
+  if (keysToDelete.length > 0) {
+    await s3.send(new DeleteObjectsCommand({
+      Bucket: env.AWS_BUCKET_NAME,
+      Delete: {
+        Objects: keysToDelete.map((Key) => ({ Key })),
+      },
+    }));
+  }
+
+  try {
+    await cognito.send(new AdminDeleteUserCommand({
+      UserPoolId: env.COGNITO_USER_POOL_ID,
+      Username: req.user.email,
+    }));
+  } catch (err) {
+    console.error('Failed to delete Cognito user:', err);
+    throw new ServerError(500, 'Failed to delete account. Please try again.');
+  }
+
+  await prisma.user.delete({ where: { id: userId } });
+
+  res.status(200).json({ message: 'Account deleted successfully' });
 }

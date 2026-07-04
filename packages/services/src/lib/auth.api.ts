@@ -69,3 +69,13 @@ export async function resendCode(email: string): Promise<ApiResponse<{ message: 
     return handleError(err);
   }
 }
+
+export async function deleteUser(): Promise<ApiResponse<null>> {
+  try {
+    await api.delete<{ message: string }>('/v1/auth/');
+    return { success: true };
+  } catch (err) {
+    return handleError(err);
+  }
+
+}

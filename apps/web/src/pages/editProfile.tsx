@@ -4,7 +4,8 @@ import SimpleButton from "../components/simple_components/SimpleButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent"
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { editUserProfile, getUserProfile } from "@geoapp/services";
+import { deleteUser, editUserProfile, getUserProfile } from "@geoapp/services";
+import DeleteButton from "../components/simple_components/DeleteButton";
 
 
 function EditProfile () {
@@ -15,7 +16,7 @@ function EditProfile () {
     const [preview, setPreview] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const {user, setUser} = useAuth();
+    const {user, setUser, logout} = useAuth();
     const navigate = useNavigate();
 
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -49,13 +50,25 @@ function EditProfile () {
         }
     }
 
-    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0] ?? null
-    setImageFile(file)
-    if (file) {
-        setPreview(URL.createObjectURL(file))
+    async function handleDelete() {
+        const result = await deleteUser();
+
+        if (result.success) {
+            logout();
+            window.location.reload();
+            navigate('/');
+        } else {
+            setErrorMessage(errorMessage);
+        }
     }
-}
+
+    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0] ?? null
+        setImageFile(file)
+        if (file) {
+            setPreview(URL.createObjectURL(file))
+        }
+    }
 
     return (
         <div className="w-full h-full justify-center flex items-center">
@@ -97,7 +110,14 @@ function EditProfile () {
                         <SimpleButton label="Update" onClick={() => handleEdit()} mode='brand'/>
                     </div>
 
+                    <div className="self-end w-full">
+                        <DeleteButton 
+                            label="Delete Account"
+                            onDelete={() => handleDelete()}
+                        />
+                    </div>
                 </div>
+
             </div>
         </div>
     )
