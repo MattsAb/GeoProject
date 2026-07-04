@@ -8,7 +8,6 @@ import { useAuth } from "../context/AuthContext";
 import { getUserProfile } from "../services/profile.api";
 import { followUser, unfollowUser } from "../services/follow.api";
 
-
 function Profile () {
 
     const [profile, setProfile] = useState<ProfileType>()
@@ -62,16 +61,17 @@ function Profile () {
         else if (result.error) {
             setErrorMessage(result.error)
         }
-        
     }
 
     return (
         <div 
             className="w-full flex flex-col"
             >
-            
+            {/* Banner */}
             <div className="w-full dark:bg-mist-800 py-15 flex gap-10 shadow-2xl">
+
                 { <> <img src={profile?.avatarUrl} className="w-30 h-30 lg:ml-10 ml-4  rounded-full"/>
+                
                 <div className="flex flex-col gap-5 w-1/3 justify-center">
                     <h1 className="font-bold text-2xl"> {profile?.username} </h1>
                     <div className="flex flex-col gap-5 items-center self-start">
@@ -88,11 +88,14 @@ function Profile () {
                 <ErrorMessageComponent message={errorMessage}/>
             </div>
 
+            {/* Posts */}
             <div className="w-full lg:w-3/4 dark:bg-mist-800 h-full self-center mt-10 p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
+
                 <div className="flex gap-2 items-center font-bold text-2xl">
                     <h1> {profile?._count?.posts ? profile?._count?.posts : 0}</h1>
                     <h1> Posts </h1>
                 </div>
+
                 { profile?.posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     
                         {profile.posts.map((post) => (

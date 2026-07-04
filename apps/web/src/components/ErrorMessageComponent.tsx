@@ -1,9 +1,6 @@
-
-
 type ErrorMessageProps = {
     message: string,
 }
-
 
 function ErrorMessageComponent ({message}: ErrorMessageProps) {
     if (message == '') return null;

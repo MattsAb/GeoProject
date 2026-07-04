@@ -5,7 +5,6 @@ import { getFeed } from "../services/post.api";
 import FeedPostComponent from "../components/FeedPostComponent";
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 
-
 function Dashboard() {
   
     const [feed, setFeed] = useState<Post[]>()

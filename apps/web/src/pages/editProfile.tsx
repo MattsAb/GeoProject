@@ -59,8 +59,10 @@ function EditProfile () {
 
     return (
         <div className="w-full h-full justify-center flex items-center">
-            <div className=" w-3/4 h-full lg:border-x dark:border-mist-700 lg:px-10">
+            <div className=" w-3/4 h-full lg:px-10">
                 <div className="dark:bg-mist-800 justify-center flex mt-20 flex-col gap-5 p-10 rounded-xl">
+
+                    {/* Avatar Image */}
                     <div className="flex gap-5 items-center">
 
                         <img className="w-25 h-25 rounded-full" src={preview ? preview : avatar}/>
@@ -72,13 +74,15 @@ function EditProfile () {
                             accept="image/*"
                             onChange={handleFileChange}
                         />
+
                         <div className="flex flex-col gap-4">
                             <h1 className="text-2xl font-bold"> {profile?.username} </h1>
                             <SimpleButton label="Change Avatar" onClick={() => fileInputRef.current?.click()}/>
                         </div>
 
                     </div>
-                    
+
+                    {/* Bio */}
                     <textarea 
                         placeholder="description"
                         rows={2} 
@@ -86,10 +90,13 @@ function EditProfile () {
                         value={bio}
                         onChange={e => setBio(e.target.value)}
                     />
+
                     <ErrorMessageComponent message={errorMessage}/>
+
                     <div className="flex self-end">
-                        <SimpleButton label="Update" onClick={() => handleEdit()} mode='artylic'/>
+                        <SimpleButton label="Update" onClick={() => handleEdit()} mode='brand'/>
                     </div>
+
                 </div>
             </div>
         </div>

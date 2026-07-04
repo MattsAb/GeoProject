@@ -1,6 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { HandThumbUpIcon } from '@heroicons/react/24/solid';
-import { HandThumbUpIcon  as HandThumbUpIconOutline} from "@heroicons/react/24/outline";
+import { useParams } from "react-router-dom";
 import SimpleButton from "../components/SimpleButton";
 import { useEffect, useState } from "react";
 import CommentComponent from "../components/CommentComponent";
@@ -9,7 +7,7 @@ import type { Post } from "@geoapp/types";
 import { getPost } from "../services/post.api";
 import { likePost, unlikePost } from "../services/like.api";
 import { postComment } from "../services/comment.api";
-import ErrorMessageComponent from "../components/ErrorMessageComponent";
+import PostInfoComponent from "../components/postPageComponents/PostInfoComponent";
 
 function PostPage () {
 
@@ -22,7 +20,6 @@ function PostPage () {
     const [errorMessage, setErrorMessage] = useState('');
 
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const {user, isLoading, isAuthenticated} = useAuth();
     
@@ -84,49 +81,26 @@ function PostPage () {
         }
     }
 
-    const goToProfile = () => navigate(`/profile/${postInfo?.userId}`)
-    const goToEdit = () => navigate(`/edit/${id}`);
+
 
     return (
         <div className="flex mt-10">
             <div className="flex-3 px-5 flex items-center justify-center">
                 <div className="py-10 px-5 dark:bg-mist-800 rounded-2xl flex flex-col gap-3 w-full xl:w-2/3 "> 
-                    <img src={postInfo?.photoUrl} className="w-full object-contain max-h-200 rounded dark:bg-mist-900 bg-mist-100" />
-                    <ErrorMessageComponent message={errorMessage}/>
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="flex items-center gap-1 self-start">
-                            <button 
-                                onClick={() => goToProfile()}
-                                className="bg-mist-500 p-0.5 rounded-full cursor-pointer"
-                            >
-                                <img 
-                                    className="w-12 h-12 rounded-full"
-                                    src={postInfo?.user.avatarUrl}
-                                />
-                            </button>
 
-                            <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
-                        </div>
+                {/* Post Information */}
+                <PostInfoComponent
+                    postInfo={postInfo}
+                    id={id}
+                    errorMessage={errorMessage}
+                    isAuth={isAuthenticated}
+                    isLiked={isLiked}
+                    postLikes={postLikes}
+                    canEdit={canEdit}
+                    handleLike={() => handleLike()}
+                />
 
-                            <button
-                                disabled={!isAuthenticated}
-                                className="dark:bg-mist-700 py-1 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
-                                onClick={() => handleLike()}
-                            >
-                                {!isLiked ? (<HandThumbUpIconOutline className={`h-6 w-6`}/>) : (<HandThumbUpIcon className={`h-6 w-6`}/> )}
-                                <h2 className="font-bold text-xl">{postLikes}</h2>
-                            </button>
-
-                    </div>
-
-                    <p>{postInfo?.description}</p>
-
-                    { canEdit && <div className="self-end">
-                        <SimpleButton 
-                            onClick={() => goToEdit()}
-                            label="Edit post"
-                        />
-                    </div>}
+                {/* post Comment */}
                 <div className="mt-10">
                    {  isAuthenticated && <div className="dark:bg-mist-800 rounded-2xl p-5 flex flex-col gap-5">
                         <h1 className="text-2xl ml-5"> Leave a comment </h1>
@@ -142,6 +116,8 @@ function PostPage () {
                         </div>}
                     </div>}
 
+
+                    {/* Comments */}
                     <div className="mt-10">
 
                      <div className="flex items-center text-2xl ml-5 gap-3">

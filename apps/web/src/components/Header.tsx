@@ -40,6 +40,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
         }
     };
 
+    //Search on small Screen
     if (toggleSearch && isSmallScreen) return (
         <div className="fixed left-0 right-0 text-black dark:text-white dark:bg-mist-900 bg-gray-50 h-14 flex z-50 border-b border-mist-700">
             <div className="px-5 flex w-full gap-2 items-center">
@@ -68,6 +69,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
 
   return (
     <div className="fixed left-0 right-0 text-black dark:text-white dark:bg-mist-900 bg-gray-50 h-14 flex z-50 border-b border-mist-700">
+        {/* Left side */}
         <div className="flex w-full items-center ml-5 gap-4">
             <button 
                 className="hover:bg-mist-200 dark:hover:bg-mist-700 w-10 h-10 rounded-full p-1 items-center cursor-pointer"
@@ -81,6 +83,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             > Geoapp </button>
         </div> 
 
+        {/* Search */}
         <div className="flex w-full items-center justify-center">
 
             <input className="border dark:border-mist-800 sm:flex hidden border-mist-300 bg-white dark:bg-mist-900 w-full h-10 items-center rounded-3xl px-5"
@@ -97,6 +100,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             </button>
         </div>
 
+        {/* Right side */}
         <div className="flex w-full items-center justify-end mr-5 gap-5">
 
             

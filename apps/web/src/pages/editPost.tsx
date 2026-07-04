@@ -21,7 +21,6 @@ function EditPost () {
     const {id} = useParams();
 
         useEffect(() => {
-    
             async function getInfo() {
                 if (!id) {
                     return;
@@ -70,6 +69,7 @@ function EditPost () {
 
     return (
         <div className="flex w-full justify-center">
+
             <div className="dark:bg-mist-800 mx-5 w-full xl:w-2/3 rounded-2xl p-10 flex flex-col gap-10 mt-10">
                 <div className="flex items-center justify-between">
                     <h1 className="font-bold text-2xl"> Edit post </h1>
@@ -78,7 +78,7 @@ function EditPost () {
                         onDelete={() => handleDelete()}
                     />
                 </div>
-                
+                    {/* Post Image */}
                     <div className="flex flex-col mt-10 gap-5">
                           <>
                             <input
@@ -96,7 +96,7 @@ function EditPost () {
                         </>
                     </div>
 
-                
+                        {/* Country Picker */}
                         <CountryPicker
                             onChange={e => {
                                 setCountryCode(e)
@@ -104,7 +104,8 @@ function EditPost () {
                             value={countryCode}
                         />
                     <div>
-                        
+
+                    {/* Post Description */}
                     <div>
                         <h2 className="text-xl"> Description </h2>
                         <textarea 
@@ -120,7 +121,7 @@ function EditPost () {
                     <ErrorMessageComponent message={errorMessage}/>
 
                     <div className="flex self-end ">
-                        <SimpleButton label="Edit post" onClick={() => handleEdit()} mode='artylic'/>
+                        <SimpleButton label="Edit post" onClick={() => handleEdit()} mode='brand'/>
                     </div>
                 </div>
             </div>

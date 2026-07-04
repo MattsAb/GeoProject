@@ -42,10 +42,11 @@ function CreatePost () {
     }
 
     return (
-        <div className="w-full flex justify-center h-full">
-            <div className="h-full md:w-2/3 xl:w-1/2 w-full flex justify-center px-5 border-x dark:border-mist-700">
+        <div className="w-full flex justify-center">
+            <div className="h-full md:w-2/3 xl:w-1/2 w-full flex justify-center px-5">
                 <div className="dark:bg-mist-800 w-full rounded-2xl p-10 flex flex-col gap-10 mt-10">
                     <h1 className="font-bold text-2xl"> Create your post </h1>
+                        {/* Post Image */}
                         <div className="flex flex-col mt-10 gap-5">
                             <>
                                 <input
@@ -62,20 +63,15 @@ function CreatePost () {
                                 {imageFile && <img src={preview} className="w-full object-contain max-h-150 dark:bg-mist-900 bg-mist-200" />}
                             </>
                         </div>
+                            {/* Country Picker */}
                             <CountryPicker
                                 onChange={e => {
                                     setCountryCode(e)
                                 }}
                                 value={countryCode}
                             />
-                        <div>
-
-                            <input
-                                type=""
-                            />
-
-                        </div>
-
+     
+                        {/* Post Description */}
                         <div className="">
                             <h2 className="text-xl"> Description </h2>
                             <textarea 
@@ -94,7 +90,7 @@ function CreatePost () {
                             <SimpleButton 
                                 label="Create" 
                                 onClick={() => handleSubmit()}
-                                mode='artylic'
+                                mode='brand'
                             />
                         </div>
                 </div>
