@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, Bars3Icon, PlusIcon, ArrowLeftIcon } from '@heroicons/react/16/solid';
 import HeaderOptionsComponent from "./HeaderOptionsComponent";
 import { useAuth } from "../context/AuthContext";
+import EmailConfirmationModal from "./EmailConfirmationModal";
+import AuthModal from "./AuthModal";
 
 type headerProps = {
     setSidebarOpen: (stage: boolean) => void;
@@ -12,7 +14,7 @@ type headerProps = {
 
 function Header({setSidebarOpen, isOpen}: headerProps) {
 
-    const [signInOpen, setSignInOpen] = useState(false);
+    const [authOpen, setAuthOpen] = useState(false);
     const [openOptions, setOpenOptions] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [toggleSearch, setToggleSearch] = useState(false);
@@ -97,7 +99,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             
             { !isAuthenticated ? ( <button
                 className="font-bold cursor-pointer"
-                onClick={() => setSignInOpen(true)}
+                onClick={() => setAuthOpen(true)}
             > Sign In </button> ) : (
             <> 
                 <button
@@ -124,7 +126,10 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             </>
             )}
         </div>
-            <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)}/>
+            <AuthModal
+                onClose={() => setAuthOpen(false)}
+                open={authOpen}
+            />
     </div>
   )
 

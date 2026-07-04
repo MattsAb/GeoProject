@@ -9,7 +9,7 @@ import 'dotenv'
 
 
 export async function signUp(req: Request, res: Response) {
-    console.log(req.body);
+  
   const { email, username, password } = req.body as SignUpDTO;
 
   const command = new SignUpCommand({
@@ -27,13 +27,12 @@ export async function signUp(req: Request, res: Response) {
         email,
         password,
         username,
-        countryCode: "LT",
         provider: 'cognito',
         providerId: data.UserSub!,
       },
     });
 
-    res.status(201).json({ message: 'User created successfully', data });
+    res.status(201).json({ success: true });
   } catch (error) {
     console.error('Cognito signUp error:', error);
     throw new ServerError(400, 'Error signing up');

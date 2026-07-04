@@ -23,17 +23,13 @@ export async function login({email, password}: LoginDTO): Promise<ApiResponse<Au
 export async function register({email, username, password}: SignUpDTO): Promise<ApiResponse<AuthResponse>> {
 
     try {
-        const response = await api.post<AuthResponse>('/v1/auth/signup', {
+        await api.post<AuthResponse>('/v1/auth/signup', {
             email,
             username,
             password
         })
 
-        if (response.data) {
-            localStorage.setItem('idToken', response.data.idToken);
-            getMe();
-        }
-        return {success: true, data: response.data}
+        return {success: true}
 
     } catch (err) {
         return handleError(err);
@@ -47,4 +43,19 @@ export async function getMe(): Promise<ApiResponse<User>> {
   } catch (err) {
     return handleError(err);
   }
+}
+
+export async function confirmEmail(code: string, email: string, password: string): Promise<ApiResponse<AuthResponse>> {
+    try {
+            await api.post<AuthResponse>('/v1/auth/confirm', {
+            confirmationCode: code,
+            email
+        })
+
+        return await login({email, password})
+
+    } catch (err) {
+        return handleError(err);
+    }
+
 }

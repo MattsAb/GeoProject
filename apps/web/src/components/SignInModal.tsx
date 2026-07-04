@@ -4,45 +4,49 @@ import { login, register } from "../services/auth.api";
 import { useAuth } from "../context/AuthContext";
 
 type SignInModalProps = {
-    open: boolean
-    onClose: () => void
+    onClose: () => void;
+    setConfirm: () => void;
+    email: string;
+    password: string;
+    setEmail: (userEmail: string) => void;
+    setPassword: (userPassword: string) => void;
+
 }
 
-function SignInModal({open, onClose}: SignInModalProps) {
-
+function SignInModal({onClose, setConfirm, email, password, setEmail, setPassword}: SignInModalProps) {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [isSigned, setIsSigned] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const {loginUser} = useAuth();
 
- async function handleSginIn () {
+    async function handleSginUp () {
 
-        let result;
-        if (isSigned) {
-            result = await login({ email, password })
-        }
-        else
-        {
-            result = await register({username, email, password})
+        const result = await register({email, username, password});
+
+        if (result.success) {
+            setConfirm();
+        } else if (result.error) {
+            setErrorMessage(result.error);
         }
 
-        if (result.success && result.data) {
-            setEmail('');
-            setUsername('');
-            setPassword('');
-            onClose();
-            loginUser(result.data.idToken, result.data.user);
-        } else {
-            if (result.error)
-            {
-                setErrorMessage(result.error)
-            }
-        }
     }
 
+    async function handleLogin () {
+
+        const result = await login({email, password});
+
+        if (result.success && result.data) {
+            setEmail("");
+            setPassword("");
+            setUsername("");
+            loginUser(result.data?.idToken, result.data?.user);
+            onClose();
+        } else if (result.error) {
+            setErrorMessage(result.error);
+        }
+
+    }
 
     if (!open) return null
 
@@ -90,11 +94,15 @@ function SignInModal({open, onClose}: SignInModalProps) {
             className="text-blue-400 active:text-blue-300 mb-4 cursor-pointer"
             onClick={() => setIsSigned(!isSigned)}
             >
-                Don't have an account?
+                {isSigned ? "Don't have an account?" : "Already have an account?"}
             </button>
             <button 
                 className="w-full bg-sky-500 active:bg-sky-400 text-white py-2 rounded-lg font-medium cursor-pointer"
-                onClick={() => handleSginIn()}
+                onClick={() => {     
+                    if (isSigned) {
+                        handleLogin()
+                    } else {handleSginUp()}  
+                }}
             >
                 {isSigned ? "Log in" : "Sign in"}
             </button>
