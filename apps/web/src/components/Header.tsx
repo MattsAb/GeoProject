@@ -106,7 +106,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             > Sign In </button> ) : (
             <> 
                 <button
-                    className="font-semibold cursor-pointer text-white outline-1 outline-orange-600  hover:bg-orange-600 px-1 py-1 rounded-2xl flex items-center" 
+                    className="font-semibold cursor-pointer text-black dark:text-white outline-1 outline-orange-600  hover:bg-orange-600 px-1 py-1 rounded-2xl flex items-center" 
                     onClick={() => goToCreate()}
                 >  
                         <PlusIcon className="w-6 h-6"/>

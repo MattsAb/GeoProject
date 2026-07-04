@@ -88,10 +88,10 @@ function PostPage () {
     const goToEdit = () => navigate(`/edit/${id}`);
 
     return (
-        <div className="flex shadow-2xl mt-10 dark:shadow-none">
+        <div className="flex mt-10">
             <div className="flex-3 px-5 flex items-center justify-center">
                 <div className="py-10 px-5 dark:bg-mist-800 rounded-2xl flex flex-col gap-3 w-full xl:w-2/3 "> 
-                    <img src={postInfo?.photoUrl} className="w-full object-contain max-h-200 rounded dark:bg-mist-900 bg-mist-200" />
+                    <img src={postInfo?.photoUrl} className="w-full object-contain max-h-200 rounded dark:bg-mist-900 bg-mist-100" />
                     <ErrorMessageComponent message={errorMessage}/>
                     <div className="flex flex-col items-center gap-3">
                         <div className="flex items-center gap-1 self-start">
