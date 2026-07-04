@@ -1,11 +1,61 @@
-import PostComponent from "../components/PostComponent"
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import type { Post } from "@geoapp/types";
+import { getFeed } from "../services/post.api";
+import FeedPostComponent from "../components/FeedPostComponent";
+import ErrorMessageComponent from "../components/ErrorMessageComponent";
 
 
 function Dashboard() {
   
+    const [feed, setFeed] = useState<Post[]>()
+    const [errorMessage, setErrorMessage] = useState(''); 
+    
+    const {user} = useAuth();
+
+   useEffect(() => {
+    async function getFeedInfo() {
+      if (!user)  {
+        setFeed(undefined);
+        return
+      }
+      const result = await getFeed() 
+
+      if (result.success && result.data)
+      {
+        console.log(result.data);
+        setFeed(result.data)
+      } else if (result.error) {
+        setErrorMessage(result.error)
+      }
+    }
+    getFeedInfo();
+      },[user?.id])
+
+  
 
   return (
-    <div className="p-10">
+    <div className="flex flex-wrap gap-4 w-full">
+
+      <h1 className="font-semibold text-2xl pl-10 pt-5"> People traveling </h1>
+      <ErrorMessageComponent message={errorMessage}/>
+
+        { feed && <div className="px-10 pt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        
+            {feed.map((post) => (
+                <FeedPostComponent
+                key={post.id}
+                photoUrl={post.photoUrl}
+                countryCode={post.countryCode}
+                avatar={post.user.avatarUrl}
+                username={post.user.username}
+                likes={post._count?.likes || 0}
+                id={post.id}
+                userId={post.userId}
+                />
+            ))}
+            
+        </div>} 
         
     </div>
   )

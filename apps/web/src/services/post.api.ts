@@ -53,3 +53,13 @@ export async function deletePost(id: string): Promise<ApiResponse<null>> {
         return handleError(err);
     }
 }
+
+export async function getFeed(): Promise<ApiResponse<Post[]>>{
+    try{
+        const response = await api.get<ApiResponse<Post[]>>(`/v1/posts`)
+        return response.data
+
+    } catch (err) {
+        return handleError(err);
+    }
+}

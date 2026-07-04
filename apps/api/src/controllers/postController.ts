@@ -74,6 +74,7 @@ export async function editPost(req: Request, res: Response) {
         where: { id: postId },
         data: {
             ...(req.body.description !== undefined && { description: req.body.description }),
+            ...(req.body.countryCode !== undefined && { countryCode: req.body.countryCode }),
             ...(file && { photoUrl: file.location }),
         }
     })

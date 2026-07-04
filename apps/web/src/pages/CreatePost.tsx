@@ -4,6 +4,7 @@ import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../services/post.api";
 import { useAuth } from "../context/AuthContext";
+import CountryPicker from "../components/CountryPicker";
 
 function CreatePost () {
 
@@ -61,6 +62,20 @@ function CreatePost () {
                                 {imageFile && <img src={preview} className="w-full object-contain max-h-150 dark:bg-mist-900 bg-mist-200" />}
                             </>
                         </div>
+                            <CountryPicker
+                                onChange={e => {
+                                    setCountryCode(e)
+                                }}
+                                value={countryCode}
+                            />
+                        <div>
+
+                            <input
+                                type=""
+                            />
+
+                        </div>
+
                         <div className="">
                             <h2 className="text-xl"> Description </h2>
                             <textarea 

@@ -5,6 +5,7 @@ import {  useNavigate, useParams } from "react-router-dom";
 import type { Post } from "@geoapp/types";
 import DeleteButton from "../components/DeleteButton"
 import { deletePost, editPost, getPost } from "../services/post.api";
+import CountryPicker from "../components/CountryPicker";
 
 function EditPost () {
 
@@ -29,6 +30,7 @@ function EditPost () {
                 if (result.success && result.data) {
                     setPostInfo(result.data)
                     setDescrition(result.data.description)
+                    setCountryCode(result.data.countryCode)
                 } else if (result.error) {
                     setErrorMessage(result.error);
                 }
@@ -93,7 +95,17 @@ function EditPost () {
                             {<img src={preview ? preview : postInfo?.photoUrl} className="w-full object-contain max-h-150 bg-mist-200 dark:bg-mist-900" />}
                         </>
                     </div>
-                    <div className="">
+
+                
+                        <CountryPicker
+                            onChange={e => {
+                                setCountryCode(e)
+                            }}
+                            value={countryCode}
+                        />
+                    <div>
+                        
+                    <div>
                         <h2 className="text-xl"> Description </h2>
                         <textarea 
                             placeholder="description"
@@ -110,7 +122,7 @@ function EditPost () {
                     <div className="flex self-end ">
                         <SimpleButton label="Edit post" onClick={() => handleEdit()} mode='artylic'/>
                     </div>
-
+                </div>
             </div>
         </div>
     )

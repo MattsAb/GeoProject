@@ -86,17 +86,16 @@ function Profile () {
                 <ErrorMessageComponent message={errorMessage}/>
             </div>
 
-            <div className="w-full lg:w-3/4 md:w-4/5 dark:bg-mist-800 h-full self-center mt-10 p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
+            <div className="w-full lg:w-3/4 dark:bg-mist-800 h-full self-center mt-10 p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
                 <div className="flex gap-2 items-center font-bold text-2xl">
                     <h1> {profile?._count?.posts ? profile?._count?.posts : 0}</h1>
                     <h1> Posts </h1>
                 </div>
-                { profile?.posts && <div className="flex gap-4 w-full">
+                { profile?.posts && <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     
                         {profile.posts.map((post) => (
                             <ImageComponent
                             key={post.id}
-                            location={post.countryCode}
                             photoUrl={post.photoUrl}
                             countryCode={post.countryCode}
                             username={post.user.username}
