@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 export const createPostSchema = z.object({
   body: z.object({
-    description: z.string().min(1).max(500),
+    description: z.string().min(1, {error: "must provide a description"} ).max(150, {error: "description must be less than 150 characters"} ),
     countryCode: z
       .string()
-      .regex(/^[A-Z]{2}$/, 'Must be a valid ISO 3166-1 alpha-2 code'),
+      .regex(/^[A-Z]{2}$/, {error: 'Must be a valid ISO 3166-1 alpha-2 code'}),
   }),
 });
 

@@ -25,7 +25,6 @@ app.use('/api/v1/post/:postId/comments',authMiddleware, commentRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 
-
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });

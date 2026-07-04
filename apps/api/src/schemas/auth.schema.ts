@@ -2,13 +2,13 @@ import { z } from 'zod';
 
 export const signupSchema = z.object({
   body: z.object({
-    email: z.email(),
+    email: z.email({error: "please provide an email"}),
     username: z
       .string()
-      .min(3)
-      .max(30)
-      .regex(/^[a-zA-Z0-9_]+$/, 'Alphanumeric and underscores only'),
-    password: z.string().min(8),
+      .min(5, {error: "username must be atleast 5 charcters long"})
+      .max(30, {error: "username must be shorter than 30 chracaters long"})
+      .regex(/^[a-zA-Z0-9_]+$/, {error: 'Alphanumeric and underscores only'}),
+    password: z.string().min(8 , {error: 'password must be atleast 8 characters long'}),
   }),
 });
 
@@ -21,7 +21,7 @@ export const confirmSignUpSchema = z.object({
 
 export const loginSchema = z.object({
   body: z.object({
-    email: z.email(),
-    password: z.string().min(1),
+    email: z.email({error: "please provide an email"}),
+    password: z.string().min(8, {error: 'password must be atleast 8 characters long'}),
   }),
 });
