@@ -24,21 +24,22 @@ function PostPage () {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const {user} = useAuth();
+    const {user, isLoading, isAuthenticated} = useAuth();
     
     useEffect(() => {
 
         async function getInfo() {
-            if (!id) {
-                return;
-            }
+            if (!id) return;
+            if (!isLoading) return;
+
             setIsLiked(false)
             setCanEdit(false)
             const result = await getPost(id);
             if (result.success && result.data) {
                 setPostInfo(result.data);
                 setPostLikes(result.data._count?.likes || 0);
-                if(result.data.likes) setIsLiked(true);
+
+                if (result.data.likes?.length) setIsLiked(true);
                 if (result.data.userId == user?.id) setCanEdit(true);
 
             } else if (result.error) {
@@ -46,7 +47,7 @@ function PostPage () {
             }
         }
         getInfo();
-    },[id])
+    },[id, isLoading, user])
 
     async function handleComment() {
         if (userComment == '' || !id) return;
@@ -67,7 +68,7 @@ function PostPage () {
 
     async function handleLike() {
         if (!id) return;
-
+        console.log(isLiked)
         let result;
         if (!isLiked){
             result = await likePost(id);
@@ -106,13 +107,14 @@ function PostPage () {
 
                         <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
 
-                            <button className="dark:bg-mist-700 py-2 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
+                            <button
+                                disabled={!isAuthenticated}
+                                className="dark:bg-mist-700 py-2 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
                                 onClick={() => handleLike()}
                             >
                                 {!isLiked ? (<HandThumbUpIconOutline className={`h-6 w-6`}/>) : (<HandThumbUpIcon className={`h-6 w-6`}/> )}
                                 <h2 className="font-bold text-xl">{postLikes}</h2>
                             </button>
-
 
                     </div>
 
@@ -126,7 +128,7 @@ function PostPage () {
                     </div>}
                 </div>
                 <div className="mt-10">
-                    <div className="dark:bg-mist-800 rounded-2xl p-5 flex flex-col gap-5">
+                   {  isAuthenticated && <div className="dark:bg-mist-800 rounded-2xl p-5 flex flex-col gap-5">
                         <h1 className="text-2xl ml-5"> Leave a comment </h1>
                         <textarea 
                         onClick={() => setCommentMode(true)}
@@ -138,7 +140,7 @@ function PostPage () {
                             <SimpleButton label="Cancel" onClick={() => setCommentMode(false)}/>
                             <SimpleButton label="Comment" onClick={() => handleComment()}/>
                         </div>}
-                    </div>
+                    </div>}
 
                     <div className="mt-10">
 

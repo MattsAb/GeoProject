@@ -25,7 +25,10 @@ export async function createPost(req: Request, res: Response) {
 }
 
 export async function getPost(req: Request, res: Response) {
+    
     const postId = req.params.postId as string;
+    const userId = req.user?.id;
+
 
     const post = await prisma.post.findUnique({
         where: {id: postId},
@@ -40,7 +43,8 @@ export async function getPost(req: Request, res: Response) {
             },
             _count: {
                 select: {likes: true, comments: true}
-            }
+            },
+            likes: userId ? { where: { userId }, select: { id: true } } : false,
         }
     })
 

@@ -23,6 +23,7 @@ function EmailConfirmationModal({onClose, email, password}: EmailConfirmModalPro
         if (result.success && result.data) {
             loginUser(result.data.idToken, result.data.user);
             onClose();
+            window.location.reload();
         } else if (result.error) {
             setErrorMessage(errorMessage);
         }

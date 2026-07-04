@@ -42,6 +42,7 @@ function SignInModal({onClose, setConfirm, email, password, setEmail, setPasswor
             setUsername("");
             loginUser(result.data?.idToken, result.data?.user);
             onClose();
+            window.location.reload();
         } else if (result.error) {
             setErrorMessage(result.error);
         }

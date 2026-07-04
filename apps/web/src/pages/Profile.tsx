@@ -77,7 +77,7 @@ function Profile () {
                     <div className="flex gap-5 items-center">
                         { !ownProfile && <SimpleButton label={isfollowed ? "Unfollow" : "Follow"} onClick={() => handleFollow()}/>}
                         <p className="font-bold text-2xl"> Followers: </p>
-                        <p className="font-bold text-2xl"> {profile?._count.followers} </p>
+                        <p className="font-bold text-2xl"> {followerCount} </p>
                     </div>
                     <p className="overflow-auto wrap-break-word"> {profile?.bio} </p>
                 </div>

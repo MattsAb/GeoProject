@@ -40,3 +40,27 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     }
   }
 
+
+  export async function lightAuthMiddleware(req: Request, res: Response, next: NextFunction) {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return next();
+  }
+
+  try {
+    const payload = await verifier.verify(token, {
+      tokenUse: 'id',
+      clientId: env.COGNITO_CLIENT_ID,
+    });
+
+    const user = await prisma.user.findUnique({ where: { providerId: payload.sub } });
+    if (user) {
+      req.user = user;
+    }
+  } catch {
+        // no token
+  }
+
+  next();
+}

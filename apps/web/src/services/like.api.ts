@@ -16,6 +16,7 @@ export async function likePost(id: string): Promise<ApiResponse<null>> {
 
 export async function unlikePost(id: string): Promise<ApiResponse<null>> {
     try{
+        console.log(id)
         const response = await api.delete<ApiResponse<null>>(`/v1/post/${id}/like`)
 
         return response.data
