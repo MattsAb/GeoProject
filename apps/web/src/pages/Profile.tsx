@@ -3,7 +3,7 @@ import ImageComponent from "../components/PostComponent";
 import SimpleButton from "../components/SimpleButton"
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import { useParams } from "react-router-dom";
-import type { Profile } from "@geoapp/types";
+import type { ProfileType } from "@geoapp/types";
 import { useAuth } from "../context/AuthContext";
 import { getUserProfile } from "../services/profile.api";
 import { followUser, unfollowUser } from "../services/follow.api";
@@ -11,7 +11,7 @@ import { followUser, unfollowUser } from "../services/follow.api";
 
 function Profile () {
 
-    const [profile, setProfile] = useState<Profile>()
+    const [profile, setProfile] = useState<ProfileType>()
     const [ownProfile, setOwnProfile] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
     const [isfollowed, setIsFollowed] = useState(false);
@@ -71,13 +71,15 @@ function Profile () {
             >
             
             <div className="w-full dark:bg-mist-800 py-15 flex gap-10 shadow-2xl">
-                { <> <img src={profile?.avatarUrl} className="w-30 h-30 rounded-full ml-18"/>
+                { <> <img src={profile?.avatarUrl} className="w-30 h-30 lg:ml-10 ml-4  rounded-full"/>
                 <div className="flex flex-col gap-5 w-1/3 justify-center">
                     <h1 className="font-bold text-2xl"> {profile?.username} </h1>
-                    <div className="flex gap-5 items-center">
+                    <div className="flex flex-col gap-5 items-center self-start">
                         { !ownProfile && <SimpleButton label={isfollowed ? "Unfollow" : "Follow"} onClick={() => handleFollow()}/>}
-                        <p className="font-bold text-2xl"> Followers: </p>
-                        <p className="font-bold text-2xl"> {followerCount} </p>
+                        <div className="flex gap-2 self-start">
+                            <p className="font-bold"> Followers: </p>
+                            <p className="font-bold"> {followerCount} </p>
+                        </div>
                     </div>
                     <p className="overflow-auto wrap-break-word"> {profile?.bio} </p>
                 </div>
@@ -91,14 +93,13 @@ function Profile () {
                     <h1> {profile?._count?.posts ? profile?._count?.posts : 0}</h1>
                     <h1> Posts </h1>
                 </div>
-                { profile?.posts && <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                { profile?.posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     
                         {profile.posts.map((post) => (
                             <ImageComponent
                             key={post.id}
                             photoUrl={post.photoUrl}
                             countryCode={post.countryCode}
-                            username={post.user.username}
                             likes={post._count?.likes || 0}
                             id={post.id}
                             />

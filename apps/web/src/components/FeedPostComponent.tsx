@@ -21,7 +21,7 @@ function PostComponent ({photoUrl, username, countryCode, avatar, likes, id, use
     return (
         
         <div
-            className=" mb-4 flex relative rounded-lg overflow-hidden dark:bg-mist-800 bg-gray-100
+            className=" mb-4 flex relative rounded-lg overflow-hidden dark:bg-mist-800 bg-gray-100 max-w-150
             shadow-gray-400 dark:shadow-black shadow-2xl"
         >
 

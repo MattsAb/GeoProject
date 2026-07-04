@@ -69,8 +69,8 @@ function EditPost () {
     }
 
     return (
-        <div className="ml-18">
-            <div className="dark:bg-mist-800 mx-18 w-1/2 rounded-2xl p-10 flex flex-col gap-10">
+        <div className="flex w-full justify-center">
+            <div className="dark:bg-mist-800 mx-5 w-full xl:w-2/3 rounded-2xl p-10 flex flex-col gap-10 mt-10">
                 <div className="flex items-center justify-between">
                     <h1 className="font-bold text-2xl"> Edit post </h1>
                     <DeleteButton 

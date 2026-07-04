@@ -5,9 +5,9 @@ import Sidebar from "./components/sidebar_components/Sidebar"
 import PostPage from "./pages/PostPage";
 import CreatePost from "./pages/CreatePost";
 import { useState } from "react";
-import Profile from "./pages/Profile";
 import EditPost from "./pages/editPost";
 import EditProfile from "./pages/editProfile";
+import Profile from "./pages/Profile";
 
 function App() {
 

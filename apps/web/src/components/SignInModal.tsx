@@ -53,8 +53,7 @@ function SignInModal({onClose, setConfirm, email, password, setEmail, setPasswor
 
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div className=" dark:bg-mist-900 bg-gray-50 rounded-xl p-8 w-full max-w-md">
+        <div className=" dark:bg-mist-900 bg-gray-50 rounded-xl mx-4 p-8 w-full max-w-md">
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold">{isSigned ? "Log in" : "Sign in"}</h2>
                 <button 
@@ -107,7 +106,6 @@ function SignInModal({onClose, setConfirm, email, password, setEmail, setPasswor
             >
                 {isSigned ? "Log in" : "Sign in"}
             </button>
-        </div>
         </div>
     )
 }

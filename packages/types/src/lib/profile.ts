@@ -1,6 +1,6 @@
 import type { Post } from "./post"
 
-export interface Profile {
+export interface ProfileType {
     username: string
     id: string
     bio?: string

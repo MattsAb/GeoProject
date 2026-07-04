@@ -89,27 +89,28 @@ function PostPage () {
 
     return (
         <div className="flex shadow-2xl mt-10 dark:shadow-none">
-            <div className="flex-3 px-10">
-                <div className="p-10 dark:bg-mist-800 rounded-2xl flex flex-col gap-3"> 
+            <div className="flex-3 px-5 flex items-center justify-center">
+                <div className="py-10 px-5 dark:bg-mist-800 rounded-2xl flex flex-col gap-3 w-full xl:w-2/3 "> 
                     <img src={postInfo?.photoUrl} className="w-full object-contain max-h-200 rounded dark:bg-mist-900 bg-mist-200" />
                     <ErrorMessageComponent message={errorMessage}/>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="flex items-center gap-1 self-start">
+                            <button 
+                                onClick={() => goToProfile()}
+                                className="bg-mist-500 p-0.5 rounded-full cursor-pointer"
+                            >
+                                <img 
+                                    className="w-12 h-12 rounded-full"
+                                    src={postInfo?.user.avatarUrl}
+                                />
+                            </button>
 
-                        <button 
-                            onClick={() => goToProfile()}
-                            className="bg-mist-500 p-0.5 rounded-full cursor-pointer"
-                        >
-                            <img 
-                                className="w-12 h-12 rounded-full"
-                                src={postInfo?.user.avatarUrl}
-                            />
-                        </button>
-
-                        <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
+                            <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
+                        </div>
 
                             <button
                                 disabled={!isAuthenticated}
-                                className="dark:bg-mist-700 py-2 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
+                                className="dark:bg-mist-700 py-1 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"
                                 onClick={() => handleLike()}
                             >
                                 {!isLiked ? (<HandThumbUpIconOutline className={`h-6 w-6`}/>) : (<HandThumbUpIcon className={`h-6 w-6`}/> )}
@@ -126,7 +127,6 @@ function PostPage () {
                             label="Edit post"
                         />
                     </div>}
-                </div>
                 <div className="mt-10">
                    {  isAuthenticated && <div className="dark:bg-mist-800 rounded-2xl p-5 flex flex-col gap-5">
                         <h1 className="text-2xl ml-5"> Leave a comment </h1>
@@ -168,7 +168,7 @@ function PostPage () {
                     
                 </div>
             </div>
-
+            </div>
         </div>
     )
 }

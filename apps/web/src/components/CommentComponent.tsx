@@ -32,7 +32,7 @@ function CommentComponent({username, body, avatar, ids, userId, postId, id}: Com
     }
 
     return (
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col lg:flex-row justify-between items-center">
             <div className="p-8 rounded-xl flex gap-4">
                 <img 
                     className="rounded-full w-10 h-10"

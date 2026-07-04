@@ -1,11 +1,11 @@
-import { useState } from "react"
-import SignInModal from "./SignInModal"
+import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, Bars3Icon, PlusIcon, ArrowLeftIcon } from '@heroicons/react/16/solid';
 import HeaderOptionsComponent from "./HeaderOptionsComponent";
 import { useAuth } from "../context/AuthContext";
-import EmailConfirmationModal from "./EmailConfirmationModal";
+
 import AuthModal from "./AuthModal";
+import { useIsSmallScreen } from "../hooks/screenSizeHook";
 
 type headerProps = {
     setSidebarOpen: (stage: boolean) => void;
@@ -22,13 +22,16 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
     const navigate = useNavigate();
 
     const {isAuthenticated,user} = useAuth();
+    const isSmallScreen = useIsSmallScreen();
+
+    const iconRef = useRef<HTMLButtonElement>(null);
 
     const goBack = () => navigate('/');
     const goToCreate = () => navigate('/create');
     const goToSearch = () => navigate(`/search?q=${searchInput}`);
 
     const handleSearchClick = () => {
-        const isSmallScreen = window.matchMedia('(max-width: 640px)').matches;
+
         if (isSmallScreen) {
             setToggleSearch(true);
             setSidebarOpen(false);
@@ -37,7 +40,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
         }
     };
 
-    if (toggleSearch) return (
+    if (toggleSearch && isSmallScreen) return (
         <div className="fixed left-0 right-0 text-black dark:text-white dark:bg-mist-900 bg-gray-50 h-14 flex z-50 border-b border-mist-700">
             <div className="px-5 flex w-full gap-2 items-center">
                 <button 
@@ -87,7 +90,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             />
 
             <button 
-                className="ml-2 hover:cursor-pointer items-center dark:border p-2 rounded-full border-mist-800 hover:dark:bg-mist-800 hover:bg-gray-200"
+                className=" hover:cursor-pointer items-center dark:border p-2 rounded-full border-mist-800 hover:dark:bg-mist-800 hover:bg-gray-200"
                 onClick={() => handleSearchClick()}
             > 
                 <MagnifyingGlassIcon className="h-6 w-6"/>
@@ -103,23 +106,22 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             > Sign In </button> ) : (
             <> 
                 <button
-                    className="font-bold cursor-pointer text-white bg-orange-600 hover:bg-orange-500 px-3 py-1 rounded-2xl flex gap-2 items-center" 
+                    className="font-semibold cursor-pointer text-white outline-1 outline-orange-600  hover:bg-orange-600 px-1 py-1 rounded-2xl flex items-center" 
                     onClick={() => goToCreate()}
                 >  
-                        <h1> Create  </h1>
                         <PlusIcon className="w-6 h-6"/>
+                        { !isSmallScreen  && <h1 className="mr-1">Create</h1>}
                 </button>
 
                 <button className="rounded-full bg-white items-center cursor-pointer"
-                    onClick={() => {
-                        setOpenOptions(!openOptions)
-                    }}
-                    data-testid="userAvatar"
+                    ref={iconRef}
+                    onClick={() => setOpenOptions((prev) => !prev)}
                 >
                     { user && <img src={user.avatarUrl} className="rounded-full w-10 h-10"/>}
                 </button>
 
                 <HeaderOptionsComponent
+                    iconRef={iconRef}
                     onClose={() => setOpenOptions(false)}
                     open={openOptions}
                 />

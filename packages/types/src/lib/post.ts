@@ -1,4 +1,4 @@
-import type { Comment } from './comment'
+import type { CommentType } from './comment'
 import type { Like } from './like'
 import type { User } from './user'
 
@@ -11,7 +11,7 @@ export interface Post {
     countryCode: string
     user: User
     likes: Like[]
-    comments: Comment[]
+    comments: CommentType[]
     _count?: {
         likes: number
         comments: number

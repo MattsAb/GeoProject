@@ -38,7 +38,7 @@ function EmailConfirmationModal({onClose, email, password}: EmailConfirmModalPro
 
 
     return (
-        <div className=" dark:bg-mist-900 bg-gray-50 rounded-xl p-8 w-full max-w-md">
+        <div className=" dark:bg-mist-900 bg-gray-50 mx-4 rounded-xl p-8 w-full max-w-md">
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold"> Confirm Email </h2>
                 <button 

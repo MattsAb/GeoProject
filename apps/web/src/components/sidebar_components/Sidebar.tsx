@@ -22,14 +22,14 @@ function Sidebar({ isOpen, onClose }: sidebarProps) {
         <>
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-30 bg-black/50 md:hidden"
+                    className="fixed inset-0 z-30 bg-black/50 lg:hidden"
                     onClick={onClose}
                 />
             )}
 
                 <div className={`
                     ${isOpen ? 'fixed' : 'hidden'}
-                    md:flex md:sticky md:top-0 z-40 ${isOpen ? 'w-70' : 'sm:w-25'}
+                    lg:flex lg:sticky lg:top-0 z-40 ${isOpen ? 'w-70' : 'sm:w-25'}
                     h-screen pt-14 dark:bg-mist-900 dark:text-white flex-col items-center gap-3 border-r border-mist-700
                 `}>
                 { isAuthenticated && <div className='mt-5 items-center flex flex-col w-full'>
@@ -38,13 +38,19 @@ function Sidebar({ isOpen, onClose }: sidebarProps) {
                         <SimpleSidebarButton
                             label='Your profile'
                             icon={HomeIcon}
-                            handleRedirect={() => goToProfile()}
+                            handleRedirect={() => {
+                                goToProfile()
+                                onClose()
+                            }}
                             isOpen={isOpen}
                         />
                         <SimpleSidebarButton
                             label='Liked posts'
                             icon={HandThumbUpIcon}
-                            handleRedirect={() => goToLikedPosts()}
+                            handleRedirect={() => {
+                                goToLikedPosts()
+                                onClose()
+                            }}
                             isOpen={isOpen}
                         />
                     </div>

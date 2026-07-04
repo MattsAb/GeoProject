@@ -40,7 +40,7 @@ function Dashboard() {
       <h1 className="font-semibold text-2xl pl-10 pt-5"> People traveling </h1>
       <ErrorMessageComponent message={errorMessage}/>
 
-        { feed && <div className="px-10 pt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        { feed && <div className="px-5 pt-5 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 w-full justify-center">
         
             {feed.map((post) => (
                 <FeedPostComponent

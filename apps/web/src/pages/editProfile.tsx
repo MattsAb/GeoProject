@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import type { Profile } from "@geoapp/types";
+import type { ProfileType } from "@geoapp/types";
 import SimpleButton from "../components/SimpleButton";
 import ErrorMessageComponent from "../components/ErrorMessageComponent"
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { editUserProfile, getUserProfile } from "../services/profile.api";
 
 
 function EditProfile () {
-    const [profile, setProfile] = useState<Profile>();
+    const [profile, setProfile] = useState<ProfileType>();
     const [avatar, setAvatar] = useState('');
     const [bio, setBio] = useState('');
     const [imageFile, setImageFile] = useState<File | null>(null)
@@ -24,7 +24,7 @@ function EditProfile () {
 
         async function getUserInfo() {
             if (!user?.id) return;
-            
+
             const result = await getUserProfile(`${user?.id}`);
 
             if (result.success && result.data) {
@@ -78,6 +78,7 @@ function EditProfile () {
                         </div>
 
                     </div>
+                    
                     <textarea 
                         placeholder="description"
                         rows={2} 

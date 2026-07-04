@@ -43,7 +43,7 @@ function CreatePost () {
 
     return (
         <div className="w-full flex justify-center h-full">
-            <div className="h-full lg:w-2/3 w-full flex justify-center px-10 border-x dark:border-mist-700">
+            <div className="h-full md:w-2/3 xl:w-1/2 w-full flex justify-center px-5 border-x dark:border-mist-700">
                 <div className="dark:bg-mist-800 w-full rounded-2xl p-10 flex flex-col gap-10 mt-10">
                     <h1 className="font-bold text-2xl"> Create your post </h1>
                         <div className="flex flex-col mt-10 gap-5">
