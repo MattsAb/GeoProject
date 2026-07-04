@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ErrorMessageComponent from "./ErrorMessageComponent";
-import DeleteButton from "./DeleteButton"
-import { deleteComment } from "../services/comment.api";
+import ErrorMessageComponent from "../simple_components/ErrorMessageComponent";
+import DeleteButton from "../simple_components/DeleteButton"
+import { deleteComment } from "../../services/comment.api";
 
 type CommentComponentProps = {
     username: string

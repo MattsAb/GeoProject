@@ -1,8 +1,8 @@
 import type { Post } from "@geoapp/types"
-import ErrorMessageComponent from "../ErrorMessageComponent"
+import ErrorMessageComponent from "../simple_components/ErrorMessageComponent"
 import { HandThumbUpIcon } from '@heroicons/react/24/solid';
 import { HandThumbUpIcon  as HandThumbUpIconOutline} from "@heroicons/react/24/outline";
-import SimpleButton from "../SimpleButton";
+import SimpleButton from "../simple_components/SimpleButton";
 import { useNavigate } from "react-router-dom";
 
 type PostInfoProps = {

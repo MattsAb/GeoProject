@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ErrorMessageComponent from "./ErrorMessageComponent";
-import { useAuth } from "../context/AuthContext";
-import { confirmEmail } from "../services/auth.api";
+import ErrorMessageComponent from "../simple_components/ErrorMessageComponent";
+import { useAuth } from "../../context/AuthContext";
+import { confirmEmail } from "../../services/auth.api";
 
 type EmailConfirmModalProps = {
     onClose: () => void

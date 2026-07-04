@@ -2,10 +2,10 @@ import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon, Bars3Icon, PlusIcon, ArrowLeftIcon } from '@heroicons/react/16/solid';
 import HeaderOptionsComponent from "./HeaderOptionsComponent";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 import AuthModal from "./AuthModal";
-import { useIsSmallScreen } from "../hooks/screenSizeHook";
+import { useIsSmallScreen } from "../../hooks/screenSizeHook";
 
 type headerProps = {
     setSidebarOpen: (stage: boolean) => void;

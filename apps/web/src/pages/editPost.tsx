@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import SimpleButton from "../components/SimpleButton";
-import ErrorMessageComponent from "../components/ErrorMessageComponent";
+import SimpleButton from "../components/simple_components/SimpleButton";
+import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import {  useNavigate, useParams } from "react-router-dom";
 import type { Post } from "@geoapp/types";
-import DeleteButton from "../components/DeleteButton"
+import DeleteButton from "../components/simple_components/DeleteButton"
 import { deletePost, editPost, getPost } from "../services/post.api";
-import CountryPicker from "../components/CountryPicker";
+import CountryPicker from "../components/simple_components/CountryPicker";
 
 function EditPost () {
 

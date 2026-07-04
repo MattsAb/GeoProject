@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import type { Post } from "@geoapp/types";
 import { getFeed } from "../services/post.api";
 import FeedPostComponent from "../components/FeedPostComponent";
-import ErrorMessageComponent from "../components/ErrorMessageComponent";
+import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 
 function Dashboard() {
   

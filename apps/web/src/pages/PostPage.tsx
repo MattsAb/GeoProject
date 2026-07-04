@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import SimpleButton from "../components/SimpleButton";
+import SimpleButton from "../components/simple_components/SimpleButton";
 import { useEffect, useState } from "react";
-import CommentComponent from "../components/CommentComponent";
+import CommentComponent from "../components/post_Page_Components/CommentComponent";
 import { useAuth } from "../context/AuthContext";
 import type { Post } from "@geoapp/types";
 import { getPost } from "../services/post.api";
 import { likePost, unlikePost } from "../services/like.api";
 import { postComment } from "../services/comment.api";
-import PostInfoComponent from "../components/postPageComponents/PostInfoComponent";
+import PostInfoComponent from "../components/post_Page_Components/PostInfoComponent";
 
 function PostPage () {
 

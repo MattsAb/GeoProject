@@ -3,7 +3,7 @@ import { useState } from "react";
 
 //pages
 import Dashboard from "./pages/Dashboard"
-import Header from "./components/Header"
+import Header from "./components/header_components/Header"
 import Sidebar from "./components/sidebar_components/Sidebar"
 import PostPage from "./pages/PostPage";
 import CreatePost from "./pages/CreatePost";

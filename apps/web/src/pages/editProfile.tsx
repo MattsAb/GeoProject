@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import type { ProfileType } from "@geoapp/types";
-import SimpleButton from "../components/SimpleButton";
-import ErrorMessageComponent from "../components/ErrorMessageComponent"
+import SimpleButton from "../components/simple_components/SimpleButton";
+import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent"
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { editUserProfile, getUserProfile } from "../services/profile.api";

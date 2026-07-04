@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import SimpleButton from "../components/SimpleButton";
-import ErrorMessageComponent from "../components/ErrorMessageComponent";
+import SimpleButton from "../components/simple_components/SimpleButton";
+import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../services/post.api";
 import { useAuth } from "../context/AuthContext";
-import CountryPicker from "../components/CountryPicker";
+import CountryPicker from "../components/simple_components/CountryPicker";
 
 function CreatePost () {
 
