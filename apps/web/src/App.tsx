@@ -10,6 +10,7 @@ import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/editPost";
 import EditProfile from "./pages/editProfile";
 import Profile from "./pages/Profile";
+import LikedPostsPage from "./pages/LIkedPostsPage";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
               <Route path="/create" element={<CreatePost/>} />
               <Route path="/edit/:id" element={<EditPost/>} />
               <Route path="/edituser" element={<EditProfile/>}/>
+              <Route path="/liked" element={<LikedPostsPage/>}/>
             </Routes>
         </div>
         

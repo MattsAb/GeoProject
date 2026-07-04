@@ -22,7 +22,6 @@ function Dashboard() {
 
       if (result.success && result.data)
       {
-        console.log(result.data);
         setFeed(result.data)
       } else if (result.error) {
         setErrorMessage(result.error)

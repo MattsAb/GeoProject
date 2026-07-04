@@ -123,7 +123,7 @@ export async function getFeed(req: Request, res: Response) {
                     select: {likes: true}
                 },
                 user: {
-                    select: {username: true}
+                    select: {username: true, avatarUrl: true, id: true}
                 }
             },
             orderBy: { createdAt: 'desc' }

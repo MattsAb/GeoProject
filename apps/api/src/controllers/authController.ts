@@ -72,7 +72,6 @@ export async function confirmSignUp(req: Request, res: Response) {
   }
 }
 
-
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body as LoginDTO;
 

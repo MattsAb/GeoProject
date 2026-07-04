@@ -84,7 +84,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
         </div> 
 
         {/* Search */}
-        <div className="flex w-full items-center justify-center">
+        <div className="flex w-full gap-2 items-center justify-center">
 
             <input className="border dark:border-mist-800 sm:flex hidden border-mist-300 bg-white dark:bg-mist-900 w-full h-10 items-center rounded-3xl px-5"
                 placeholder="Search"

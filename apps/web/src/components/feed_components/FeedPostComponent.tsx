@@ -42,7 +42,7 @@ function PostComponent ({photoUrl, username, countryCode, avatar, likes, id, use
 
             <div className="flex flex-1 flex-col dark:bg-mist-900">
                 <button 
-                    className="cursor-pointer rounded-full"
+                    className="cursor-pointer h-50"
                     onClick={() => handleProfileNavigate()}
                 >
                     <img src={avatar}/>
