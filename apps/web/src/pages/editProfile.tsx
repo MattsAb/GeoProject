@@ -72,8 +72,8 @@ function EditProfile () {
 
     return (
         <div className="w-full h-full justify-center flex items-center">
-            <div className=" w-3/4 h-full lg:px-10">
-                <div className="dark:bg-mist-800 justify-center flex mt-20 flex-col gap-5 p-10 rounded-xl">
+            <div className=" xl:w-1/2 md:w-2/3 h-full w-full px-5">
+                <div className="dark:bg-mist-800 justify-center flex mt-20 flex-col gap-5 p-5 rounded-xl">
 
                     {/* Avatar Image */}
                     <div className="flex gap-5 items-center">
