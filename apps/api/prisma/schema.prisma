@@ -19,6 +19,7 @@ model User {
   createdAt  DateTime @default(now())
 
   posts     Post[]
+  Trips     Trip[]
   likes     Like[]
   comments  Comment[]
   following Follow[] @relation("UserFollowing")
@@ -35,8 +36,26 @@ model Post {
   userId String @db.Uuid
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  tripId String? @db.Uuid
+  trip   Trip?   @relation(fields: [tripId], references: [id], onDelete: SetNull)
+
   likes    Like[]
   comments Comment[]
+
+  @@index([userId])
+}
+
+model Trip {
+  id          String  @id @default(uuid()) @db.Uuid
+  title       String
+  photoUrl    String?
+  description String?
+  createdAt   DateTime @default(now())
+
+  userId String @db.Uuid
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  posts Post[]
 
   @@index([userId])
 }

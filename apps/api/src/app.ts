@@ -10,6 +10,7 @@ import likeRoutes from './routes/likeRoutes';
 import commentRoutes from './routes/commentRoutes';
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
+import tripRoutes from './routes/tripRoutes';
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 
 //routes
 app.use('/api/v1/posts', postRoutes);
+app.use('/api/v1/trip', tripRoutes)
 app.use('/api/v1/user/:id/follow',authMiddleware, followRoutes);
 app.use('/api/v1/post/:postId/like',authMiddleware, likeRoutes);
 app.use('/api/v1/post/:postId/comments',authMiddleware, commentRoutes);
