@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 type CreateOptionsProps = {
     open: boolean
     onClose: () => void
-    iconRef: React.RefObject<HTMLElement | null>
+    createRef: React.RefObject<HTMLElement | null>
 }
 
-function CreateOptions ({open, onClose, iconRef}: CreateOptionsProps) {
+function CreateOptions ({open, onClose, createRef}: CreateOptionsProps) {
 
     const navigate = useNavigate();
     
@@ -17,7 +17,7 @@ function CreateOptions ({open, onClose, iconRef}: CreateOptionsProps) {
         function handleClickOutside(e: MouseEvent) {
             const target = e.target as Node;
             const clickedInsideMenu = ref.current?.contains(target);
-            const clickedIcon = iconRef.current?.contains(target);
+            const clickedIcon = createRef.current?.contains(target);
 
             if (!clickedInsideMenu && !clickedIcon) {
                 onClose();
@@ -25,7 +25,7 @@ function CreateOptions ({open, onClose, iconRef}: CreateOptionsProps) {
         }
         if (open) document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [open, iconRef]);
+    }, [open, createRef]);
 
     if (!open) return null;
     
@@ -34,7 +34,7 @@ function CreateOptions ({open, onClose, iconRef}: CreateOptionsProps) {
 
     return (
         <div 
-            className="absolute top-14 right-4 w-64 dark:bg-mist-800 bg-mist-100 py-3 px-5 rounded-xl z-50 flex flex-col shadow-2xl"
+            className="absolute top-14 right-14 w-46 dark:bg-mist-800 bg-mist-100 py-3 px-5 rounded-xl z-50 flex flex-col shadow-2xl"
             ref={ref}
         >
             <button 

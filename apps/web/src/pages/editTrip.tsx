@@ -86,13 +86,13 @@ function EditTrip () {
 
             <div className="dark:bg-mist-800 mx-5 w-full xl:w-2/3 rounded-2xl p-10 flex flex-col gap-10 mt-10">
                 <div className="flex items-center justify-between">
-                    <h1 className="font-bold text-2xl"> Edit post </h1>
+                    <h1 className="font-bold text-2xl"> Edit trip </h1>
                     <DeleteButton 
-                        label="Delete post"
+                        label="Delete trip"
                         onDelete={() => handleDelete()}
                     />
                 </div>
-                    {/* Post Image */}
+                    {/* Trip Image */}
                     <div className="flex flex-col mt-10 gap-5">
                           <>
                             <input
@@ -135,7 +135,7 @@ function EditTrip () {
                     </div>
 
 
-                    <div className="flex self-end ">
+                    <div className="flex self-end my-3">
                         <SimpleButton label="Add posts" onClick={() => openPosts()}/>
                     </div>
                     { posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -164,8 +164,8 @@ function EditTrip () {
 
                     <ErrorMessageComponent message={errorMessage}/>
 
-                    <div className="flex self-end ">
-                        <SimpleButton label="Edit post" onClick={() => handleEdit()} mode='brand'/>
+                    <div className="flex w-full justify-end">
+                        <SimpleButton label="Edit trip" onClick={() => handleEdit()} mode='brand'/>
                     </div>
                 </div>
             </div>

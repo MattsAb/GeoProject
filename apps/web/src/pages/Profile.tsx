@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { followUser, getUserProfile, unfollowUser } from "@geoapp/services";
 import ProfilePostsComponent from "../components/profile_components/ProfilePostsComponent";
 import ProfileTripsComponent from "../components/profile_components/ProfileTripsComponent";
+import ProfileStateButton from "../components/profile_components/ProfileStateButton";
 
 
 function Profile () {
@@ -15,7 +16,7 @@ function Profile () {
     const [ownProfile, setOwnProfile] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
     const [isfollowed, setIsFollowed] = useState(false);
-    const [ProfileState, setProfileState] = useState<'POSTS' | 'TRIPS'>('POSTS')
+    const [profileState, setProfileState] = useState<'POSTS' | 'TRIPS'>('POSTS')
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const { id } = useParams();
@@ -89,23 +90,30 @@ function Profile () {
                  </>}
                 <ErrorMessageComponent message={errorMessage}/>
             </div>
-                <div className="my-5 flex gap-3 f-full justify-center">
-                    <SimpleButton 
+            <div className="my-5 flex gap-3 f-full lg:w-3/4 self-center ">
+                    <ProfileStateButton
                     label="posts" 
                     onClick={() => setProfileState('POSTS')}
+                    profileState={profileState}
+                    buttonState="POSTS"
                     />
-                    <SimpleButton 
+                    <ProfileStateButton
                     label="trips" 
                     onClick={() => setProfileState('TRIPS')}
+                    profileState={profileState}
+                    buttonState="TRIPS"
                     />
-                </div>
+            </div>
+
+            <div className="w-full lg:w-3/4 dark:bg-mist-800 h-full self-center  p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
             {
-                ProfileState == 'POSTS' ? (
+                profileState == 'POSTS' ? (
                 <ProfilePostsComponent id={id}/>
                 ) : (
                     <ProfileTripsComponent id={id}/>
                 )
             }
+            </div>
         </div>
     )
 }

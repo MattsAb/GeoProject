@@ -10,6 +10,7 @@ import SimpleButton from "../components/simple_components/SimpleButton";
 function TripPage () {
 
     const [trip, setTrip] = useState<Trip>()
+    const [countryCodes, setCountryCodes] = useState<string[]>()
     const [errorMessage, setErrorMessage] = useState('');
 
     const { id } = useParams();
@@ -32,7 +33,7 @@ function TripPage () {
     },[id])
 
     return (
-        <div>
+        <div className="flex flex-col">
             <div className="dark:bg-mist-800 mx-5 my-5 rounded-xl flex flex-col gap-5 p-5">
                 <h1 className="text-2xl"> {trip?.title} </h1>
                 <h2> {trip?.description}</h2>
@@ -44,7 +45,7 @@ function TripPage () {
                 </div>
             </div>
 
-            <div className="dark:bg-mist-800 mx-5 my-5 rounded-xl flex flex-col gap-5 p-5">
+            <div className="dark:bg-mist-800 mx-5 my-5 lg:w-4/5 self-center rounded-xl flex flex-col gap-5 p-5">
                 { trip?.posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     
                         {trip.posts.map((post) => (

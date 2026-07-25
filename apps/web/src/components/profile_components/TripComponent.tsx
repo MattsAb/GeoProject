@@ -21,8 +21,9 @@ function TripComponent({id, title, photoUrl}: TripProps) {
             <div>
                 <img src={photoUrl} className="w-full h-75 object-cover" />
             </div>
-
-            <h1> {title} </h1>
+            <div className="w-full h-full ">
+                <h1 className="font-semibold my-2 self-start flex ml-3"> {title} </h1>
+            </div>
             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"/>
         </button>
     )

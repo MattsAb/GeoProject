@@ -26,10 +26,10 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
     const {isAuthenticated,user} = useAuth();
     const isSmallScreen = useIsSmallScreen();
 
-    const iconRef = useRef<HTMLButtonElement>(null);
+    const profileRef = useRef<HTMLButtonElement>(null);
+    const createRef = useRef<HTMLButtonElement>(null);
 
     const goBack = () => navigate('/');
-    const goToCreate = () => navigate('/create');
     const goToSearch = () => navigate(`/search?q=${searchInput}`);
 
     const handleSearchClick = () => {
@@ -112,6 +112,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             > Sign In </button> ) : (
             <> 
                 <button
+                    ref={createRef}
                     className="font-semibold cursor-pointer text-black dark:text-white outline-1 outline-orange-600  hover:bg-orange-600 px-1 py-1 rounded-2xl flex items-center" 
                     onClick={() => setOpenCreate(true)}
                 >  
@@ -120,20 +121,20 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
                 </button>
 
                 <CreateOptions 
-                    iconRef={iconRef}
+                    createRef={createRef}
                     onClose={() => setOpenCreate(false)}
                     open={openCreate}
                 />
 
                 <button className="rounded-full bg-white items-center cursor-pointer"
-                    ref={iconRef}
+                    ref={profileRef}
                     onClick={() => setOpenOptions((prev) => !prev)}
                 >
                     { user && <img src={user.avatarUrl} className="rounded-full w-10 h-10"/>}
                 </button>
 
                 <HeaderOptionsComponent
-                    iconRef={iconRef}
+                    profileRef={profileRef}
                     onClose={() => setOpenOptions(false)}
                     open={openOptions}
                 />

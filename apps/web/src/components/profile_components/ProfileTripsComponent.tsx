@@ -34,8 +34,7 @@ function ProfileTripsComponent ({id}: TripsComponentProps) {
     }, [id]) 
 
     return (
-        <div className="w-full lg:w-3/4 dark:bg-mist-800 h-full self-center  p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
-
+        <>
             <div className="flex gap-2 items-center font-bold text-2xl">
                 <h1> {trips?.length}</h1>
                 <h1> Trips </h1>
@@ -53,7 +52,7 @@ function ProfileTripsComponent ({id}: TripsComponentProps) {
                     ))}
                 
             </div>} 
-        </div>
+        </>
     )
 
 }

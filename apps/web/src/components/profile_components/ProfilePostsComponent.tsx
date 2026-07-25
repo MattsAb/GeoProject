@@ -34,27 +34,26 @@ function ProfilePostsComponent ({id}: PostComponentProps) {
     }, [id]) 
 
     return (
-        <div className="w-full lg:w-3/4 dark:bg-mist-800 h-full self-center p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
+            <>
+                <div className="flex gap-2 items-center font-bold text-2xl">
+                    <h1> {posts?.length}</h1>
+                    <h1> Posts </h1>
+                </div>
 
-            <div className="flex gap-2 items-center font-bold text-2xl">
-                <h1> {posts?.length}</h1>
-                <h1> Posts </h1>
-            </div>
-
-            { posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                
-                    {posts.map((post) => (
-                        <ImageComponent
-                        key={post.id}
-                        photoUrl={post.photoUrl}
-                        countryCode={post.countryCode}
-                        likes={post._count?.likes || 0}
-                        id={post.id}
-                        />
-                    ))}
-                
-            </div>} 
-        </div>
+                { posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    
+                        {posts.map((post) => (
+                            <ImageComponent
+                            key={post.id}
+                            photoUrl={post.photoUrl}
+                            countryCode={post.countryCode}
+                            likes={post._count?.likes || 0}
+                            id={post.id}
+                            />
+                        ))}
+                    
+                </div>} 
+            </>
     )
 
 }

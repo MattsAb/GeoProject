@@ -14,6 +14,7 @@ import LikedPostsPage from "./pages/LIkedPostsPage";
 import CreateTripPage from "./pages/CreateTrip";
 import TripPage from "./pages/TripPage";
 import EditTrip from "./pages/editTrip";
+import UserFollows from "./pages/UserFollows";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
               <Route path="/trip/edit/:id" element={<EditTrip/>}/>
               <Route path="/edituser" element={<EditProfile/>}/>
               <Route path="/liked" element={<LikedPostsPage/>}/>
+              <Route path="/follows" element={<UserFollows/>}/>
             </Routes>
         </div>
         

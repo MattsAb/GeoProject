@@ -4,7 +4,9 @@
   "description": "a social media web application where you can share your travel life",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:api": "npm run dev --workspace=apps/api"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,6 @@
     "apps/api",
     "apps/web",
     "packages/types",
-    "services",
     "packages/services"
   ],
   "devDependencies": {

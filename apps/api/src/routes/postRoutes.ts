@@ -16,7 +16,6 @@ router.get(
 
 router.get(
     "/user/:id",
-    authMiddleware,
     getUserPosts
 )
 

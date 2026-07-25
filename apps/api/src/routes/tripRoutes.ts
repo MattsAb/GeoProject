@@ -24,7 +24,6 @@ router.post(
 
 router.get(
     "/user/:id",
-    authMiddleware,
     getUserTrips
 )
 

@@ -5,10 +5,10 @@ import { useAuth } from "../../context/AuthContext";
 type headerOptionsProps = {
     open: boolean
     onClose: () => void
-    iconRef: React.RefObject<HTMLElement | null>
+    profileRef: React.RefObject<HTMLElement | null>
 }
 
-function HeaderOptionsComponent ({open, onClose, iconRef}: headerOptionsProps) {
+function HeaderOptionsComponent ({open, onClose, profileRef}: headerOptionsProps) {
 
     const navigate = useNavigate();
     
@@ -20,7 +20,7 @@ function HeaderOptionsComponent ({open, onClose, iconRef}: headerOptionsProps) {
         function handleClickOutside(e: MouseEvent) {
             const target = e.target as Node;
             const clickedInsideMenu = ref.current?.contains(target);
-            const clickedIcon = iconRef.current?.contains(target);
+            const clickedIcon = profileRef.current?.contains(target);
 
             if (!clickedInsideMenu && !clickedIcon) {
                 onClose();
@@ -28,7 +28,7 @@ function HeaderOptionsComponent ({open, onClose, iconRef}: headerOptionsProps) {
         }
         if (open) document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [open, iconRef]);
+    }, [open, profileRef]);
 
     if (!open) return null;
     
