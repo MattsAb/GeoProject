@@ -6,6 +6,7 @@ import DeleteButton from "../components/simple_components/DeleteButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import SimpleButton from "../components/simple_components/SimpleButton";
 import PostSelectComponent from "../components/trip_components/post_select_component";
+import { useAuth } from "../context/AuthContext";
 
 function EditTrip () {
     const [imageFile, setImageFile] = useState<File | null>(null)
@@ -20,6 +21,8 @@ function EditTrip () {
     const fileInputRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
     const {id} = useParams();
+
+    const {user} = useAuth();
 
         useEffect(() => {
             async function getInfo() {
@@ -60,7 +63,8 @@ function EditTrip () {
     }
 
     async function openPosts() {
-        const result = await getUserPosts()
+        if (!user) return;
+        const result = await getUserPosts(user?.id)
         if (result.success && result.data) {
             setChosenPosts(tripInfo?.posts)
             setPosts(result.data)

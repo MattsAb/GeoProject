@@ -74,9 +74,9 @@ export async function getLikedPosts(id: string): Promise<ApiResponse<Post[]>>{
     }
 }
 
-export async function getUserPosts(): Promise<ApiResponse<Post[]>>{
+export async function getUserPosts(id: string): Promise<ApiResponse<Post[]>>{
     try{
-        const response = await api.get<ApiResponse<Post[]>>(`/v1/posts/user`)
+        const response = await api.get<ApiResponse<Post[]>>(`/v1/posts/user/${id}`)
         return response.data
 
     } catch (err) {

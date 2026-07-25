@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import ImageComponent from "../components/profile_components/PostComponent";
 import SimpleButton from "../components/simple_components/SimpleButton"
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import { useParams } from "react-router-dom";
 import type { ProfileType } from "@geoapp/types";
 import { useAuth } from "../context/AuthContext";
 import { followUser, getUserProfile, unfollowUser } from "@geoapp/services";
+import ProfilePostsComponent from "../components/profile_components/ProfilePostsComponent";
+import ProfileTripsComponent from "../components/profile_components/ProfileTripsComponent";
+
 
 function Profile () {
 
@@ -13,6 +15,7 @@ function Profile () {
     const [ownProfile, setOwnProfile] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
     const [isfollowed, setIsFollowed] = useState(false);
+    const [ProfileState, setProfileState] = useState<'POSTS' | 'TRIPS'>('POSTS')
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const { id } = useParams();
@@ -86,29 +89,23 @@ function Profile () {
                  </>}
                 <ErrorMessageComponent message={errorMessage}/>
             </div>
-
-            {/* Posts */}
-            <div className="w-full lg:w-3/4 dark:bg-mist-800 h-full self-center mt-10 p-10 rounded-2xl flex flex-col gap-10 shadow-2xl">
-
-                <div className="flex gap-2 items-center font-bold text-2xl">
-                    <h1> {profile?._count?.posts ? profile?._count?.posts : 0}</h1>
-                    <h1> Posts </h1>
+                <div className="my-5 flex gap-3 f-full justify-center">
+                    <SimpleButton 
+                    label="posts" 
+                    onClick={() => setProfileState('POSTS')}
+                    />
+                    <SimpleButton 
+                    label="trips" 
+                    onClick={() => setProfileState('TRIPS')}
+                    />
                 </div>
-
-                { profile?.posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                    
-                        {profile.posts.map((post) => (
-                            <ImageComponent
-                            key={post.id}
-                            photoUrl={post.photoUrl}
-                            countryCode={post.countryCode}
-                            likes={post._count?.likes || 0}
-                            id={post.id}
-                            />
-                        ))}
-                    
-                </div>} 
-            </div>
+            {
+                ProfileState == 'POSTS' ? (
+                <ProfilePostsComponent id={id}/>
+                ) : (
+                    <ProfileTripsComponent id={id}/>
+                )
+            }
         </div>
     )
 }

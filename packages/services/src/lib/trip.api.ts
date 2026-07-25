@@ -53,3 +53,13 @@ export async function deleteTrip(id: string): Promise<ApiResponse<null>> {
         return handleError(err);
     }
 }
+
+export async function getUserTrips(id: string): Promise<ApiResponse<Trip[]>>{
+    try{
+        const response = await api.get<ApiResponse<Trip[]>>(`/v1/trips/user/${id}`)
+        return response.data
+
+    } catch (err) {
+        return handleError(err);
+    }
+}

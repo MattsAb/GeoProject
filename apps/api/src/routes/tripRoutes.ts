@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { authMiddleware, lightAuthMiddleware } from '../middleware/authMiddleware';
-import { createTrip, deleteTrip, editTrip, getTrip } from '../controllers/tripController';
+import { createTrip, deleteTrip, editTrip, getTrip, getUserTrips } from '../controllers/tripController';
 import { validate } from '../middleware/validationMiddleware';
 import { createTripSchema, tripParamsSchema } from '../schemas/trip.schema';
 import { createUpload } from '../config/s3';
@@ -21,6 +21,12 @@ router.post(
     validate(createTripSchema),
     createTrip,
 );
+
+router.get(
+    "/user/:id",
+    authMiddleware,
+    getUserTrips
+)
 
 router.put(
     '/:tripId',

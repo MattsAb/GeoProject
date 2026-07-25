@@ -161,7 +161,8 @@ export async function getFeed(req: Request, res: Response) {
 }
 
 export async function getUserPosts(req: Request, res: Response) {
-    const userId = req.user!.id
+    const userId = req.params.id as string;
+
     const user = await prisma.user.findUnique({
         where: {id: userId},
         include: {

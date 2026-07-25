@@ -19,7 +19,7 @@ model User {
   createdAt  DateTime @default(now())
 
   posts     Post[]
-  Trips     Trip[]
+  trips     Trip[]
   likes     Like[]
   comments  Comment[]
   following Follow[] @relation("UserFollowing")

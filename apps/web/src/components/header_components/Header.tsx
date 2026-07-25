@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 
 import AuthModal from "./AuthModal";
 import { useIsSmallScreen } from "../../hooks/screenSizeHook";
+import CreateOptions from "./CreateOptions";
 
 type headerProps = {
     setSidebarOpen: (stage: boolean) => void;
@@ -16,6 +17,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
 
     const [authOpen, setAuthOpen] = useState(false);
     const [openOptions, setOpenOptions] = useState(false);
+    const [openCreate, setOpenCreate] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [toggleSearch, setToggleSearch] = useState(false);
     
@@ -106,16 +108,22 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             
             { !isAuthenticated ? ( <button
                 className="font-bold cursor-pointer"
-                onClick={() => setAuthOpen(true)}
+                onClick={() => setAuthOpen((prev) => !prev)}
             > Sign In </button> ) : (
             <> 
                 <button
                     className="font-semibold cursor-pointer text-black dark:text-white outline-1 outline-orange-600  hover:bg-orange-600 px-1 py-1 rounded-2xl flex items-center" 
-                    onClick={() => goToCreate()}
+                    onClick={() => setOpenCreate(true)}
                 >  
                         <PlusIcon className="w-6 h-6"/>
                         { !isSmallScreen  && <h1 className="mr-1">Create</h1>}
                 </button>
+
+                <CreateOptions 
+                    iconRef={iconRef}
+                    onClose={() => setOpenCreate(false)}
+                    open={openCreate}
+                />
 
                 <button className="rounded-full bg-white items-center cursor-pointer"
                     ref={iconRef}

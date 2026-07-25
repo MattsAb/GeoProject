@@ -119,3 +119,16 @@ export async function deleteTrip(req: Request, res: Response) {
     res.status(201).json({success: true});
 }
 
+export async function getUserTrips(req: Request, res: Response) {
+    const userId = req.params.id as string;
+
+    const user = await prisma.user.findUnique({
+        where: {id: userId},
+        include: {
+            trips: true
+        }
+    })
+    const trips = user?.trips
+
+    return res.status(200).json({success: true, data: trips})
+}

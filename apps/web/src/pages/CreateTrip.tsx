@@ -43,6 +43,7 @@ function CreateTripPage () {
         <div className="w-full flex justify-center">
             <div className="h-full md:w-2/3 xl:w-1/2 w-full flex justify-center px-5">
                 <div className="dark:bg-mist-800 w-full rounded-2xl p-10 flex flex-col gap-10 mt-10">
+                    <h1 className="font-bold text-2xl"> Create your trip </h1>
                     {/* Trip Image */}
                     <div className="flex flex-col mt-10 gap-5">
                         <>
