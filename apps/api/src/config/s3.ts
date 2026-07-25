@@ -10,7 +10,7 @@ export const s3 = new S3Client({
         secretAccessKey: env.AWS_SECRET_ACCESS_KEY!,
     }
 })
-export function createUpload(folder: 'posts' | 'avatars') {
+export function createUpload(folder: 'posts' | 'avatars' | 'trips') {
     return multer({
         storage: multerS3({
             s3,

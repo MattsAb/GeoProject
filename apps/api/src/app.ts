@@ -20,8 +20,8 @@ app.use(express.json());
 
 //routes
 app.use('/api/v1/posts', postRoutes);
-app.use('/api/v1/trip', tripRoutes)
 app.use('/api/v1/user/:id/follow',authMiddleware, followRoutes);
+app.use('/api/v1/trips', tripRoutes)
 app.use('/api/v1/post/:postId/like',authMiddleware, likeRoutes);
 app.use('/api/v1/post/:postId/comments',authMiddleware, commentRoutes);
 app.use('/api/v1/user', userRoutes);

@@ -3,6 +3,7 @@ import { authMiddleware, lightAuthMiddleware } from '../middleware/authMiddlewar
 import { createTrip, deleteTrip, editTrip, getTrip } from '../controllers/tripController';
 import { validate } from '../middleware/validationMiddleware';
 import { createTripSchema, tripParamsSchema } from '../schemas/trip.schema';
+import { createUpload } from '../config/s3';
 
 const router = Router()
 
@@ -16,6 +17,7 @@ router.get(
 router.post(
     '/',
     authMiddleware,
+    createUpload("trips").single('image'),
     validate(createTripSchema),
     createTrip,
 );
@@ -23,6 +25,7 @@ router.post(
 router.put(
     '/:tripId',
     authMiddleware,
+    createUpload("trips").single('image'),
     validate(createTripSchema),
     editTrip,
 );

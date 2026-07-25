@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createPost, deletePost, editPost, getFeed, getPost } from '../controllers/postController'
+import { createPost, deletePost, editPost, getFeed, getPost, getUserPosts } from '../controllers/postController'
 import { authMiddleware, lightAuthMiddleware } from '../middleware/authMiddleware';
 import { createUpload } from '../config/s3';
 import { validate } from '../middleware/validationMiddleware';
@@ -13,6 +13,12 @@ router.get(
     validate(listPostsQuerySchema),
     getFeed
 );
+
+router.get(
+    "/user",
+    authMiddleware,
+    getUserPosts
+)
 
 router.get(
     '/:postId',
@@ -43,5 +49,4 @@ router.delete(
     validate(postParamsSchema),
     deletePost
 );
-
 export default router

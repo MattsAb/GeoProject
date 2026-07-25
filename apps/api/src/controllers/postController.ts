@@ -160,3 +160,15 @@ export async function getFeed(req: Request, res: Response) {
 
 }
 
+export async function getUserPosts(req: Request, res: Response) {
+    const userId = req.user!.id
+    const user = await prisma.user.findUnique({
+        where: {id: userId},
+        include: {
+            posts: true
+        }
+    })
+    const posts = user?.posts
+
+    return res.status(200).json({success: true, data: posts})
+}

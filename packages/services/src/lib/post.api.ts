@@ -73,3 +73,13 @@ export async function getLikedPosts(id: string): Promise<ApiResponse<Post[]>>{
         return handleError(err);
     }
 }
+
+export async function getUserPosts(): Promise<ApiResponse<Post[]>>{
+    try{
+        const response = await api.get<ApiResponse<Post[]>>(`/v1/posts/user`)
+        return response.data
+
+    } catch (err) {
+        return handleError(err);
+    }
+}

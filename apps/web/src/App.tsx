@@ -11,6 +11,9 @@ import EditPost from "./pages/editPost";
 import EditProfile from "./pages/editProfile";
 import Profile from "./pages/Profile";
 import LikedPostsPage from "./pages/LIkedPostsPage";
+import CreateTripPage from "./pages/CreateTrip";
+import TripPage from "./pages/TripPage";
+import EditTrip from "./pages/editTrip";
 
 function App() {
 
@@ -28,8 +31,11 @@ function App() {
               <Route path="/" element={<Dashboard/>} />
               <Route path="/post/:id" element={<PostPage/>} />
               <Route path="/profile/:id" element={<Profile/>} />
-              <Route path="/create" element={<CreatePost/>} />
+              <Route path="/create/post" element={<CreatePost/>} />
+              <Route path="/create/trip" element={<CreateTripPage/>}/>
+              <Route path="/trip/:id" element={<TripPage/>}/>
               <Route path="/edit/:id" element={<EditPost/>} />
+              <Route path="/trip/edit/:id" element={<EditTrip/>}/>
               <Route path="/edituser" element={<EditProfile/>}/>
               <Route path="/liked" element={<LikedPostsPage/>}/>
             </Routes>
