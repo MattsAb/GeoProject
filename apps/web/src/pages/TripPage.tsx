@@ -5,12 +5,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import ImageComponent from "../components/profile_components/PostComponent";
 import SimpleButton from "../components/simple_components/SimpleButton";
+import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 
 
 function TripPage () {
 
     const [trip, setTrip] = useState<Trip>()
-    const [countryCodes, setCountryCodes] = useState<string[]>()
     const [errorMessage, setErrorMessage] = useState('');
 
     const { id } = useParams();
@@ -44,7 +44,7 @@ function TripPage () {
                     />
                 </div>
             </div>
-
+            <ErrorMessageComponent message={errorMessage}/>
             <div className="dark:bg-mist-800 mx-5 my-5 lg:w-4/5 self-center rounded-xl flex flex-col gap-5 p-5">
                 { trip?.posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     

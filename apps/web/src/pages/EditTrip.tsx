@@ -110,6 +110,7 @@ function EditTrip () {
                         </>
                     </div>
 
+                    {/* Trip Title */}
                     <div>
                         <h2 className="text-xl"> Title </h2>
                         <input
@@ -134,7 +135,7 @@ function EditTrip () {
 
                     </div>
 
-
+                    {/* Trip post selection */}
                     <div className="flex self-end my-3">
                         <SimpleButton label="Add posts" onClick={() => openPosts()}/>
                     </div>

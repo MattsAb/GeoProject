@@ -21,7 +21,7 @@ function SidebarFollowedComponent ({isOpen, follows, handleRedirect, onClose}: S
     return (
         <>
             <button 
-                className={`hover:bg-mist-800 darkhover:bg-mist-800 justify-center self-center py-5 ${ isOpen ? `w-full h-2` : 'w-3/4'} rounded-2xl cursor-pointer flex items-center gap-3`}
+                className={`hover:dark:bg-mist-800 hover:bg-mist-200 darkhover:bg-mist-800 justify-center self-center py-5 ${ isOpen ? `w-full h-2` : 'w-3/4'} rounded-2xl cursor-pointer flex items-center gap-3`}
                 onClick={() => goToFollowers()}
             > 
                 <BookmarkIcon className='w-6 h-6'/>

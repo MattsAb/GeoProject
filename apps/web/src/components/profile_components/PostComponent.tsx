@@ -29,7 +29,7 @@ function PostComponent ({photoUrl, countryCode, likes, id}: PostComponentProps) 
                 <span className={`fi fi-${countryCode.toLowerCase()}` }></span>
             </div>
 
-            <div className=" absolute flex right-3 bottom-2 gap-3 items-center dark:bg-mist-800 rounded-2xl px-2 py-1">
+            <div className=" absolute flex right-3 bottom-2 gap-3 items-center dark:bg-mist-800 text-white rounded-2xl px-2 py-1">
                 <HandThumbUpIcon className={`h-5 w-5`}/>
                 <h2 className="">{likes}</h2>
             </div>

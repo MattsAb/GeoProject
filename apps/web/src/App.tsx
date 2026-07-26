@@ -7,13 +7,13 @@ import Header from "./components/header_components/Header"
 import Sidebar from "./components/sidebar_components/Sidebar"
 import PostPage from "./pages/PostPage";
 import CreatePost from "./pages/CreatePost";
-import EditPost from "./pages/editPost";
-import EditProfile from "./pages/editProfile";
+import EditPost from "./pages/EditPost";
+import EditProfile from "./pages/EditProfile";
 import Profile from "./pages/Profile";
 import LikedPostsPage from "./pages/LIkedPostsPage";
 import CreateTripPage from "./pages/CreateTrip";
 import TripPage from "./pages/TripPage";
-import EditTrip from "./pages/editTrip";
+import EditTrip from "./pages/EditTrip";
 import UserFollows from "./pages/UserFollows";
 
 function App() {

@@ -13,7 +13,7 @@ function UserFollowComponent ({user}: UserFollowProps) {
 
     return (
         <button 
-            className="flex gap-4 dark:bg-mist-800 rounded-xl p-5 w-full cursor-pointer"
+            className="flex gap-4 dark:bg-mist-800 bg-mist-200 rounded-xl p-5 w-full cursor-pointer"
             onClick={() => goToFollow()}
         >
             <img src={user.avatarUrl} className="w-15 h-15 rounded-full"/>

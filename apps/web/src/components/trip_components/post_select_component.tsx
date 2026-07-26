@@ -1,4 +1,3 @@
-import { useState } from "react"
 
 type PostSelectComponentProps = {
     photoUrl: string
@@ -13,7 +12,7 @@ function PostSelectComponent ({photoUrl, countryCode, selected, onSelect}: PostS
     return (
         
         <button 
-            className={`mb-4 rounded-lg p-2 bg-gray-100 ${selected ? "dark:bg-green-900" :"dark:bg-mist-900"} flex-3 cursor-pointer overflow-hidden relative group
+            className={`mb-4 rounded-lg p-2 bg-gray-100 ${selected ? "dark:bg-green-900 bg-green-600" :"dark:bg-mist-900"} flex-3 cursor-pointer overflow-hidden relative group
             transition-colors duration-100 ease-in-out`}
         onClick={onSelect}
         >

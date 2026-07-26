@@ -13,7 +13,7 @@ function ProfileStateButton ({label, onClick, profileState, buttonState}: Profil
 
     return (
         <button
-            className={`hover:cursor-pointer flex gap-3 font-semibold px-2 py-1 rounded-xl ${profileState == buttonState && "bg-mist-800"}`}
+            className={`hover:cursor-pointer flex gap-3 font-semibold px-2 py-1 rounded-xl ${profileState == buttonState && "dark:bg-mist-800 bg-mist-300"}`}
             onClick={onClick}
         >
             {label}
