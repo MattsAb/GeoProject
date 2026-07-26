@@ -109,14 +109,14 @@ export async function deleteTrip(req: Request, res: Response) {
     const trip = await prisma.trip.findUnique({
         where: {id: tripId}
     })
-
-    if(trip?.userId !== userId) { throw new ServerError(403, "Forbbiden")}
+    if(!trip) {throw new ServerError(404, "Trip not found")}
+    if(trip?.userId !== userId) { throw new ServerError(403, "Forbidden")}
 
     await prisma.trip.delete({
         where: { id: tripId },
     })
 
-    res.status(201).json({success: true});
+    res.status(200).json({success: true});
 }
 
 export async function getUserTrips(req: Request, res: Response) {

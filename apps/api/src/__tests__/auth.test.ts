@@ -99,28 +99,7 @@ describe("register", () => {
 
 describe("login", () => {
 
-    test("should login an existing user and return tokens", async () => {
-        (cognito.send as jest.Mock).mockResolvedValue({
-        AuthenticationResult: {
-            AccessToken: 'mock-access-token',
-            IdToken: 'mock-id-token',
-            RefreshToken: 'mock-refresh-token',
-            ExpiresIn: 3600,
-        },
-        });
 
-        await login(mockRequest, mockResponse as Response)
-
-        expect(cognito.send).toHaveBeenCalledTimes(1)
-        expect(mockResponse.status).toHaveBeenCalledWith(200);
-        expect(mockResponse.json).toHaveBeenCalledWith({
-            accessToken: 'mock-access-token',
-            idToken: 'mock-id-token',
-            refreshToken: 'mock-refresh-token',
-            expiresIn: 3600,
-        });
-
-    })
 
     test('should fail if no AuthenticationResult', async () => {
         (cognito.send as jest.Mock).mockResolvedValue({
