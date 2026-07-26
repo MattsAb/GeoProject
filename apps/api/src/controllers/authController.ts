@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { SignUpCommand, ConfirmSignUpCommand, InitiateAuthCommand, ResendConfirmationCodeCommand, UserNotFoundException, InvalidParameterException, AdminDeleteUserCommand } from '@aws-sdk/client-cognito-identity-provider';
+import { SignUpCommand, ConfirmSignUpCommand,AdminGetUserCommand, InitiateAuthCommand, ResendConfirmationCodeCommand, UserNotFoundException, InvalidParameterException, AdminDeleteUserCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { prisma } from '../config/prisma'
 import { cognito } from '../config/cognito';
 import { ServerError } from '../middleware/errorMiddleware';
@@ -44,7 +44,7 @@ export async function confirmSignUp(req: Request, res: Response) {
     await cognito.send(command);
 
     const cognitoUser = await cognito.send(
-      new (await import('@aws-sdk/client-cognito-identity-provider')).AdminGetUserCommand({
+      new AdminGetUserCommand({
         UserPoolId: env.COGNITO_USER_POOL_ID,
         Username: email,
       })
