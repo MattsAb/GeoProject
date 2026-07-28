@@ -6,7 +6,7 @@ type UserFollowProps = {
     user: User
 }
 
-function UserFollowComponent ({user}: UserFollowProps) {
+function UserComponent ({user}: UserFollowProps) {
 
     const navigate = useNavigate()
     const goToFollow = () => navigate(`/profile/${user.id}`)
@@ -25,4 +25,4 @@ function UserFollowComponent ({user}: UserFollowProps) {
     )
 }
 
-export default UserFollowComponent
+export default UserComponent

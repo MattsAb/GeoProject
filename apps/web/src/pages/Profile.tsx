@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { followUser, getUserProfile, unfollowUser } from "@geoapp/services";
 import ProfilePostsComponent from "../components/profile_components/ProfilePostsComponent";
 import ProfileTripsComponent from "../components/profile_components/ProfileTripsComponent";
-import ProfileStateButton from "../components/profile_components/ProfileStateButton";
+import StateButton from "../components/simple_components/StateButton";
 
 
 function Profile () {
@@ -92,13 +92,13 @@ function Profile () {
                 <ErrorMessageComponent message={errorMessage}/>
             </div>
             <div className="my-5 flex gap-3 f-full lg:w-3/4 self-center ">
-                    <ProfileStateButton
+                    <StateButton
                         label="trips" 
                         onClick={() => setProfileState('TRIPS')}
                         profileState={profileState}
                         buttonState="TRIPS"
                     />
-                    <ProfileStateButton
+                    <StateButton
                         label="posts" 
                         onClick={() => setProfileState('POSTS')}
                         profileState={profileState}

@@ -2,17 +2,13 @@ import type { SearchType } from "@geoapp/types";
 import { useEffect, useState } from "react";
 import { getSearch } from "../../../../packages/services/src/lib/serach.api";
 import { useSearchParams } from "react-router-dom";
-import UserFollowComponent from "../components/follow_components/UserFollowComponent";
-import TripComponent from "../components/profile_components/TripComponent";
-import ProfileStateButton from "../components/profile_components/ProfileStateButton";
+import UserComponent from "../components/user_components/UserComponent";
+import StateButton from "../components/simple_components/StateButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import ComponentLoader from "../components/simple_components/ComponentLoader";
-import FollowGhostComponent from "../components/follow_components/FollowGhostComponent";
+import UserGhostComponent from "../components/user_components/UserGhostComponent";
 import ProfileGhostComponent from "../components/profile_components/ProfileGhostComponent";
 import FeedTripComponent from "../components/feed_components/FeedTripComponent";
-
-
-
 
 function SearchPage() {
 
@@ -46,20 +42,20 @@ function SearchPage() {
             <h1 className="text-2xl font-semibold"> Searches by: {query}</h1>
 
             <div className="flex gap-3">
-                <ProfileStateButton
+                <StateButton
                     label="all"
                     buttonState="ALL"
                     profileState={searchState}
                     onClick={() => setSeacrhState('ALL')}
                 />
 
-                <ProfileStateButton
+                <StateButton
                     label="users"
                     buttonState="USERS"
                     profileState={searchState}
                     onClick={() => setSeacrhState('USERS')}
                 />
-                <ProfileStateButton
+                <StateButton
                     label="trips"
                     buttonState="TRIPS"
                     profileState={searchState}
@@ -75,12 +71,12 @@ function SearchPage() {
                     isLoaded={searchInfo?.users ? true : false}
                     gapSize={0}
                     columnNum={{small: 1, medium: 1, large: 1}}
-                    ghostComponent={<FollowGhostComponent/>}
+                    ghostComponent={<UserGhostComponent/>}
                     ghostCount={8}
                     loadedComponent={
                         <div className="flex flex-col gap-3">
                             {searchInfo?.users.map((user) => (
-                                <UserFollowComponent
+                                <UserComponent
                                     key={user.id}
                                     user={user}
                                 />

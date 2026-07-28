@@ -8,7 +8,7 @@ type ProfileStateButtonProps = {
 }
 
 
-function ProfileStateButton ({label, onClick, profileState, buttonState}: ProfileStateButtonProps) {
+function StateButton ({label, onClick, profileState, buttonState}: ProfileStateButtonProps) {
 
 
     return (
@@ -21,4 +21,4 @@ function ProfileStateButton ({label, onClick, profileState, buttonState}: Profil
     )
 }
 
-export default ProfileStateButton
+export default StateButton

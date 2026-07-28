@@ -1,4 +1,4 @@
-function FollowGhostComponent () {
+function UserGhostComponent () {
 
     return (
         <div 
@@ -8,4 +8,4 @@ function FollowGhostComponent () {
     )
 }
 
-export default FollowGhostComponent;
+export default UserGhostComponent;

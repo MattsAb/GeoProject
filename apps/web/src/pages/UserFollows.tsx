@@ -2,11 +2,10 @@ import { getFollows } from "@geoapp/services";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import type { Follow } from "@geoapp/types";
-import UserFollowComponent from "../components/follow_components/UserFollowComponent";
+import UserComponent from "../components/user_components/UserComponent";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import ComponentLoader from "../components/simple_components/ComponentLoader";
-import FollowGhostComponent from "../components/follow_components/FollowGhostComponent";
-
+import FollowGhostComponent from "../components/user_components/UserGhostComponent";
 
 function UserFollows () {
 
@@ -45,7 +44,7 @@ function UserFollows () {
                         loadedComponent={
                             <div className="flex flex-col gap-4">
                             {follows?.map((follow) => (
-                                <UserFollowComponent
+                                <UserComponent
                                     user={follow.followed}
                                 />
                             ))}
