@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import SimpleButton from "../components/simple_components/SimpleButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import CountryPicker from "../components/simple_components/CountryPicker";
 import { createPost } from "@geoapp/services";
 
@@ -16,7 +15,6 @@ function CreatePost () {
 
     const fileInputRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
-    const {user} = useAuth();
 
     async function handleSubmit() {
         if (!imageFile) {
@@ -27,7 +25,7 @@ function CreatePost () {
         const result = await createPost(description, imageFile, countryCode);
 
         if (result.success) {
-            navigate(`/profile/${user?.id}`)
+            navigate(`/post/${result.data?.id}`)
         } else if (result.error) {
             setErrorMessage(result.error)
         }

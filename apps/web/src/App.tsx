@@ -15,6 +15,7 @@ import CreateTripPage from "./pages/CreateTrip";
 import TripPage from "./pages/TripPage";
 import EditTrip from "./pages/EditTrip";
 import UserFollows from "./pages/UserFollows";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
               <Route path="/edituser" element={<EditProfile/>}/>
               <Route path="/liked" element={<LikedPostsPage/>}/>
               <Route path="/follows" element={<UserFollows/>}/>
+              <Route path="/search" element={<SearchPage/>}/>
             </Routes>
         </div>
         

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { authMiddleware } from '../middleware/authMiddleware';
-import { prisma } from '../config/prisma';
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 
 jest.mock('../config/prisma', () => ({

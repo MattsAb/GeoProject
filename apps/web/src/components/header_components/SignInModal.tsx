@@ -17,6 +17,7 @@ type SignInModalProps = {
 
 function SignInModal({onClose, setConfirm, email, password, username, setEmail, setPassword, setUsername}: SignInModalProps) {
     const [isSigned, setIsSigned] = useState(true);
+    const [passwordType, setPasswordType] = useState<'password' | 'text'>('password');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const {loginUser} = useAuth();
@@ -80,23 +81,33 @@ function SignInModal({onClose, setConfirm, email, password, username, setEmail, 
                     className="w-full px-4 py-2 border rounded-lg mb-3 dark:border-slate-700" 
                 />
             }
-            
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(v) => setPassword(v.target.value)}
-                className="w-full px-4 py-2 border rounded-lg mb-6 border-slate-700" 
-            />
-
+            <div className="flex flex-col">
+                <input
+                    type={passwordType}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(v) => setPassword(v.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg mb-6 border-slate-700" 
+                />
+                <div className="flex gap-2 items-center">
+                    <input
+                        className="cursor-pointer"
+                        type="checkbox"
+                        value={passwordType}
+                        onChange={(c) => setPasswordType(c.target.value === 'password' ? 'text' : 'password')}
+                    />
+                    <p> Show Password </p>
+                </div>
+            </div>
             <ErrorMessageComponent message={errorMessage}/>
             
             <button 
-            className="text-blue-400 active:text-blue-300 mb-4 cursor-pointer"
+            className="text-blue-400 active:text-blue-300 mb-4 cursor-pointer mt-2"
             onClick={() => setIsSigned(!isSigned)}
             >
                 {isSigned ? "Don't have an account?" : "Already have an account?"}
             </button>
+            
             <button 
                 className="w-full bg-sky-500 active:bg-sky-400 text-white py-2 rounded-lg font-medium cursor-pointer"
                 onClick={() => {     
