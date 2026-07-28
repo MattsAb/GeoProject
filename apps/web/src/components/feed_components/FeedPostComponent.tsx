@@ -21,12 +21,12 @@ function PostComponent ({photoUrl, username, countryCode, avatar, likes, id, use
     return (
         
         <div
-            className=" mb-4 flex relative rounded-lg overflow-hidden dark:bg-mist-800 bg-gray-100 max-w-150
+            className=" mb-4 flex flex-col relative rounded-lg overflow-hidden dark:bg-mist-800 bg-gray-100 max-w-150
             shadow-gray-400 dark:shadow-black shadow-2xl"
         >
 
         <button 
-            className="dark:bg-mist-900 flex-3 cursor-pointer overflow-hidden relative group"
+            className="dark:bg-mist-900 cursor-pointer overflow-hidden relative group"
             onClick={() => handlePostImage()}
         >
             <img 
@@ -38,22 +38,21 @@ function PostComponent ({photoUrl, username, countryCode, avatar, likes, id, use
             <div className="absolute top-3 left-3 dark:bg-mist-800 px-2 py-2 rounded-full"> 
                 <span className={`fi fi-${countryCode.toLowerCase()}` }></span>
             </div>
+
+            <div className="absolute bottom-3 right-3 flex gap-2 items-center dark:bg-mist-800 rounded-2xl px-2 py-1">
+                <h2 className="">{likes}</h2>
+                <HandThumbUpIcon className={`h-5 w-5`}/>
+            </div>
         </button>
 
-            <div className="flex flex-1 flex-col dark:bg-mist-900">
+            <div className="flex dark:bg-mist-900 items-center bg-mist-100 p-2 gap-3">
                 <button 
-                    className="cursor-pointer h-50"
+                    className="cursor-pointer"
                     onClick={() => handleProfileNavigate()}
                 >
-                    <img src={avatar}/>
+                    <img src={avatar} className="w-10 h-10 rounded-full"/>
                 </button>
-                <div className="flex flex-col h-full justify-between p-2">
-                    <h1 className=" font-semibold self-start"> {username} </h1>
-                    <div className="flex self-end gap-2 items-center dark:bg-mist-800 rounded-2xl px-2 py-1">
-                         <h2 className="">{likes}</h2>
-                        <HandThumbUpIcon className={`h-5 w-5`}/>
-                    </div>
-                </div>
+                <h1 className="font-semibold"> {username} </h1>
             </div>
         </div>
     )

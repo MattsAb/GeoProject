@@ -5,6 +5,11 @@ import { useSearchParams } from "react-router-dom";
 import UserFollowComponent from "../components/follow_components/UserFollowComponent";
 import TripComponent from "../components/profile_components/TripComponent";
 import ProfileStateButton from "../components/profile_components/ProfileStateButton";
+import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
+import ComponentLoader from "../components/simple_components/ComponentLoader";
+import FollowGhostComponent from "../components/follow_components/FollowGhostComponent";
+import ProfileGhostComponent from "../components/profile_components/ProfileGhostComponent";
+import FeedTripComponent from "../components/feed_components/FeedTripComponent";
 
 
 
@@ -39,6 +44,7 @@ function SearchPage() {
         <div className="w-full h-full flex flex-col items-center p-5">
             <div className="flex flex-col gap-5 w-full lg:w-1/2 mt-10">
             <h1 className="text-2xl font-semibold"> Searches by: {query}</h1>
+
             <div className="flex gap-3">
                 <ProfileStateButton
                     label="all"
@@ -59,23 +65,52 @@ function SearchPage() {
                     profileState={searchState}
                     onClick={() => setSeacrhState('TRIPS')}
                 />
+
+                <ErrorMessageComponent message={errorMessage}/>
+
             </div>
-            {(searchState == 'USERS' || searchState == 'ALL') && searchInfo?.users.map((user) => (
-                <UserFollowComponent
-                    key={user.id}
-                    user={user}
+
+            {(searchState == 'USERS' || searchState == 'ALL') && 
+                <ComponentLoader
+                    isLoaded={searchInfo?.users ? true : false}
+                    gapSize={0}
+                    columnNum={{small: 1, medium: 1, large: 1}}
+                    ghostComponent={<FollowGhostComponent/>}
+                    ghostCount={8}
+                    loadedComponent={
+                        <div className="flex flex-col gap-3">
+                            {searchInfo?.users.map((user) => (
+                                <UserFollowComponent
+                                    key={user.id}
+                                    user={user}
+                                />
+                            )) }
+                        
+                        </div>
+                    }
                 />
-            ))}
-            <div className="grid md:grid-cols-1 xl:grid-cols-2 gap-4">
-                {(searchState == 'TRIPS' || searchState == 'ALL') && searchInfo?.trips.map((trip) => (
-                    <TripComponent
-                        key={trip.id}
-                        id={trip.id}
-                        photoUrl={trip.photoUrl}
-                        title={trip.title}
-                    />
-                ))}
-            </div>
+            }
+
+            {(searchState == 'TRIPS' || searchState == 'ALL') &&
+                <ComponentLoader
+                    isLoaded={searchInfo?.trips ? true : false}
+                    gapSize={4}
+                    columnNum={{small: 1, medium: 1, large: 1}}
+                    ghostComponent={<ProfileGhostComponent/>}
+                    ghostCount={8}
+                    loadedComponent={
+                        <>
+                        {searchInfo?.trips?.map((trip) => (
+                            <FeedTripComponent
+                                key={trip.id}
+                                trip={trip}
+                            />
+                        ))}
+                        </>
+                    }
+                />
+            }
+
             </div>
         </div>
     )

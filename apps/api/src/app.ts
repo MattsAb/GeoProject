@@ -12,6 +12,7 @@ import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import tripRoutes from './routes/tripRoutes';
 import searchRoutes from './routes/searchRoutes'
+import dashboardRoutes from './routes/dashboardRoutes';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors())
 app.use(express.json());
 
 //routes
+app.use('/api/v1', dashboardRoutes)
 app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/user/:id/follow',authMiddleware, followRoutes);
 app.use('/api/v1/trips', tripRoutes)
