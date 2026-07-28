@@ -16,7 +16,7 @@ function Profile () {
     const [ownProfile, setOwnProfile] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
     const [isfollowed, setIsFollowed] = useState(false);
-    const [profileState, setProfileState] = useState<'POSTS' | 'TRIPS'>('POSTS')
+    const [profileState, setProfileState] = useState<'POSTS' | 'TRIPS'>('TRIPS')
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const { id } = useParams();
@@ -93,16 +93,16 @@ function Profile () {
             </div>
             <div className="my-5 flex gap-3 f-full lg:w-3/4 self-center ">
                     <ProfileStateButton
-                    label="posts" 
-                    onClick={() => setProfileState('POSTS')}
-                    profileState={profileState}
-                    buttonState="POSTS"
+                        label="trips" 
+                        onClick={() => setProfileState('TRIPS')}
+                        profileState={profileState}
+                        buttonState="TRIPS"
                     />
                     <ProfileStateButton
-                    label="trips" 
-                    onClick={() => setProfileState('TRIPS')}
-                    profileState={profileState}
-                    buttonState="TRIPS"
+                        label="posts" 
+                        onClick={() => setProfileState('POSTS')}
+                        profileState={profileState}
+                        buttonState="POSTS"
                     />
             </div>
 

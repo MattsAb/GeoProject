@@ -2,6 +2,9 @@ import type { Trip } from "@geoapp/types";
 import { useEffect, useState } from "react";
 import TripComponent from "./TripComponent";
 import { getUserTrips } from "@geoapp/services";
+import ComponentLoader from "../simple_components/ComponentLoader";
+import ProfileGhostComponent from "./ProfileGhostComponent";
+import ErrorMessageComponent from "../simple_components/ErrorMessageComponent";
 
 type TripsComponentProps = {
     id?: string
@@ -16,7 +19,6 @@ function ProfileTripsComponent ({id}: TripsComponentProps) {
         async function getProfilePosts () {
             if (!id) return
             
-
             const result = await getUserTrips(id);
 
             if (result.success && result.data) {
@@ -28,7 +30,6 @@ function ProfileTripsComponent ({id}: TripsComponentProps) {
                     setErrorMessage(result.error)
                 }
             }
-
         }
         getProfilePosts()
     }, [id]) 
@@ -40,18 +41,28 @@ function ProfileTripsComponent ({id}: TripsComponentProps) {
                 <h1> Trips </h1>
             </div>
 
-            { trips && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                
-                    {trips.map((trip) => (
-                        <TripComponent
-                        key={trip.id}
-                        title={trip.title}
-                        photoUrl={trip.photoUrl}
-                        id={trip.id}
-                        />
-                    ))}
-                
-            </div>} 
+                <ErrorMessageComponent message={errorMessage}/>
+
+                <ComponentLoader
+                    isLoaded={trips ? true : false}
+                    gapSize={0}
+                    columnNum={{small: 1, medium: 1, large: 1}}
+                    ghostComponent={<ProfileGhostComponent/>}
+                    ghostCount={3}
+                    loadedComponent={
+                        <>
+                        {trips?.map((trip) => (
+                            <TripComponent
+                                key={trip.id}
+                                id={trip.id}
+                                photoUrl={trip.photoUrl}
+                                title={trip.title}
+                            />
+                        ))}
+                        </>
+                    }
+
+                />
         </>
     )
 

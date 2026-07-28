@@ -1,4 +1,5 @@
 import { Post } from "./post"
+import { Trip } from "./trip"
 
 export interface User {
     id: string
@@ -14,6 +15,11 @@ export interface User {
         followers: number
         posts: number
     }
+}
+
+export interface Feed {
+    posts: Post[]
+    trips: Trip[]
 }
 
 export interface SignUpDTO {

@@ -2,6 +2,9 @@ import { getUserPosts } from "@geoapp/services";
 import type { Post } from "@geoapp/types";
 import { useEffect, useState } from "react";
 import ImageComponent from "../profile_components/PostComponent";
+import ProfileGhostComponent from "./ProfileGhostComponent";
+import ComponentLoader from "../simple_components/ComponentLoader";
+import ErrorMessageComponent from "../simple_components/ErrorMessageComponent";
 
 type PostComponentProps = {
     id?: string
@@ -40,19 +43,29 @@ function ProfilePostsComponent ({id}: PostComponentProps) {
                     <h1> Posts </h1>
                 </div>
 
-                { posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                    
-                        {posts.map((post) => (
+                <ErrorMessageComponent message={errorMessage}/>
+
+                <ComponentLoader
+                    isLoaded={posts ? true : false}
+                    columnNum={{small: 1, medium: 2, large: 3}}
+                    gapSize={2}
+                    ghostComponent={<ProfileGhostComponent/>}
+                    ghostCount={9}
+                    loadedComponent={
+                        <>
+                        {posts?.map((post) => (
                             <ImageComponent
-                            key={post.id}
-                            photoUrl={post.photoUrl}
-                            countryCode={post.countryCode}
-                            likes={post._count?.likes || 0}
-                            id={post.id}
+                                key={post.id}
+                                id={post.id}
+                                photoUrl={post.photoUrl}
+                                countryCode={post.countryCode}
+                                likes={post._count?.likes || 0}
                             />
                         ))}
-                    
-                </div>} 
+                        </>
+                    }
+
+                />
             </>
     )
 
