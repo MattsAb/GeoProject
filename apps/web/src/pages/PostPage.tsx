@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import type { Post } from "@geoapp/types";
 import PostInfoComponent from "../components/post_Page_Components/PostInfoComponent";
 import { getPost, likePost, postComment, unlikePost } from "@geoapp/services";
+import PostPageGhostComponent from "../components/post_Page_Components/postPageGhostComponent";
 
 function PostPage () {
 
@@ -79,12 +80,14 @@ function PostPage () {
         }
     }
 
-
+    if (!postInfo) {
+        return (<PostPageGhostComponent/>)
+    }
 
     return (
         <div className="flex mt-10">
             <div className="flex-3 px-5 flex items-center justify-center">
-                <div className="py-10 px-5 dark:bg-mist-800 rounded-2xl flex flex-col gap-3 w-full xl:w-2/3 "> 
+                <div className="py-10 px-5 dark:bg-mist-800 bg-mist-100 rounded-2xl flex flex-col gap-3 w-full xl:w-2/3 "> 
 
                 {/* Post Information */}
                 <PostInfoComponent
