@@ -22,6 +22,7 @@ function SearchPage() {
     useEffect(() => {
         async function fetchSearch () {
             if (!query) return;
+            window.scrollTo(0, 0)
             const result = await getSearch(query);
 
             if (result.success && result.data) {

@@ -16,7 +16,7 @@ function LikedPostsPage () {
 
     useEffect(() => {
         async function fetchLikes () {
-
+            window.scrollTo(0, 0)
             const result = await getLikedPosts(`${user?.id}`);
 
             if (result.success && result.data) {
@@ -31,7 +31,7 @@ function LikedPostsPage () {
 
     return (
         <div className="w-full flex justify-center">
-            <div className="2xl:w-2/3 w-full px-5">
+            <div className="2xl:w-2/3 pt-5 w-full px-5">
                 <h1 className="text-2xl mb-5 "> {likedPosts?.length ? "Your Liked Posts" : "No liked posts"} </h1>
 
                     <ErrorMessageComponent message={errorMessage}/>

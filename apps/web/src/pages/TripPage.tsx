@@ -6,12 +6,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import ImageComponent from "../components/profile_components/PostComponent";
 import SimpleButton from "../components/simple_components/SimpleButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
+import { useAuth } from "../context/AuthContext";
 
 
 function TripPage () {
 
-    const [trip, setTrip] = useState<Trip>()
+    const [trip, setTrip] = useState<Trip>();
+    const [canEdit, setCanEdit] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const {user} = useAuth();
 
     const { id } = useParams();
     const navigate = useNavigate()
@@ -24,6 +28,7 @@ function TripPage () {
             const result = await getTripInfo(id)
             if (result.success && result.data) {
                 setTrip(result.data)
+                if (result.data.userId == user?.id) setCanEdit(true)
             } else if (result.error) {
                 setErrorMessage(result.error)
             }
@@ -37,12 +42,12 @@ function TripPage () {
             <div className="dark:bg-mist-800 mx-5 my-5 rounded-xl flex flex-col gap-5 p-5">
                 <h1 className="text-2xl"> {trip?.title} </h1>
                 <h2> {trip?.description}</h2>
-                <div className="w-full flex justify-end px-5 pb-5">
+                {canEdit && <div className="w-full flex justify-end px-5 pb-5">
                     <SimpleButton 
-                    label="Edit trip"
+                    label="Edit Trip"
                     onClick={() => goToEdit()}
                     />
-                </div>
+                </div>}
             </div>
             <ErrorMessageComponent message={errorMessage}/>
             <div className="dark:bg-mist-800 mx-5 my-5 lg:w-4/5 self-center rounded-xl flex flex-col gap-5 p-5">

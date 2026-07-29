@@ -26,7 +26,7 @@ export async function getFeed(req: Request, res: Response) {
 async function get_basic_feed() {
 
         const posts = await prisma.post.findMany({
-            take: 20,
+            take: 15,
             include: {
                 _count: {
                     select: {likes: true}
@@ -38,7 +38,7 @@ async function get_basic_feed() {
             orderBy: { createdAt: 'desc' }
         })
         const trips = await prisma.trip.findMany({
-            take: 20,
+            take: 10,
             include: {
                 user: {
                     select: {username: true, avatarUrl: true, id: true}
@@ -64,7 +64,7 @@ async function get_user_feed(userid: string, followingIds: string[]) {
             }
         },
         orderBy: { createdAt: 'desc' },
-        take: 20,
+        take: 15,
     })
 
     const trips = await prisma.trip.findMany({

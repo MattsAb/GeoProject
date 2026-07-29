@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import type { Feed} from "@geoapp/types";
+import type {Post, Trip} from "@geoapp/types";
 import FeedPostComponent from "../components/feed_components/FeedPostComponent";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import { getFeed } from "@geoapp/services";
@@ -10,7 +10,8 @@ import FeedTripComponent from "../components/feed_components/FeedTripComponent";
 
 function Dashboard() {
   
-    const [feed, setFeed] = useState<Feed>()
+    const [posts, setPosts] = useState<Post[]>()
+    const [trips, setTrips] = useState<Trip[]>()
     const [errorMessage, setErrorMessage] = useState(''); 
     
     const {user} = useAuth();
@@ -18,14 +19,17 @@ function Dashboard() {
    useEffect(() => {
     async function getFeedInfo() {
       if (!user)  {
-        setFeed(undefined);
+        setPosts(undefined);
+        setTrips(undefined)
         return
       }
+      window.scrollTo(0, 0)
       const result = await getFeed() 
 
       if (result.success && result.data)
       {
-        setFeed(result.data)
+        setPosts(result.data.posts)
+        setTrips(result.data.trips)
       } else if (result.error) {
         setErrorMessage(result.error)
       }
@@ -36,20 +40,20 @@ function Dashboard() {
   
 
   return (
-    <div className="flex flex-col px-5 flex-wrap gap-4 w-full">
+    <div className="flex flex-col px-5 py-5 flex-wrap gap-4 w-full">
 
-      <h1 className="font-semibold text-2xl pl-10 pt-5"> People traveling </h1>
+      <h1 className="font-semibold text-2xl pl-10"> People traveling </h1>
       <ErrorMessageComponent message={errorMessage}/>
 
       <ComponentLoader
-        isLoaded={feed?.trips ? true : false}
+        isLoaded={trips ? true : false}
         gapSize={4}
-        columnNum={{small: 1, medium: 2, large: 2}}
+        columnNum={{small: 1, medium: 1, large: 2}}
         ghostComponent={<ProfileGhostComponent/>}
         ghostCount={8}
         loadedComponent={
             <>
-            {feed?.trips?.map((trip) => (
+            {trips?.map((trip) => (
                 <FeedTripComponent
                     key={trip.id}
                     trip={trip}
@@ -58,18 +62,18 @@ function Dashboard() {
             </>
         }
       />
-
+      <button className="text-xl font-semibold bg-mist-800 p-2 rounded-2xl cursor-pointer active:dark:bg-mist-700"> More Trips </button>
       <h1 className="font-semibold text-2xl pl-10 pt-5"> Posts </h1>
 
       <ComponentLoader
-        isLoaded={feed?.posts ? true : false}
+        isLoaded={posts ? true : false}
         columnNum={{small: 1, medium: 2, large: 3}}
         gapSize={5}
         ghostComponent={<ProfileGhostComponent/>}
         ghostCount={9}
         loadedComponent={
             <>
-            {feed?.posts?.map((post) => (
+            {posts?.map((post) => (
                 <FeedPostComponent
                     key={post.id}
                     id={post.id}
@@ -85,7 +89,8 @@ function Dashboard() {
         }
 
     />
-        
+
+    <button className="text-xl font-semibold bg-mist-800 p-2 rounded-2xl cursor-pointer active:dark:bg-mist-700"> More Posts </button>
     </div>
   )
 }

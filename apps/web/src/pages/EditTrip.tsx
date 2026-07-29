@@ -15,6 +15,7 @@ function EditTrip () {
     const [title, setTitle] = useState('');
     const [posts, setPosts] = useState<Post[]>()
     const [chosenPosts, setChosenPosts] = useState<Post[]>()
+    const [postsOpen, setPostsOpen] = useState(false)
     const [tripInfo, setTripInfo] = useState<Trip>();
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -34,6 +35,7 @@ function EditTrip () {
                     setTripInfo(result.data)
                     setTitle(result.data.title)
                     setDescrition(result.data.description)     
+                    setChosenPosts(result.data.posts)
                 } else if (result.error) {
                     setErrorMessage(result.error);
                 }
@@ -66,7 +68,6 @@ function EditTrip () {
         if (!user) return;
         const result = await getUserPosts(user?.id)
         if (result.success && result.data) {
-            setChosenPosts(tripInfo?.posts)
             setPosts(result.data)
         } else if (result.error) {
             setErrorMessage(result.error)
@@ -137,9 +138,13 @@ function EditTrip () {
 
                     {/* Trip post selection */}
                     <div className="flex self-end my-3">
-                        <SimpleButton label="Add posts" onClick={() => openPosts()}/>
+                        <SimpleButton label="Add posts" onClick={() => {
+                                const willBeOpen = !postsOpen;
+                                setPostsOpen(willBeOpen);
+                                if (willBeOpen) openPosts();
+                            }}/>
                     </div>
-                    { posts && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    { posts && postsOpen && <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         
                             {posts.map((post) => (
                                 <PostSelectComponent

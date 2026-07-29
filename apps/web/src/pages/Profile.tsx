@@ -25,7 +25,7 @@ function Profile () {
     useEffect(() => {
         async function getProfile () {
             if (!id) return
-            
+            window.scrollTo(0, 0)
             setOwnProfile(false)
             const result = await getUserProfile(id);
 
