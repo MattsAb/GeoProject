@@ -4,11 +4,14 @@ import ErrorMessageComponent from "../components/simple_components/ErrorMessageC
 import { useNavigate } from "react-router-dom";
 import CountryPicker from "../components/simple_components/CountryPicker";
 import { createPost } from "@geoapp/services";
+import GoogleMapComponent from "../components/create_post_components/google_map_component";
+import type { PlaceInfo } from "@geoapp/types";
 
 function CreatePost () {
 
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [description, setDescrition] = useState('');
+    const [locationInfo, setLocationInfo] = useState<PlaceInfo>()
     const [countryCode, setCountryCode] = useState('LT');
     const [preview, setPreview] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -44,6 +47,8 @@ function CreatePost () {
             <div className="h-full md:w-2/3 xl:w-1/2 w-full flex justify-center px-5">
                 <div className="dark:bg-mist-800 w-full rounded-2xl p-10 flex flex-col gap-10 mt-10">
                     <h1 className="font-bold text-2xl"> Create your post </h1>
+                        {/* Post Map */}
+                        <GoogleMapComponent/>
                         {/* Post Image */}
                         <div className="flex flex-col mt-10 gap-5">
                             <>

@@ -62,7 +62,10 @@ function Dashboard() {
             </>
         }
       />
-      <button className="text-xl font-semibold bg-mist-800 p-2 rounded-2xl cursor-pointer active:dark:bg-mist-700"> More Trips </button>
+      <button 
+        className="text-xl font-semibold bg-mist-800 p-2 rounded-2xl cursor-pointer active:dark:bg-mist-700"
+        onClick={() => console.log('more trips')}
+      > More Trips </button>
       <h1 className="font-semibold text-2xl pl-10 pt-5"> Posts </h1>
 
       <ComponentLoader

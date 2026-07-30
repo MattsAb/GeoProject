@@ -4,6 +4,8 @@ import { ServerError } from '../middleware/errorMiddleware';
 import { s3 } from '../config/s3';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 
+const DEFAULT_AVATAR_URL = 'https://geoapp-s3-postbucket.s3.eu-north-1.amazonaws.com/avatars/geoapp_default_avatar.png';
+
 export async function getProfile(req: Request, res: Response) {
     
     const profileId = req.params.id as string;
@@ -56,7 +58,7 @@ export async function updateProfile(req: Request, res: Response) {
 
     if (!user) throw new ServerError(403, 'Forbidden')
     
-    if (file && user.avatarUrl) {
+    if (file && user.avatarUrl && user.avatarUrl !== DEFAULT_AVATAR_URL) {
             const key = user.avatarUrl.split('.amazonaws.com/')[1]
             await s3.send(new DeleteObjectCommand({
                 Bucket: process.env.AWS_BUCKET_NAME!,
