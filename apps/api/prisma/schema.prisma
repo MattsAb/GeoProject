@@ -30,7 +30,6 @@ model Post {
   id         String  @id @default(uuid()) @db.Uuid 
   photoUrl    String
   description String
-  countryCode String   @db.Char(2)
   createdAt   DateTime @default(now())
 
   userId String @db.Uuid
@@ -39,10 +38,20 @@ model Post {
   tripId String? @db.Uuid
   trip   Trip?   @relation(fields: [tripId], references: [id], onDelete: SetNull)
 
+  placeId String? @db.Uuid
+  place   Place? @relation(fields: [placeId], references: [id], onDelete: SetNull)
+
   likes    Like[]
   comments Comment[]
 
   @@index([userId])
+}
+
+model Place {
+  id         String  @id @default(uuid()) @db.Uuid
+  place_id   String  @unique
+
+  posts     Post[]
 }
 
 model Trip {

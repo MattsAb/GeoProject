@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import CountryPicker from "../components/simple_components/CountryPicker";
 import { createPost } from "@geoapp/services";
 import GoogleMapComponent from "../components/create_post_components/google_map_component";
-import type { PlaceInfo } from "@geoapp/types";
+import type { Place } from "@geoapp/types";
 
 function CreatePost () {
 
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [description, setDescrition] = useState('');
-    const [locationInfo, setLocationInfo] = useState<PlaceInfo>()
-    const [countryCode, setCountryCode] = useState('LT');
+    const [placeInfo, setPlaceInfo] = useState<Place>()
     const [preview, setPreview] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -20,12 +19,12 @@ function CreatePost () {
     const navigate = useNavigate();
 
     async function handleSubmit() {
-        if (!imageFile) {
-            setErrorMessage("please upload an image");
+        if (!imageFile || !placeInfo) {
+            setErrorMessage("image and location required");
             return;
         }
         
-        const result = await createPost(description, imageFile, countryCode);
+        const result = await createPost(description, imageFile, placeInfo);
 
         if (result.success) {
             navigate(`/post/${result.data?.id}`)
@@ -48,7 +47,9 @@ function CreatePost () {
                 <div className="dark:bg-mist-800 w-full rounded-2xl p-10 flex flex-col gap-10 mt-10">
                     <h1 className="font-bold text-2xl"> Create your post </h1>
                         {/* Post Map */}
-                        <GoogleMapComponent/>
+                        <GoogleMapComponent
+                            getPlace={(p) => setPlaceInfo(p)}
+                        />
                         {/* Post Image */}
                         <div className="flex flex-col mt-10 gap-5">
                             <>
@@ -66,13 +67,6 @@ function CreatePost () {
                                 {imageFile && <img src={preview} className="w-full object-contain max-h-150 dark:bg-mist-900 bg-mist-200" />}
                             </>
                         </div>
-                            {/* Country Picker */}
-                            <CountryPicker
-                                onChange={e => {
-                                    setCountryCode(e)
-                                }}
-                                value={countryCode}
-                            />
      
                         {/* Post Description */}
                         <div className="">

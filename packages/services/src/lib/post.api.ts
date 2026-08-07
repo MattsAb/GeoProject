@@ -1,18 +1,16 @@
-import type { ApiResponse, Post } from "@geoapp/types"
+import type { ApiResponse, Place, Post } from "@geoapp/types"
 import { handleError } from "../utils/handleError"
 import api from "../utils/axios"
 
 
-export async function createPost(description: string, imageFile: File, countryCode: string): Promise<ApiResponse<Post>> {
+export async function createPost(description: string, imageFile: File, placeInfo: Place): Promise<ApiResponse<Post>> {
     try {
         const formData = new FormData();
         formData.append('image', imageFile);
         formData.append('description', description);
-        formData.append('countryCode', countryCode);
+        formData.append('placeInfo', JSON.stringify(placeInfo));
 
-        const response = await api.post('/v1/posts', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        })
+        const response = await api.post('/v1/posts', formData)
         return response.data
     } catch (err) {
         return handleError(err);

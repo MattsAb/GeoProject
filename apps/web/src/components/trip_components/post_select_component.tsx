@@ -1,12 +1,11 @@
 
 type PostSelectComponentProps = {
     photoUrl: string
-    countryCode: string
     selected: boolean
     onSelect: () => void
 }
 
-function PostSelectComponent ({photoUrl, countryCode, selected, onSelect}: PostSelectComponentProps) {
+function PostSelectComponent ({photoUrl, selected, onSelect}: PostSelectComponentProps) {
 
 
     return (
@@ -18,10 +17,6 @@ function PostSelectComponent ({photoUrl, countryCode, selected, onSelect}: PostS
         >
             <div>
                 <img src={photoUrl} className="w-full h-75 object-cover" />
-            </div>
-
-            <div className="absolute top-3 left-3"> 
-                <span className={`fi fi-${countryCode.toLowerCase()}` }></span>
             </div>
 
             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"/>

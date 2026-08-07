@@ -36,7 +36,7 @@ router.put(
 );
 
 router.delete(
-    '/:id',
+    '/:postId',
     authMiddleware,
     validate(postParamsSchema),
     deletePost

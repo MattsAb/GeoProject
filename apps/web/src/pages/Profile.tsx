@@ -32,7 +32,6 @@ function Profile () {
             if (result.success && result.data) {
                 setProfile(result.data)
                 setFollowerCount(result.data._count.followers);
-                console.log(result.data.followers)
                 if(result.data.followers.length > 0) setIsFollowed(true);
                 if(result.data.id == `${user?.id}`) setOwnProfile(true);
             }

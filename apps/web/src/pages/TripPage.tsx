@@ -21,6 +21,7 @@ function TripPage () {
     const navigate = useNavigate()
 
     const goToEdit = () => navigate(`/trip/edit/${id}`);
+    const goToProfile = () => navigate(`/profile/${trip?.userId}`)
 
     useEffect(() => {
         async function getInfo() {
@@ -40,7 +41,16 @@ function TripPage () {
     return (
         <div className="flex flex-col">
             <div className="dark:bg-mist-800 mx-5 my-5 rounded-xl flex flex-col gap-5 p-5">
-                <h1 className="text-2xl"> {trip?.title} </h1>
+                <div className="flex gap-3 items-center">
+                    <h1 className="text-2xl"> {trip?.title} with:</h1>
+                    <button 
+                        className="flex gap-3 items-center dark:bg-mist-700 p-2 rounded-full cursor-pointer text-xl"
+                        onClick={() => goToProfile()}
+                        >
+                        <img className="h-10 w-10" src={trip?.user?.avatarUrl}/>
+                        <h1> {trip?.user?.username}</h1>
+                    </button>
+                </div>
                 <h2> {trip?.description}</h2>
                 {canEdit && <div className="w-full flex justify-end px-5 pb-5">
                     <SimpleButton 
@@ -57,7 +67,6 @@ function TripPage () {
                             <ImageComponent
                             key={post.id}
                             photoUrl={post.photoUrl}
-                            countryCode={post.countryCode}
                             likes={post._count?.likes || 0}
                             id={post.id}
                             />

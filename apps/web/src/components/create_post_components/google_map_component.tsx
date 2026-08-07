@@ -1,8 +1,21 @@
-import type { PlaceInfo } from "@geoapp/types";
+import type { Place } from "@geoapp/types";
 import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from "@react-google-maps/api";
 import { useRef, useState } from "react";
 
-function GoogleMapComponent() {
+type GoogleMapComponentProps = {
+    getPlace: (placeInfo: Place) => void
+}
+
+const MAP_OPTIONS = {
+    zoomControl: false,
+    streetViewControl: false,
+    mapTypeControl: false,
+    fullscreenControl: false,
+};
+
+const GOOGLE_MAPS_LIBRARIES: ("places")[] = ['places'];
+
+function GoogleMapComponent({getPlace}: GoogleMapComponentProps) {
 
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [position, setPosition] = useState({ lat: 48.8584, lng: 2.2945 });
@@ -11,7 +24,7 @@ function GoogleMapComponent() {
 
     const {isLoaded} = useJsApiLoader({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-        libraries: ['places']
+        libraries: GOOGLE_MAPS_LIBRARIES
     })
     
     if (!isLoaded) return (<></>)
@@ -25,38 +38,14 @@ function GoogleMapComponent() {
             };
             setPosition(newPos);
             map?.panTo(newPos);
-            let countyInfo = extractPlaceDetails(place.address_components)
-            const info: PlaceInfo = {
-                placeName: place.name || '',
-                countryLongName: countyInfo.countryLongName || '',
-                countryShortName: countyInfo.countryShortName || '',
-                lat: newPos.lat,
-                lng: newPos.lng
+            const info: Place = {
+                place_id: place.place_id || ''
             }
-            console.log(info)
+            getPlace(info)
             
         }
     };
 
-function extractPlaceDetails(addressComponents: any) {
-  let result = {
-    countryLongName: null,
-    countryShortName: null,
-  };
-
-  if (!Array.isArray(addressComponents)) return result;
-
-  const countryComponent = addressComponents.find((component) =>
-    component.types.includes('country')
-  );
-
-  if (countryComponent) {
-    result.countryLongName = countryComponent.long_name;
-    result.countryShortName = countryComponent.short_name;
-  }
-
-  return result;
-}
 
     return (
             <div className="flex flex-col w-full h-200">
@@ -66,12 +55,7 @@ function extractPlaceDetails(addressComponents: any) {
                     zoom={15}
                     mapContainerStyle={{ width: '100%', height: '100%' }}
                     onLoad={(mapInstance) => setMap(mapInstance)}
-                    options={{
-                        zoomControl: false,
-                        streetViewControl: false,
-                        mapTypeControl: false,
-                        fullscreenControl: false,
-                    }}
+                    options={MAP_OPTIONS}
                 >
                 <Marker position={position}/>
                 </GoogleMap>

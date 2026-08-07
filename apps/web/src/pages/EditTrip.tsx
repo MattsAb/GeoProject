@@ -151,7 +151,6 @@ function EditTrip () {
                                 key={post.id}
                                 selected={chosenPosts?.some((p) => p.id === post.id) || false}
                                 photoUrl={post.photoUrl}
-                                countryCode={post.countryCode}
                                 onSelect={() => {
                                     setChosenPosts((prev) => {
                                         const current = prev ?? [];

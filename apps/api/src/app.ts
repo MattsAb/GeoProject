@@ -13,6 +13,7 @@ import authRoutes from './routes/authRoutes';
 import tripRoutes from './routes/tripRoutes';
 import searchRoutes from './routes/searchRoutes'
 import dashboardRoutes from './routes/dashboardRoutes';
+import placeRoutes from './routes/placeRoutes'
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/api/v1/post/:postId/comments',authMiddleware, commentRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/place', placeRoutes)
 
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });

@@ -3,20 +3,41 @@ import { prisma } from '../config/prisma';
 import { ServerError } from '../middleware/errorMiddleware';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { s3 } from '../config/s3';
-import { PostDTO } from '@geoapp/types';
+import { Place, PostDTO } from '@geoapp/types';
+import { getPlaceName } from '../config/google_place';
 
 export async function createPost(req: Request, res: Response) {
 
-    const { description, countryCode }: PostDTO = req.body;
+    const { description }: PostDTO = req.body;
     const file = req.file as Express.MulterS3.File;
     const userId = req.user!.id;
+
+    let placeInfo: Place | undefined;
+    if (req.body.placeInfo) {
+        placeInfo = typeof req.body.placeInfo === 'string' ? JSON.parse(req.body.placeInfo) : req.body.placeInfo;
+    }
+
+    if (!placeInfo) {throw new ServerError(404, 'Invalid place information');}
+
+    let place = await prisma.place.findUnique({
+        where: {place_id: placeInfo.place_id}
+    })
+
+    if (!place) {
+
+        place = await prisma.place.create({
+            data: {
+                place_id: placeInfo.place_id,
+            }
+        })
+    }
 
     const post = await prisma.post.create({
         data: {
             photoUrl: file.location,
-            countryCode: countryCode,
             description: description,
-            userId
+            userId,
+            placeId: place.id
         }
     })
 
@@ -27,12 +48,14 @@ export async function createPost(req: Request, res: Response) {
 export async function getPost(req: Request, res: Response) {
     
     const postId = req.params.postId as string;
-    const userId = req.user?.id;
-
-
-    const post = await prisma.post.findUnique({
+    const userId = req.user?.id ? req.user?.id : undefined;
+    
+    let post = await prisma.post.findUnique({
         where: {id: postId},
         include: {
+            place: {
+                select: {id: true, place_id: true}
+            },
             user: true,
             comments: {
                 include: {
@@ -49,6 +72,12 @@ export async function getPost(req: Request, res: Response) {
     })
 
     if (!post) {throw new ServerError(404, 'Post not found');}
+
+    let placeName: string | null = null;
+    if (post.place && post.place.place_id) {
+        placeName = await getPlaceName(post.place.place_id);
+        post.place.placeName  = placeName
+    }
 
     return res.status(200).json({success: true, data: post});
 }
@@ -85,7 +114,7 @@ export async function editPost(req: Request, res: Response) {
 
 export async function deletePost(req: Request, res: Response) {
 
-    const postId = req.params.id as string;
+    const postId = req.params.postId as string;
     const userId = req.user!.id;
 
     const post = await prisma.post.findUnique({ where: { id: postId } })
@@ -105,60 +134,6 @@ export async function deletePost(req: Request, res: Response) {
     return res.status(200).json({ success: true })
 }
 
-export async function getFeed(req: Request, res: Response) {
-
-    const userId = req.user!.id
-
-    const following = await prisma.follow.findMany({
-        where: { followerId: userId },
-        select: { followedId: true }
-    })
-    
-    if (!following.length)
-    {
-        const posts = await prisma.post.findMany({
-            take: 20,
-            include: {
-                _count: {
-                    select: {likes: true}
-                },
-                user: {
-                    select: {username: true, avatarUrl: true, id: true}
-                }
-            },
-            orderBy: { createdAt: 'desc' }
-        })
-        return res.status(200).json({success: true, data: posts})
-    }
-
-    const followingIds = following.map(f => f.followedId)
-
-    const posts = await prisma.post.findMany({
-        where: {
-            userId: { in: followingIds }
-        },
-        include: {
-            user: {
-                select: { id: true, username: true, avatarUrl: true }
-            },
-            comments: {
-                include: {
-                    user: {
-                        select: { id: true, username: true, avatarUrl: true }
-                    }
-                }
-            },
-            _count: {
-                select: { likes: true, comments: true }
-            }
-        },
-        orderBy: { createdAt: 'desc' },
-        take: 20,
-    })
-
-    return res.status(200).json({ success: true, data: posts })
-
-}
 
 export async function getUserPosts(req: Request, res: Response) {
     const userId = req.params.id as string;
@@ -179,3 +154,4 @@ export async function getUserPosts(req: Request, res: Response) {
 
     return res.status(200).json({success: true, data: posts})
 }
+

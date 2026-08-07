@@ -11,7 +11,7 @@ export async function search(req: Request, res: Response) {
       where: {
         title: { contains: q, mode: 'insensitive' },
       },
-      take: 10,
+      take: 20,
       include: {
         user: { select: { id: true, username: true, avatarUrl: true } },
         _count: { select: { posts: true } },
@@ -21,7 +21,7 @@ export async function search(req: Request, res: Response) {
       where: {
         username: { contains: q, mode: 'insensitive' },
       },
-      take: 10,
+      take: 20,
       select: {
         id: true,
         username: true,

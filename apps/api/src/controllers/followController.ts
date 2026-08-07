@@ -48,7 +48,8 @@ export async function getUserFollows(req: Request, res: Response) {
                     }
                 }
             }
-        }
+        },
+        take: 20
     })
 
     return res.status(200).json({success: true, data: users})

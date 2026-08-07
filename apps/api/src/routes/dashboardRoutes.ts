@@ -1,13 +1,19 @@
 import { Router } from "express";
-import { authMiddleware } from "../middleware/authMiddleware";
-import { getFeed } from "../controllers/dashboardController";
+import { lightAuthMiddleware } from "../middleware/authMiddleware";
+import { getFeedPosts, getFeedTrips } from "../controllers/dashboardController";
 
 const router = Router()
 
 router.get(
-    '/',
-    authMiddleware,
-    getFeed
+    '/feedtrips',
+    lightAuthMiddleware,
+    getFeedTrips
+);
+
+router.get(
+    '/feedposts',
+    lightAuthMiddleware,
+    getFeedPosts
 );
 
 export default router

@@ -1,8 +1,8 @@
+import { Post } from "./post"
 
-export interface PlaceInfo {
-    placeName: string
-    countryLongName: string
-    countryShortName: string
-    lat: number
-    lng: number
+export interface Place {
+    id?: string
+    place_id: string
+    placeName?: string
+    posts?: Post[]
 }

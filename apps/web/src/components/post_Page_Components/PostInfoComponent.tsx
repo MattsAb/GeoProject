@@ -16,8 +16,6 @@ type PostInfoProps = {
     handleLike: () => void
 }
 
-
-
 function PostInfoComponent ({postInfo, errorMessage, isAuth, isLiked, postLikes, canEdit, id, handleLike}: PostInfoProps) {
 
         const navigate = useNavigate();
@@ -43,7 +41,15 @@ function PostInfoComponent ({postInfo, errorMessage, isAuth, isLiked, postLikes,
 
                     <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
                 </div>
-
+                    <div className="self-start flex gap-3">
+                        <h2>Place:</h2>
+                        <a 
+                            className="text-blue-400"
+                            href={`/place/${postInfo?.place.id}`}
+                        >
+                            {postInfo?.place.placeName}
+                        </a>
+                    </div>
                     <button
                         disabled={!isAuth}
                         className="dark:bg-mist-700 py-1 px-4 flex gap-3 items-center ml-auto rounded-full cursor-pointer"

@@ -20,14 +20,13 @@ function PostPage () {
 
     const { id } = useParams();
 
-    const {user, isLoading, isAuthenticated} = useAuth();
+    const {user, isAuthenticated} = useAuth();
     
     useEffect(() => {
 
         async function getInfo() {
             if (!id) return;
-            if (!isLoading) return;
-
+            console.log('got info')
             setIsLiked(false)
             setCanEdit(false)
             const result = await getPost(id);
@@ -43,7 +42,7 @@ function PostPage () {
             }
         }
         getInfo();
-    },[id, isLoading, user])
+    },[id, user])
 
     async function handleComment() {
         if (userComment == '' || !id) return;
@@ -64,7 +63,6 @@ function PostPage () {
 
     async function handleLike() {
         if (!id) return;
-        console.log(isLiked)
         let result;
         if (!isLiked){
             result = await likePost(id);
