@@ -82,7 +82,7 @@ function Header({setSidebarOpen, isOpen}: headerProps) {
             <button 
             className="font-bold text-2xl cursor-pointer border-b-2 border-orange-500 rounded-xs" 
             onClick={() => goBack()}
-            > Geoapp </button>
+            > TripMap </button>
         </div> 
 
         {/* Search */}

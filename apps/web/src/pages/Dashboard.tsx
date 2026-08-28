@@ -75,7 +75,7 @@ function Dashboard() {
         }
       />
       <button 
-        className="text-xl font-semibold bg-mist-800 p-2 rounded-2xl cursor-pointer active:dark:bg-mist-700"
+        className="text-xl font-semibold dark:bg-mist-800 p-2 bg-gray-200 active:bg-gray-300 rounded-2xl cursor-pointer active:dark:bg-mist-700"
         onClick={() => fetchTrips(trips.length)}
       > More Trips </button>
 
@@ -106,7 +106,7 @@ function Dashboard() {
 
       <button 
         onClick={() => fetchPosts(posts.length)}
-        className="text-xl font-semibold bg-mist-800 p-2 rounded-2xl cursor-pointer active:dark:bg-mist-700"
+        className="text-xl font-semibold dark:bg-mist-800 p-2 bg-gray-200 active:bg-gray-300 rounded-2xl cursor-pointer active:dark:bg-mist-700"
       > More Posts </button>
     </div>
   );

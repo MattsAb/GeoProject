@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import ImageComponent from "../components/profile_components/PostComponent"
 import { getPlace } from "@geoapp/services";
-
+import GoogleMapsCredentialsWhite from "../assets/GoogleMaps_Logo_White.svg"
+import GoogleMapsCredentialsDark from "../assets/GoogleMaps_Logo_DarkGray.svg"
 
 function PlacePage () {
 
@@ -31,9 +32,10 @@ function PlacePage () {
 
     return (
         <div className="flex flex-col">
-            <div className="dark:bg-mist-800 mx-5 my-5 rounded-xl flex flex-col gap-5 p-5">
+            <div className="dark:bg-mist-800 bg-mist-100 mx-5 my-5 rounded-xl flex gap-5 p-5">
                 <h1 className="text-2xl"> {place?.placeName} </h1>
-
+                <img src={GoogleMapsCredentialsDark} className="block dark:hidden" alt="Google Maps" />
+                <img src={GoogleMapsCredentialsWhite} className="hidden dark:block" alt="Google Maps" />
             </div>
             <ErrorMessageComponent message={errorMessage}/>
             <div className="dark:bg-mist-800 mx-5 my-5 lg:w-4/5 self-center rounded-xl flex flex-col gap-5 p-5">

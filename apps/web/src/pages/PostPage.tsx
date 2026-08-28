@@ -26,7 +26,6 @@ function PostPage () {
 
         async function getInfo() {
             if (!id) return;
-            console.log('got info')
             setIsLiked(false)
             setCanEdit(false)
             const result = await getPost(id);

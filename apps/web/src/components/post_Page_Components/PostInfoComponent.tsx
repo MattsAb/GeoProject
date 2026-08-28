@@ -4,6 +4,8 @@ import { HandThumbUpIcon } from '@heroicons/react/24/solid';
 import { HandThumbUpIcon  as HandThumbUpIconOutline} from "@heroicons/react/24/outline";
 import SimpleButton from "../simple_components/SimpleButton";
 import { useNavigate } from "react-router-dom";
+import GoogleMapsCredentialsWhite from "../../assets/GoogleMaps_Logo_White.svg"
+import GoogleMapsCredentialsDark from "../../assets/GoogleMaps_Logo_DarkGray.svg"
 
 type PostInfoProps = {
     postInfo: Post | undefined
@@ -41,7 +43,7 @@ function PostInfoComponent ({postInfo, errorMessage, isAuth, isLiked, postLikes,
 
                     <h2 className="font-bold text-xl ">{postInfo?.user.username}</h2>
                 </div>
-                    <div className="self-start flex gap-3">
+                    <div className="self-start items-center flex gap-3">
                         <h2>Place:</h2>
                         <a 
                             className="text-blue-400"
@@ -49,6 +51,8 @@ function PostInfoComponent ({postInfo, errorMessage, isAuth, isLiked, postLikes,
                         >
                             {postInfo?.place.placeName}
                         </a>
+                        <img src={GoogleMapsCredentialsDark} className="block dark:hidden" alt="Google Maps" />
+                        <img src={GoogleMapsCredentialsWhite} className="hidden dark:block" alt="Google Maps" />
                     </div>
                     <button
                         disabled={!isAuth}

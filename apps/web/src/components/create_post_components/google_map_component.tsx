@@ -60,17 +60,19 @@ function GoogleMapComponent({getPlace}: GoogleMapComponentProps) {
                 <Marker position={position}/>
                 </GoogleMap>
 
-                <div className="dark:bg-mist-700 flex w-full gap-3 p-4 rounded-xl items-center">
-                    <h2 className="text-xl"> Location: {}</h2>
-                    <Autocomplete
-                        onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
-                        onPlaceChanged={onPlaceChanged}
-                    >
-                        <input
-                            className="dark:bg-mist-800 w-full" 
-                            type="text"
-                        />    
-                    </Autocomplete>
+                <div className="dark:bg-mist-700 flex w-full justify-between gap-3 p-4 rounded-xl items-center">
+                    <div className="flex gap-3">
+                        <h2 className="text-xl"> Location: {}</h2>
+                        <Autocomplete
+                            onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
+                            onPlaceChanged={onPlaceChanged}
+                        >
+                            <input
+                                className="dark:bg-mist-800 w-full" 
+                                type="text"
+                            />    
+                        </Autocomplete>
+                    </div>
                 </div>
             </div>
     )

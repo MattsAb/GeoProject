@@ -38,7 +38,7 @@ function PostComponent ({photoUrl, username, avatar, likes, id, userId}: PostCom
                 <span className={`fi fi-${countryCode.toLowerCase()}` }></span>
             </div>*/}
 
-            <div className="absolute bottom-3 right-3 flex gap-2 items-center dark:bg-mist-800 rounded-2xl px-2 py-1">
+            <div className="absolute bottom-3 right-3 flex gap-2 items-center dark:bg-mist-800 text-white rounded-2xl px-2 py-1">
                 <h2 className="">{likes}</h2>
                 <HandThumbUpIcon className={`h-5 w-5`}/>
             </div>
