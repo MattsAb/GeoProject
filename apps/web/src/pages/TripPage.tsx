@@ -47,7 +47,7 @@ function TripPage () {
                         className="flex gap-3 items-center dark:bg-mist-700 p-2 rounded-full cursor-pointer text-xl"
                         onClick={() => goToProfile()}
                         >
-                        <img className="h-10 w-10" src={trip?.user?.avatarUrl}/>
+                        <img className="h-10 w-10 rounded-full" src={trip?.user?.avatarUrl}/>
                         <h1> {trip?.user?.username}</h1>
                     </button>
                 </div>

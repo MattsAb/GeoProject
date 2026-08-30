@@ -28,8 +28,14 @@ export async function getTrip(req: Request, res: Response) {
     const trip = await prisma.trip.findUnique({
         where: {id: tripId},
         include: {
-            posts: true,
-            user: true
+            posts: {
+                include: {
+                    _count: {
+                        select: {likes: true}
+                    }
+                }
+            },
+            user: true,
         },
     })
 
