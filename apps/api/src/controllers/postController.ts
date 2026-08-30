@@ -76,7 +76,8 @@ export async function getPost(req: Request, res: Response) {
     let placeName: string | null = null;
     if (post.place && post.place.place_id) {
         placeName = await getPlaceName(post.place.place_id);
-        post.place.placeName  = placeName
+        // @ts-ignore
+        post.place.placeName = placeName
     }
 
     return res.status(200).json({success: true, data: post});

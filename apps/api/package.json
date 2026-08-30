@@ -5,7 +5,8 @@
   "main": "main.ts",
   "scripts": {
     "dev": "tsx watch ./src/main.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

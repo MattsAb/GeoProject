@@ -3,7 +3,7 @@ import { createPost, deletePost, editPost, getPost, getUserPosts } from '../cont
 import { authMiddleware, lightAuthMiddleware } from '../middleware/authMiddleware';
 import { createUpload } from '../config/s3';
 import { validate } from '../middleware/validationMiddleware';
-import { createPostSchema, listPostsQuerySchema, postParamsSchema } from '../schemas/post.schema';
+import { createPostSchema, postParamsSchema } from '../schemas/post.schema';
 
 const router = Router()
 

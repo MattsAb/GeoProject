@@ -17,6 +17,7 @@ export async function getPlace(req: Request, res: Response) {
     let placeName: string | null = null;
     if (place.place_id) {
         placeName = await getPlaceName(place.place_id);
+        // @ts-ignore
         place.placeName  = placeName
     }
 
