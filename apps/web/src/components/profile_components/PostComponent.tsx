@@ -24,10 +24,6 @@ function PostComponent ({photoUrl, likes, id}: PostComponentProps) {
                 <img src={photoUrl} className="w-full h-75 object-cover" />
             </div>
 
-            {/*<div className="absolute top-3 left-3"> 
-                <span className={`fi fi-${countryCode.toLowerCase()}` }></span>
-            </div>*/}
-
             <div className=" absolute flex right-3 bottom-2 gap-3 items-center dark:bg-mist-800 text-white rounded-2xl px-2 py-1">
                 <HandThumbUpIcon className={`h-5 w-5`}/>
                 <h2 className="">{likes}</h2>
