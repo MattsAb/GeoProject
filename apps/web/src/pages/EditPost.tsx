@@ -4,7 +4,6 @@ import ErrorMessageComponent from "../components/simple_components/ErrorMessageC
 import {  useNavigate, useParams } from "react-router-dom";
 import type { Post } from "@geoapp/types";
 import DeleteButton from "../components/simple_components/DeleteButton"
-import CountryPicker from "../components/simple_components/CountryPicker";
 import { deletePost, editPost, getPost } from "@geoapp/services";
 
 function EditPost () {
@@ -12,7 +11,6 @@ function EditPost () {
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [description, setDescrition] = useState('');
     const [preview, setPreview] = useState('');
-    const [countryCode, setCountryCode] = useState('LT');
     const [postInfo, setPostInfo] = useState<Post>();
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -29,7 +27,6 @@ function EditPost () {
                 if (result.success && result.data) {
                     setPostInfo(result.data)
                     setDescrition(result.data.description)
-                    setCountryCode(result.data.countryCode)
                 } else if (result.error) {
                     setErrorMessage(result.error);
                 }
@@ -39,7 +36,7 @@ function EditPost () {
 
     async function handleEdit() {
         if (!id) return;
-        const result = await editPost(id, countryCode, description, imageFile || undefined)
+        const result = await editPost(id, description, imageFile || undefined)
         if (result.success) {
             navigate(`/post/${id}`);
         } else if (result.error) {
@@ -96,13 +93,6 @@ function EditPost () {
                         </>
                     </div>
 
-                        {/* Country Picker */}
-                        <CountryPicker
-                            onChange={e => {
-                                setCountryCode(e)
-                            }}
-                            value={countryCode}
-                        />
                     <div>
 
                     {/* Post Description */}

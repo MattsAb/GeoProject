@@ -32,8 +32,6 @@ function Sidebar({ isOpen, onClose }: sidebarProps) {
             if(result.success && result.data)
             {
                 setFollows(result.data);
-            } else if (result.error) {
-                console.log('failed to fetch follows')
             }
         }
         fetchFollows();

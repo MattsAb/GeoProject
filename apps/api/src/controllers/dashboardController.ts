@@ -57,7 +57,6 @@ export async function getFeedPosts(req: Request, res: Response) {
 }
 
 async function get_basic_feed_trips(skip: number) {
-        console.log(skip);
         const trips = await prisma.trip.findMany({
             skip,
             take: TRIP_TAKE_NUM,

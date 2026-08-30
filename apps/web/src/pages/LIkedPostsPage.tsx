@@ -51,7 +51,6 @@ function LikedPostsPage () {
                                     username={post.user.username}
                                     avatar={post.user.avatarUrl}
                                     photoUrl={post.photoUrl}
-                                    countryCode={post.countryCode}
                                     likes={post._count?.likes || 0}
                                     userId={post.userId}
                                 />
