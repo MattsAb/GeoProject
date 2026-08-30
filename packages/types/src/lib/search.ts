@@ -1,5 +1,5 @@
-import { Trip } from "./trip"
-import { User } from "./user"
+import type { Trip } from "./trip"
+import type { User } from "./user"
 
 export interface SearchInput {
     q: string

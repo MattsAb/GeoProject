@@ -1,5 +1,5 @@
-import { Post } from "./post"
-import { User } from "./user"
+import type { Post } from "./post"
+import type { User } from "./user"
 
 
 export interface Trip {

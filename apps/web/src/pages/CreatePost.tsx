@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import SimpleButton from "../components/simple_components/SimpleButton";
 import ErrorMessageComponent from "../components/simple_components/ErrorMessageComponent";
 import { useNavigate } from "react-router-dom";
-import CountryPicker from "../components/simple_components/CountryPicker";
 import { createPost } from "@geoapp/services";
 import GoogleMapComponent from "../components/create_post_components/google_map_component";
 import type { Place } from "@geoapp/types";

@@ -1,6 +1,6 @@
 import type { CommentType } from './comment'
 import type { Like } from './like'
-import { Place } from './place'
+import type { Place } from './place'
 import type { User } from './user'
 
 export interface Post {

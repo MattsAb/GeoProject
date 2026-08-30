@@ -58,7 +58,6 @@ function ProfilePostsComponent ({id}: PostComponentProps) {
                                 key={post.id}
                                 id={post.id}
                                 photoUrl={post.photoUrl}
-                                countryCode={post.countryCode}
                                 likes={post._count?.likes || 0}
                             />
                         ))}
