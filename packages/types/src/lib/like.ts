@@ -2,8 +2,8 @@ import type { Post } from "./post";
 import type { User } from "./user";
 
 export interface Like {
-    id: number
-    userID: number
+    id: string
+    userID: string
     user: User
     postID: number
     post: Post

@@ -8,6 +8,7 @@ const envSchema = z.object({
   AWS_SECRET_ACCESS_KEY: z.string().min(1),
   COGNITO_USER_POOL_ID: z.string().min(1),
   COGNITO_CLIENT_ID: z.string().min(1),
+  GOOGLE_MAPS_API_KEY: z.string().min(1)
 });
 
 export const env = envSchema.parse(process.env);

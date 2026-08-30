@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": ".",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "emitDeclarationOnly": false,
   },
   "include": ["src", "prisma.config.ts", "jest.config.cts"]
 }

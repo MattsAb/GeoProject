@@ -1,7 +1,7 @@
 {
   "name": "@geoapp/types",
   "version": "1.0.0",
-  "description": "Shared TypeScript types for GeoApp services",
+  "description": "Shared TypeScript types for GeoApp apps",
   "main": "index.ts",
   "exports": {
     ".": "./src/index.ts"

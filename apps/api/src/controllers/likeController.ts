@@ -18,7 +18,7 @@ export async function likePost (req: Request, res: Response) {
 }
 
 export async function unlikePost(req: Request, res: Response) {
-    const postId = req.params.id as string;
+    const postId = req.params.postId as string;
     const userId = req.user!.id;
 
     await prisma.like.delete({
@@ -42,7 +42,7 @@ export async function getLikedPosts(req: Request, res: Response) {
         include: {
             post: {
                 include: {
-                    user: true,
+                    user: {select: {username: true, avatarUrl: true, id: true}},
                     _count: {
                         select: {likes: true}
                     }

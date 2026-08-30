@@ -1,0 +1,16 @@
+{
+  "name": "@geoapp/services",
+  "version": "1.0.0",
+  "description": "Shared api services for GeoApp apps",
+  "main": "index.js",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

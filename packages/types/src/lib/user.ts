@@ -1,17 +1,25 @@
+import { Post } from "./post"
+import { Trip } from "./trip"
 
 export interface User {
-    id: number
+    id: string
     email: string
     username: string
     countryCode: string
     bio?: string | null
-    avatarUrl?: string | null
+    avatarUrl: string
     provider: string
     createdAt: string
+    posts?: Post[]
     _count?: {
         followers: number
         posts: number
     }
+}
+
+export interface Feed {
+    posts: Post[]
+    trips: Trip[]
 }
 
 export interface SignUpDTO {
@@ -22,6 +30,7 @@ export interface SignUpDTO {
 
 export interface ConfirmSignUpDTO {
     email: string,
+    username: string,
     confirmationCode: string,
 }
 

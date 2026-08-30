@@ -1,17 +1,18 @@
-import type { Comment } from './comment'
+import type { CommentType } from './comment'
 import type { Like } from './like'
+import { Place } from './place'
 import type { User } from './user'
 
 export interface Post {
-    id: number
+    id: string
     photoUrl: string
     description: string
     createdAt: string
-    userId: number
-    countryCode: string
+    userId: string
     user: User
+    place: Place
     likes: Like[]
-    comments: Comment[]
+    comments: CommentType[]
     _count?: {
         likes: number
         comments: number
@@ -21,5 +22,5 @@ export interface Post {
 export interface PostDTO {
   photoUrl: string;
   description: string;
-  countryCode: string;
+  placeInfo: Place;
 }
