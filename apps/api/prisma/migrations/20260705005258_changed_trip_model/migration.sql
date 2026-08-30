@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Trip" ALTER COLUMN "photoUrl" DROP NOT NULL,
+ALTER COLUMN "description" DROP NOT NULL;
